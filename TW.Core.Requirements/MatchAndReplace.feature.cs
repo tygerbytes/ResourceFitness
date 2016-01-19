@@ -67,20 +67,83 @@ namespace TW.Core.Requirements
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Load keys from an xml file")]
+        [NUnit.Framework.DescriptionAttribute("Load keys from an XML file")]
         [NUnit.Framework.CategoryAttribute("ImportResourceKeys")]
-        public virtual void LoadKeysFromAnXmlFile()
+        public virtual void LoadKeysFromAnXMLFile()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Load keys from an xml file", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Load keys from an XML file", new string[] {
                         "ImportResourceKeys"});
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
 testRunner.Given("a file containing a list of resource keys", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
-testRunner.When("I load the xml file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("I load the XML file", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 10
 testRunner.Then("it is loaded as a list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Manually match a resource with a replacement resource")]
+        [NUnit.Framework.CategoryAttribute("ManuallyMatchOneResourceToAnother")]
+        public virtual void ManuallyMatchAResourceWithAReplacementResource()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Manually match a resource with a replacement resource", new string[] {
+                        "ManuallyMatchOneResourceToAnother"});
+#line 13
+this.ScenarioSetup(scenarioInfo);
+#line 14
+testRunner.Given("a list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 15
+testRunner.When("I match it with a replacement resource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 16
+testRunner.Then("the replacement resource is stored alongside the original", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Auto match one list of resources to another")]
+        [NUnit.Framework.CategoryAttribute("AutomaticallyMatchOneResourceListToAnother")]
+        public virtual void AutoMatchOneListOfResourcesToAnother()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Auto match one list of resources to another", new string[] {
+                        "AutomaticallyMatchOneResourceListToAnother"});
+#line 19
+this.ScenarioSetup(scenarioInfo);
+#line 20
+testRunner.Given("a list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 21
+testRunner.When("I attempt to match the list of resources to another list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.And("a valid matching criteria is supplied", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+testRunner.Then("successful matches are stored alongside their matches in the original resource li" +
+                    "st", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Replace resources in files")]
+        [NUnit.Framework.CategoryAttribute("BatchReplaceResourcesInFiles")]
+        public virtual void ReplaceResourcesInFiles()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Replace resources in files", new string[] {
+                        "BatchReplaceResourcesInFiles"});
+#line 26
+this.ScenarioSetup(scenarioInfo);
+#line 27
+testRunner.Given("a list of resources with matches", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 28
+testRunner.When("I initiate a batch resource replacement command", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 29
+ testRunner.And("I supply a directory of files to search and replace", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 30
+testRunner.Then("all of the existing resources from the resource list will be replaced with their " +
+                    "matches", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
