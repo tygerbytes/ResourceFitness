@@ -10,11 +10,37 @@
 
 namespace TW.Resfit.Core
 {
+    using System.Xml.Linq;
+
     public class XmlResourceParser
     {
-        public ResourceList Parse(string xml)
+        public ResourceList Parse(XElement xmlDocument)
         {
-            throw new System.NotImplementedException();
+            var resourceList = new ResourceList();
+
+            foreach (var resourceElement in xmlDocument.Elements())
+            {
+                var key = resourceElement.Attribute("name").Value;
+                var valueElement = resourceElement.Element("value");
+
+                string value = string.Empty;
+
+                if (valueElement != null)
+                {
+                    value = valueElement.Value;
+                }
+
+                resourceList.AddResource(new Resource(key, value));
+            }
+
+            return resourceList;
+        }
+
+        public ResourceList Parse(string xmlString)
+        {
+            var xmlDocument = XElement.Parse(xmlString);
+
+            return this.Parse(xmlDocument);
         }
     }
 }

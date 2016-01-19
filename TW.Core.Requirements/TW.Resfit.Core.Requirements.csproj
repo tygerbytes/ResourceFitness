@@ -59,20 +59,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LoadingResources.feature.cs">
+    <Compile Include="MatchAndReplaceSteps.cs" />
+    <Compile Include="MatchAndReplace.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LoadingResources.feature</DependentUpon>
+      <DependentUpon>MatchAndReplace.feature</DependentUpon>
     </Compile>
-    <Compile Include="LoadingResourcesSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResfitSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="LoadingResources.feature">
+    <None Include="MatchAndReplace.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>LoadingResources.feature.cs</LastGenOutput>
+      <LastGenOutput>MatchAndReplace.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="LoadingResourcesSteps.cs" company="Tygertec">
+// <copyright file="MatchAndReplaceSteps.cs" company="Tygertec">
 //   Copyright © 2016 Tyrone Walls.
 //   All rights reserved.
 // </copyright>
@@ -7,6 +7,8 @@
 
 namespace TW.Core.Requirements
 {
+    using System.IO;
+    using System.Xml.Linq;
     using Shouldly;
     using StronglyTypedContext;
     using TechTalk.SpecFlow;
@@ -14,14 +16,14 @@ namespace TW.Core.Requirements
     using TW.Resfit.FileUtils;
 
     [Binding]
-    [Scope(Feature = "Loading resources")]
-    public class LoadingResourcesSteps : ResfitSteps
+    [Scope(Feature = "Batch match and replace")]
+    public class MatchAndReplaceSteps : ResfitSteps
     {
         public interface ILoadingResourcesStepsContext
         {
             string XmlFileName { get; set; }
 
-            string Xml { get; set; }
+            XElement Xml { get; set; }
 
             XmlResourceParser XmlResourceParser { get; set; }
 
@@ -34,7 +36,7 @@ namespace TW.Core.Requirements
         [Given(@"a file containing a list of resource keys")]
         public void GivenAFileContainingAListOfResourceKeys()
         {
-            this.Context.XmlFileName = "XmlFile.resx";
+            this.Context.XmlFileName = Path.Combine(Path.GetTempPath(), "XmlFile.resx");
 
             const string FileContents = @"
 <?xml version=""1.0"" encoding=""utf-8""?>
@@ -50,13 +52,13 @@ namespace TW.Core.Requirements
   </data>
 </root>
 ";
-            FileUtils.WriteToFile(this.Context.XmlFileName, FileContents);
+            FileHelper.WriteToFile(this.Context.XmlFileName, FileContents);
         }
 
         [When(@"I load the xml file")]
         public void WhenILoadTheXmlFile()
         {
-            this.Context.Xml = FileUtils.LoadFile(this.Context.XmlFileName);
+            this.Context.Xml = FileHelper.LoadXmlFile(this.Context.XmlFileName);
         }
 
         [Then(@"it is loaded as a list of resources")]

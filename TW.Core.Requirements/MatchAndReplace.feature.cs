@@ -19,21 +19,22 @@ namespace TW.Core.Requirements
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Loading Resources")]
-    public partial class LoadingResourcesFeature
+    [NUnit.Framework.DescriptionAttribute("Batch match and replace")]
+    public partial class BatchMatchAndReplaceFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "LoadingResources.feature"
+#line 1 "MatchAndReplace.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Loading Resources", "In order to work with resources\r\nAs a user of the the program\r\nI want to be able " +
-                    "to load a resources from various file formats", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Batch match and replace", "In order to rename resource keys and reword resource values in my source files\r\nA" +
+                    "s a developer or documenter\r\nI want to be able to match existing resources to ne" +
+                    "w resources.", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

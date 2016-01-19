@@ -12,20 +12,25 @@ namespace TW.Resfit.Core
 {
     public class Resource
     {
-        private string key;
+        private readonly string key;
 
-        private string value;
+        private readonly string value;
 
-        public Resource(string resourceKey, ResourceFormat format)
+        public Resource(string resourceKey, string value, ResourceFormat format)
         {
             format.Validate(resourceKey);
 
             this.ResourceFormat = format;
+            this.value = value;
 
             this.key = resourceKey;
         }
 
-        public Resource(string resourceKey) : this(resourceKey, ResourceFormat.Default)
+        public Resource(string resourceKey, string value) : this(resourceKey, value, ResourceFormat.Default)
+        {
+        }
+
+        public Resource(string resourceKey) : this(resourceKey, string.Empty, ResourceFormat.Default)
         {
         }
 

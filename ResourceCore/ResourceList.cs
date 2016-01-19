@@ -15,7 +15,7 @@ namespace TW.Resfit.Core
 
     public class ResourceList
     {
-        private List<Resource> resources;
+        private readonly List<Resource> resources = new List<Resource>();
 
         public int Count
         {
@@ -39,6 +39,11 @@ namespace TW.Resfit.Core
             {
                 return this.resources.Last();
             }
+        }
+
+        public void AddResource(Resource resource)
+        {
+            this.resources.Add(resource);
         }
     }
 }
