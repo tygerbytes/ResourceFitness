@@ -19,6 +19,20 @@ namespace TW.Core.Requirements
     [Scope(Feature = "Batch match and replace")]
     public class MatchAndReplaceSteps : ResfitSteps
     {
+        private const string SampleXmlResourceString = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<root>
+	<data name=""Resfit_Tests_LoadFromFile_Resource_One"" xml:space=""preserve"">
+    <value>This is the first resource in the file</value>
+  </data>
+  <data name=""Resfit_Tests_LoadFromFile_Resource_Two"" xml:space=""preserve"">
+    <value>This is the second resource in the file</value>
+  </data>
+  <data name=""Resfit_Tests_LoadFromFile_Resource_Three"" xml:space=""preserve"">
+    <value>This is the third resource in the file</value>
+  </data>
+</root>
+";
+        
         public interface ILoadingResourcesStepsContext
         {
             string XmlFileName { get; set; }
@@ -28,6 +42,10 @@ namespace TW.Core.Requirements
             XmlResourceParser XmlResourceParser { get; set; }
 
             ResourceList ResourceList { get; set; }
+
+            MatchableResourceList MatchableResourceList { get; set; }
+
+            Resource ReplacementResourcee { get; set; }
         }
 
         [ScenarioContext]
@@ -38,24 +56,10 @@ namespace TW.Core.Requirements
         {
             this.Context.XmlFileName = Path.Combine(Path.GetTempPath(), "XmlFile.resx");
 
-            const string FileContents = @"
-<?xml version=""1.0"" encoding=""utf-8""?>
-<root>
-	<data name=""Resfit_Tests_LoadFromFile_Resource_One"" xml:space=""preserve"">
-    <value>This is the first resource in the file.</value>
-  </data>
-  <data name=""Resfit_Tests_LoadFromFile_Resource_Two"" xml:space=""preserve"">
-    <value>This is the second resource in the file</value>
-  </data>
-  <data name=""Resfit_Tests_LoadFromFile_Resource_Three"" xml:space=""preserve"">
-    <value>This is the third resource in the file</value>
-  </data>
-</root>
-";
-            FileHelper.WriteToFile(this.Context.XmlFileName, FileContents);
+            FileHelper.WriteToFile(this.Context.XmlFileName, SampleXmlResourceString);
         }
 
-        [When(@"I load the xml file")]
+        [When(@"I load the XML file")]
         public void WhenILoadTheXmlFile()
         {
             this.Context.Xml = FileHelper.LoadXmlFile(this.Context.XmlFileName);
@@ -64,13 +68,33 @@ namespace TW.Core.Requirements
         [Then(@"it is loaded as a list of resources")]
         public void ThenItIsLoadedAsAListOfResources()
         {
-            this.Context.ResourceList = this.Context.XmlResourceParser.Parse(this.Context.Xml);
+            XElement xmlDocument = this.Context.Xml;
+            ResourceList resourceList = this.Context.XmlResourceParser.Parse(xmlDocument);
+            this.Context.ResourceList = resourceList;
 
             this.Context.ResourceList.Count.ShouldBe(3);
             this.Context.ResourceList.First.Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_One");
             this.Context.ResourceList.First.Value.ShouldBe("This is the first resource in the file");
             this.Context.ResourceList.Last.Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_Three");
             this.Context.ResourceList.Last.Value.ShouldBe("This is the third resource in the file");
+        }
+
+        [Given(@"a list of resources")]
+        public void GivenAListOfResources()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [When(@"I match one of the resources with a replacement resource")]
+        public void WhenIMatchOneOfTheResourcesWithAReplacementResource()
+        {
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"the replacement resource is stored alongside the original resource")]
+        public void ThenTheReplacementResourceIsStoredAlongsideTheOriginalResource()
+        {
+            ScenarioContext.Current.Pending();
         }
     }
 }

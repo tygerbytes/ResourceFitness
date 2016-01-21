@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MatchableResourceList.cs" />
     <Compile Include="ResourceFormat.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

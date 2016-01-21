@@ -97,9 +97,9 @@ this.ScenarioSetup(scenarioInfo);
 #line 14
 testRunner.Given("a list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 15
-testRunner.When("I match it with a replacement resource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When("I match one of the resources with a replacement resource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
-testRunner.Then("the replacement resource is stored alongside the original", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then("the replacement resource is stored alongside the original resource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

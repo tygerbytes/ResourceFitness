@@ -59,12 +59,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MatchAndReplaceSteps.cs" />
     <Compile Include="MatchAndReplace.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MatchAndReplace.feature</DependentUpon>
     </Compile>
+    <Compile Include="MatchAndReplaceSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResfitSteps.cs" />
   </ItemGroup>
