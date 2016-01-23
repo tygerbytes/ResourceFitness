@@ -33,5 +33,12 @@ namespace Core.Tests
 
             Should.Throw<InvalidDataException>(() => new Resource(Key));
         }
+
+        [Test]
+        public void ResourceShouldBeInitializedWithABlankListOfTransforms()
+        {
+            var resource = new Resource("My_resource");
+            resource.Transforms.ShouldNotBeNull();
+        }
     }
 }

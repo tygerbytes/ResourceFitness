@@ -14,7 +14,7 @@ namespace TW.Resfit.Core
 
     public class XmlResourceParser
     {
-        public ResourceList Parse(XElement xmlDocument)
+        public static ResourceList ParseAsResourceList(XElement xmlDocument)
         {
             var resourceList = new ResourceList();
 
@@ -36,11 +36,11 @@ namespace TW.Resfit.Core
             return resourceList;
         }
 
-        public ResourceList Parse(string xmlString)
+        public static ResourceList ParseAsResourceList(string xmlString)
         {
             var xmlDocument = XElement.Parse(xmlString);
 
-            return this.Parse(xmlDocument);
+            return ParseAsResourceList(xmlDocument);
         }
     }
 }

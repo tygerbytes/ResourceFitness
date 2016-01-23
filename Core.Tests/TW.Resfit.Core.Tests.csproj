@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ResourceFormatTests.cs" />
+    <Compile Include="ResourceReplacementTransformTests.cs" />
     <Compile Include="ResourceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlResourceParserTests.cs" />

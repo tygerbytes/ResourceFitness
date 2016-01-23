@@ -10,6 +10,8 @@
 
 namespace TW.Resfit.Core
 {
+    using System.Collections.Generic;
+
     public class Resource
     {
         private readonly string key;
@@ -24,6 +26,8 @@ namespace TW.Resfit.Core
             this.value = value;
 
             this.key = resourceKey;
+
+            this.Transforms = new List<ITransform>();
         }
 
         public Resource(string resourceKey, string value) : this(resourceKey, value, ResourceFormat.Default)
@@ -51,5 +55,7 @@ namespace TW.Resfit.Core
                 return this.value;
             }
         }
+
+        public List<ITransform> Transforms { get; private set; }
     }
 }

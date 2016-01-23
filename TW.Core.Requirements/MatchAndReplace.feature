@@ -14,6 +14,7 @@ Scenario: Manually match a resource with a replacement resource
 Given a list of resources
 When I match one of the resources with a replacement resource
 Then the replacement resource is stored alongside the original resource
+ And the original resource is tagged for eventual replacement 
 
 @AutomaticallyMatchOneResourceListToAnother
 Scenario: Auto match one list of resources to another

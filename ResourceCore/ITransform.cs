@@ -1,16 +1,17 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MatchableResourceList.cs" company="Tygertec">
+// <copyright file="ITransform.cs" company="Tygertec">
 //   Copyright © 2016 Tyrone Walls.
 //   All rights reserved.
 // </copyright>
 // <summary>
-//   Defines the MatchableResourceList type.
+//   Defines the ITransform type.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace TW.Resfit.Core
 {
-    public class MatchableResourceList : ResourceList
+    public interface ITransform
     {
+        void Transform(Resource originalResource);
     }
 }

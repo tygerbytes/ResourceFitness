@@ -25,20 +25,14 @@ namespace TW.Resfit.Core
             }
         }
 
-        public Resource First
+        public Resource First()
         {
-            get
-            {
-                return this.resources.First();
-            }
+            return this.resources.First();
         }
 
-        public Resource Last
+        public Resource Last()
         {
-            get
-            {
-                return this.resources.Last();
-            }
+            return this.resources.Last();
         }
 
         public void AddResource(Resource resource)

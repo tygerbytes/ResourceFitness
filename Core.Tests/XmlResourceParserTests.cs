@@ -36,12 +36,11 @@ namespace Core.Tests
         {
             var xmlDoc = XElement.Parse(XmlSample);
 
-            var parser = new XmlResourceParser();
-            var resourceList = parser.Parse(xmlDoc);
+            var resourceList = XmlResourceParser.ParseAsResourceList(xmlDoc);
 
             resourceList.Count.ShouldBe(3);
-            resourceList.Last.Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_Three");
-            resourceList.Last.Value.ShouldBe("This is the third resource in the file");
+            resourceList.Last().Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_Three");
+            resourceList.Last().Value.ShouldBe("This is the third resource in the file");
         }
     }
 }

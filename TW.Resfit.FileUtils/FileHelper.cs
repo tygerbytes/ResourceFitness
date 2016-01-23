@@ -38,7 +38,7 @@ namespace TW.Resfit.FileUtils
 
         public static XElement LoadXmlFile(string path)
         {
-            if (path == null)
+            if (string.IsNullOrEmpty(path))
             {
                 throw new ArgumentNullException("path");
             }

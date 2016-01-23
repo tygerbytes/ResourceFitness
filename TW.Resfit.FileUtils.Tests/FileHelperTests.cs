@@ -27,6 +27,12 @@ namespace TW.Resfit.FileUtils.Tests
         }
 
         [Test]
+        public void CannotLoadFileWithoutFilename()
+        {
+            Should.Throw<ArgumentNullException>(() => FileHelper.LoadFile(string.Empty));
+        }
+
+        [Test]
         public void ShouldSaveAndLoadFile()
         {
             var randomFileName = string.Format("TW.Resfit.TestSave_{0}.txt", Guid.NewGuid().ToString().Substring(0, 10));

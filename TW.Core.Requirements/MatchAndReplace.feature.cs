@@ -100,6 +100,8 @@ testRunner.Given("a list of resources", ((string)(null)), ((TechTalk.SpecFlow.Ta
 testRunner.When("I match one of the resources with a replacement resource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 16
 testRunner.Then("the replacement resource is stored alongside the original resource", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 17
+ testRunner.And("the original resource is tagged for eventual replacement", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -111,15 +113,15 @@ testRunner.Then("the replacement resource is stored alongside the original resou
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Auto match one list of resources to another", new string[] {
                         "AutomaticallyMatchOneResourceListToAnother"});
-#line 19
-this.ScenarioSetup(scenarioInfo);
 #line 20
-testRunner.Given("a list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 21
-testRunner.When("I attempt to match the list of resources to another list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.Given("a list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 22
- testRunner.And("a valid matching criteria is supplied", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("I attempt to match the list of resources to another list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 23
+ testRunner.And("a valid matching criteria is supplied", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
 testRunner.Then("successful matches are stored alongside their matches in the original resource li" +
                     "st", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
@@ -133,15 +135,15 @@ testRunner.Then("successful matches are stored alongside their matches in the or
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Replace resources in files", new string[] {
                         "BatchReplaceResourcesInFiles"});
-#line 26
-this.ScenarioSetup(scenarioInfo);
 #line 27
-testRunner.Given("a list of resources with matches", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 28
-testRunner.When("I initiate a batch resource replacement command", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.Given("a list of resources with matches", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 29
- testRunner.And("I supply a directory of files to search and replace", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.When("I initiate a batch resource replacement command", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 30
+ testRunner.And("I supply a directory of files to search and replace", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 31
 testRunner.Then("all of the existing resources from the resource list will be replaced with their " +
                     "matches", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
