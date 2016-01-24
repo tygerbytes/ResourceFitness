@@ -77,14 +77,6 @@
       <Project>{37c9cf69-dd28-4bf4-a4e3-507765e256fd}</Project>
       <Name>TW.Resfit.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ResourceFitness\TW.Resfit.ConsoleDriver.csproj">
-      <Project>{6c337525-29e4-443e-b643-1d1a939142f4}</Project>
-      <Name>TW.Resfit.ConsoleDriver</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TW.Resfit.FileUtils\TW.Resfit.FileUtils.csproj">
-      <Project>{af895eed-d97d-4644-be07-991071898ee0}</Project>
-      <Name>TW.Resfit.FileUtils</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

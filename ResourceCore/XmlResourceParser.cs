@@ -10,7 +10,10 @@
 
 namespace TW.Resfit.Core
 {
+    using System.Text.RegularExpressions;
     using System.Xml.Linq;
+
+    using TW.Resfit.FileUtils;
 
     public class XmlResourceParser
     {
@@ -41,6 +44,21 @@ namespace TW.Resfit.Core
             var xmlDocument = XElement.Parse(xmlString);
 
             return ParseAsResourceList(xmlDocument);
+        }
+
+        public static ResourceList ParseAllResourceFiles(IFileSystem fileSystem, string folderPath)
+        {
+            var resourceList = new ResourceList();
+
+            var fileExtensionWhitelist = new Regex(@"\.resx$");
+
+            foreach (var file in fileSystem.AllFiles(folderPath, null, fileExtensionWhitelist))
+            {
+                var xml = fileSystem.LoadXmlFile(file.FullName);
+                resourceList.Merge(ParseAsResourceList(xml));
+            }
+
+            return resourceList;
         }
     }
 }

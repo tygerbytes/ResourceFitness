@@ -33,5 +33,10 @@ namespace TW.Resfit.Core
         {
             throw new System.NotImplementedException();
         }
+
+        public void Merge(ResourceList resourceListToAbsorb)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace TW.Core.Requirements
     using StronglyTypedContext;
     using TechTalk.SpecFlow;
     using TW.Resfit.Core;
-    using TW.Resfit.FileUtils;
+    using TW.Resfit.Framework.Requirements;
 
     [Binding]
     [Scope(Feature = "Batch match and replace")]
@@ -57,13 +57,13 @@ namespace TW.Core.Requirements
         {
             this.Context.XmlFileName = Path.Combine(Path.GetTempPath(), "XmlFile.resx");
 
-            FileHelper.WriteToFile(this.Context.XmlFileName, SampleXmlResourceString);
+            FileSystem.WriteToFile(this.Context.XmlFileName, SampleXmlResourceString);
         }
 
         [When(@"I load the XML file")]
         public void WhenILoadTheXmlFile()
         {
-            this.Context.Xml = FileHelper.LoadXmlFile(this.Context.XmlFileName);
+            this.Context.Xml = this.FileSystem.LoadXmlFile(this.Context.XmlFileName);
         }
 
         [Then(@"it is loaded as a list of resources")]
@@ -109,9 +109,9 @@ namespace TW.Core.Requirements
         public void GivenAListOfResourcesWithMatches()
         {
             this.Context.FolderPath = Path.Combine(Path.GetTempPath(), "TW.Resfit.SampleSourceFiles", DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
-            this.GenerateSampleSourceFiles(this.Context.FolderPath);
+            GenerateSampleSourceFiles(this.Context.FolderPath);
 
-            this.Context.ResourceList = FileHelper.LoadAllResourcesFromPath(this.Context.FolderPath);
+            XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.FolderPath);
 
             this.Context.ResourceList.Items.First().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_LoadFromFile_Resource_OneReplacement", "One replaced")));
             this.Context.ResourceList.Items.Last().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_LoadFromFile_Resource_ThreeReplacement", "Three replaced")));
@@ -131,16 +131,22 @@ namespace TW.Core.Requirements
         [Then(@"all of the existing resources from the resource list will be replaced with their matches")]
         public void ThenAllOfTheExistingResourcesFromTheResourceListWillBeReplacedWithTheirMatches()
         {
-            var modifiedResources = FileHelper.LoadAllResourcesFromPath(this.Context.FolderPath);
+            var modifiedResources = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.FolderPath);
 
             var expectedResources = this.Context.ResourceList.TransformSelfIntoNewList();
 
-            expectedResources.Items.ShouldBe(expectedResources.Items, ignoreOrder: true);
+            expectedResources.Items.ShouldBe(modifiedResources.Items, ignoreOrder: true);
         }
 
-        private void GenerateSampleSourceFiles(string folderPath)
+        private static void GenerateSampleSourceFiles(string folderPath)
         {
-            throw new NotImplementedException();
+            var folderPathA = Directory.CreateDirectory(Path.Combine(folderPath, "Dir01")).FullName;
+            var file01Content = SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile01");
+            File.WriteAllText(Path.Combine(folderPathA, "file01.resx"), file01Content);
+
+            var folderPathB = Directory.CreateDirectory(Path.Combine(folderPathA, "Dir02")).FullName;
+            var file02Content = SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile02");
+            File.WriteAllText(Path.Combine(folderPathB, "file02.resx"), file02Content);
         }
     }
 }

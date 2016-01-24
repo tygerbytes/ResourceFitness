@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TW.Resfit.FileUtils.Tests")]
+[assembly: AssemblyTitle("TW.Resfit.Framework.Testing")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TW.Resfit.FileSystem.Tests")]
+[assembly: AssemblyProduct("TW.Resfit.Framework.Testing")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("762ebdb4-7d4b-4531-b789-1b8a6af4603f")]
+[assembly: Guid("af06dd18-211c-40dc-a72e-5a51358b52c3")]
 
 // Version information for an assembly consists of the following four values:
 //

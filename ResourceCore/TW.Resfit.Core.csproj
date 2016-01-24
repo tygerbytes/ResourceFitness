@@ -47,6 +47,12 @@
     <Compile Include="ResourceReplacementTransform.cs" />
     <Compile Include="XmlResourceParser.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TW.Resfit.FileUtils\TW.Resfit.FileUtils.csproj">
+      <Project>{af895eed-d97d-4644-be07-991071898ee0}</Project>
+      <Name>TW.Resfit.FileUtils</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

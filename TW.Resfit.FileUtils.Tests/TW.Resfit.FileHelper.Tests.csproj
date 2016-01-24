@@ -63,15 +63,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileHelperTests.cs" />
+    <Compile Include="FileEnumerationTests.cs" />
+    <Compile Include="FileSystemTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TW.Resfit.Common.Tests\TW.Resfit.Framework.Testing.csproj">
+      <Project>{4a6a041c-bf0a-47c8-bc8a-3a6b4cbe8820}</Project>
+      <Name>TW.Resfit.Framework.Testing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TW.Resfit.FileUtils\TW.Resfit.FileUtils.csproj">
-      <Project>{af895eed-d97d-4644-be07-991071898ee0}</Project>
+      <Project>{AF895EED-D97D-4644-BE07-991071898EE0}</Project>
       <Name>TW.Resfit.FileUtils</Name>
     </ProjectReference>
   </ItemGroup>
