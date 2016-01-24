@@ -42,6 +42,12 @@
     <Compile Include="FileHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ResourceCore\TW.Resfit.Core.csproj">
+      <Project>{37C9CF69-DD28-4BF4-A4E3-507765E256FD}</Project>
+      <Name>TW.Resfit.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

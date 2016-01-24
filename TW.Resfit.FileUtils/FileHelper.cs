@@ -14,6 +14,8 @@ namespace TW.Resfit.FileUtils
     using System.IO;
     using System.Xml.Linq;
 
+    using TW.Resfit.Core;
+
     public static class FileHelper
     {
         public static void WriteToFile(string fileName, string content)
@@ -44,6 +46,11 @@ namespace TW.Resfit.FileUtils
             }
 
             return XElement.Load(path);
+        }
+
+        public static ResourceList LoadAllResourcesFromPath(string folderPath)
+        {
+            throw new NotImplementedException();
         }
     }
 }

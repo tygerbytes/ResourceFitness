@@ -11,33 +11,27 @@
 namespace TW.Resfit.Core
 {
     using System.Collections.Generic;
-    using System.Linq;
 
     public class ResourceList
     {
         private readonly List<Resource> resources = new List<Resource>();
 
-        public int Count
+        public ICollection<Resource> Items
         {
             get
             {
-                return this.resources.Count;
+                return this.resources;
             }
         }
 
-        public Resource First()
+        public void TransformFolder(string folderPath)
         {
-            return this.resources.First();
+            throw new System.NotImplementedException();
         }
 
-        public Resource Last()
+        public ResourceList TransformSelfIntoNewList()
         {
-            return this.resources.Last();
-        }
-
-        public void AddResource(Resource resource)
-        {
-            this.resources.Add(resource);
+            throw new System.NotImplementedException();
         }
     }
 }

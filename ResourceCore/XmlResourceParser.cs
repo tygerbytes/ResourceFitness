@@ -30,7 +30,7 @@ namespace TW.Resfit.Core
                     value = valueElement.Value;
                 }
 
-                resourceList.AddResource(new Resource(key, value));
+                resourceList.Items.Add(new Resource(key, value));
             }
 
             return resourceList;

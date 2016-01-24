@@ -7,7 +7,10 @@
 
 namespace TW.Core.Requirements
 {
+    using System;
+    using System.Globalization;
     using System.IO;
+    using System.Linq;
     using System.Xml.Linq;
     using Shouldly;
     using StronglyTypedContext;
@@ -42,6 +45,8 @@ namespace TW.Core.Requirements
             ResourceList ResourceList { get; set; }
 
             Resource ReplacementResource { get; set; }
+
+            string FolderPath { get; set; }
         }
 
         [ScenarioContext]
@@ -66,11 +71,11 @@ namespace TW.Core.Requirements
         {
             this.Context.ResourceList = XmlResourceParser.ParseAsResourceList(this.Context.Xml);
 
-            this.Context.ResourceList.Count.ShouldBe(3);
-            this.Context.ResourceList.First().Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_One");
-            this.Context.ResourceList.First().Value.ShouldBe("This is the first resource in the file");
-            this.Context.ResourceList.Last().Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_Three");
-            this.Context.ResourceList.Last().Value.ShouldBe("This is the third resource in the file");
+            this.Context.ResourceList.Items.Count.ShouldBe(3);
+            this.Context.ResourceList.Items.First().Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_One");
+            this.Context.ResourceList.Items.First().Value.ShouldBe("This is the first resource in the file");
+            this.Context.ResourceList.Items.Last().Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_Three");
+            this.Context.ResourceList.Items.Last().Value.ShouldBe("This is the third resource in the file");
         }
 
         [Given(@"a list of resources")]
@@ -90,7 +95,7 @@ namespace TW.Core.Requirements
         {
             var resourceReplacementTransform = new ResourceReplacementTransform(this.Context.ReplacementResource);
 
-            this.Context.ResourceList.First()
+            this.Context.ResourceList.Items.First()
                 .Transforms.Add(resourceReplacementTransform);
         }
 
@@ -98,6 +103,44 @@ namespace TW.Core.Requirements
         public void ThenTheOriginalResourceIsTaggedForEventualReplacement()
         {
             // Covered.
+        }
+
+        [Given(@"a list of resources with matches")]
+        public void GivenAListOfResourcesWithMatches()
+        {
+            this.Context.FolderPath = Path.Combine(Path.GetTempPath(), "TW.Resfit.SampleSourceFiles", DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
+            this.GenerateSampleSourceFiles(this.Context.FolderPath);
+
+            this.Context.ResourceList = FileHelper.LoadAllResourcesFromPath(this.Context.FolderPath);
+
+            this.Context.ResourceList.Items.First().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_LoadFromFile_Resource_OneReplacement", "One replaced")));
+            this.Context.ResourceList.Items.Last().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_LoadFromFile_Resource_ThreeReplacement", "Three replaced")));
+        }
+
+        [When(@"I supply a directory of files to search and replace")]
+        public void WhenISupplyADirectoryOfFilesToSearchAndReplace()
+        {
+        }
+
+        [When(@"I initiate a batch resource replacement command")]
+        public void WhenIInitiateABatchResourceReplacementCommand()
+        {
+            this.Context.ResourceList.TransformFolder(this.Context.FolderPath);
+        }
+
+        [Then(@"all of the existing resources from the resource list will be replaced with their matches")]
+        public void ThenAllOfTheExistingResourcesFromTheResourceListWillBeReplacedWithTheirMatches()
+        {
+            var modifiedResources = FileHelper.LoadAllResourcesFromPath(this.Context.FolderPath);
+
+            var expectedResources = this.Context.ResourceList.TransformSelfIntoNewList();
+
+            expectedResources.Items.ShouldBe(expectedResources.Items, ignoreOrder: true);
+        }
+
+        private void GenerateSampleSourceFiles(string folderPath)
+        {
+            throw new NotImplementedException();
         }
     }
 }
