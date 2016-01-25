@@ -26,9 +26,37 @@ namespace TW.Resfit.FileUtils.Tests
         }
 
         [Test]
+        public void ShouldIgnoreBlacklistedDirectories()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
+        public void ShouldOnlyReturnWhitelistedFilenames()
+        {
+            throw new NotImplementedException();
+        }
+
+        [Test]
         public void PreventsEnumeratingNullPath()
         {
             Should.Throw<ArgumentNullException>(() => this.FileSystem.AllFiles(string.Empty).First());
         }
+
+        //private void CreateFiles()
+        //{
+        //    var rootPath = "path";
+        //    var root = new Folder(rootPath);
+        //    root.Folder("Folder1")
+        //        .Files(
+        //    {
+        //        new FileItem("file1.txt", "some content"),
+        //        new FileItem("file2.resx", "some resources"),
+        //        new Folder("FOlder2")   
+        //            .Files()
+        //    })
+
+
+        //}
     }
 }

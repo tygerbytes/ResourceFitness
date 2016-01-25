@@ -10,6 +10,10 @@
 
 namespace TW.Resfit.Framework.Testing
 {
+    using System;
+    using System.Globalization;
+    using System.IO;
+
     using TW.Resfit.FileUtils;
 
     public abstract class UnitTests
@@ -20,5 +24,10 @@ namespace TW.Resfit.Framework.Testing
         }
 
         protected IFileSystem FileSystem { get; set; }
+
+        protected string GenerateRandomTempPath(string baseName)
+        {
+            return Path.Combine(Path.GetTempPath(), "TW.Resfit", baseName, DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
+        }
     }
 }

@@ -27,5 +27,7 @@ namespace TW.Resfit.FileUtils
             string rootPath,
             Regex directoryBlackList = null,
             Regex fileExtensionWhitelist = null);
+
+        void CreateDirectory(string path);
     }
 }

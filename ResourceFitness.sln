@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Core.Requirements
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.FileUtils", "TW.Resfit.FileUtils\TW.Resfit.FileUtils.csproj", "{AF895EED-D97D-4644-BE07-991071898EE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.FileHelper.Tests", "TW.Resfit.FileUtils.Tests\TW.Resfit.FileHelper.Tests.csproj", "{C08C82DE-CABC-466B-A39A-55A6C1E05F9E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.FileUtils.Tests", "TW.Resfit.FileUtils.Tests\TW.Resfit.FileUtils.Tests.csproj", "{C08C82DE-CABC-466B-A39A-55A6C1E05F9E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Framework.Testing", "TW.Resfit.Common.Tests\TW.Resfit.Framework.Testing.csproj", "{4A6A041C-BF0A-47C8-BC8A-3A6B4CBE8820}"
 EndProject

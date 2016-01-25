@@ -104,5 +104,10 @@ namespace TW.Resfit.FileUtils
                 }
             }
         }
+
+        public void CreateDirectory(string path)
+        {
+            Directory.CreateDirectory(path);
+        }
     }
 }

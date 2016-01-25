@@ -39,7 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileHierarchyBuilder\FileHierarchyBuilder.cs" />
+    <Compile Include="FileHierarchyBuilder\FileHierarchyFileNode.cs" />
+    <Compile Include="FileHierarchyBuilder\FileHierarchyFolderNode.cs" />
+    <Compile Include="FileHierarchyBuilder\FileNode.cs" />
     <Compile Include="FileSystem.cs" />
+    <Compile Include="IFileHierarchyBuilder.cs" />
     <Compile Include="IFileSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
