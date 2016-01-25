@@ -14,6 +14,8 @@ namespace TW.Resfit.FileUtils.Tests
     using System.Linq;
     using NUnit.Framework;
     using Shouldly;
+
+    using TW.Resfit.FileUtils.HierarchyBuilder;
     using TW.Resfit.Framework.Testing;
 
     [TestFixture]
@@ -22,7 +24,9 @@ namespace TW.Resfit.FileUtils.Tests
         [Test]
         public void ShouldEnumerateAllFiles()
         {
-            throw new NotImplementedException();
+            var path = this.CreateSampleFileHierarchy();
+
+            this.FileSystem.AllFiles(path).Count().ShouldBe(5, "There were not exactly 5 files enumerated");
         }
 
         [Test]
@@ -43,20 +47,11 @@ namespace TW.Resfit.FileUtils.Tests
             Should.Throw<ArgumentNullException>(() => this.FileSystem.AllFiles(string.Empty).First());
         }
 
-        //private void CreateFiles()
-        //{
-        //    var rootPath = "path";
-        //    var root = new Folder(rootPath);
-        //    root.Folder("Folder1")
-        //        .Files(
-        //    {
-        //        new FileItem("file1.txt", "some content"),
-        //        new FileItem("file2.resx", "some resources"),
-        //        new Folder("FOlder2")   
-        //            .Files()
-        //    })
-
-
-        //}
+        private string CreateSampleFileHierarchy()
+        {
+            var path = this.GenerateRandomTempPath("FileEnumerationTests");
+            SampleData.CreateSampleFileHierarchy(this.FileSystem, path);
+            return path;
+        }
     }
 }

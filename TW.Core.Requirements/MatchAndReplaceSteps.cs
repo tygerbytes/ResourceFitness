@@ -16,26 +16,13 @@ namespace TW.Core.Requirements
     using StronglyTypedContext;
     using TechTalk.SpecFlow;
     using TW.Resfit.Core;
+    using TW.Resfit.FileUtils.HierarchyBuilder;
     using TW.Resfit.Framework.Requirements;
 
     [Binding]
     [Scope(Feature = "Batch match and replace")]
     public class MatchAndReplaceSteps : ResfitSteps
     {
-        private const string SampleXmlResourceString = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<root>
-	<data name=""Resfit_Tests_LoadFromFile_Resource_One"" xml:space=""preserve"">
-    <value>This is the first resource in the file</value>
-  </data>
-  <data name=""Resfit_Tests_LoadFromFile_Resource_Two"" xml:space=""preserve"">
-    <value>This is the second resource in the file</value>
-  </data>
-  <data name=""Resfit_Tests_LoadFromFile_Resource_Three"" xml:space=""preserve"">
-    <value>This is the third resource in the file</value>
-  </data>
-</root>
-";
-
         public interface ILoadingResourcesStepsContext
         {
             string XmlFileName { get; set; }
@@ -57,7 +44,7 @@ namespace TW.Core.Requirements
         {
             this.Context.XmlFileName = Path.Combine(Path.GetTempPath(), "XmlFile.resx");
 
-            FileSystem.WriteToFile(this.Context.XmlFileName, SampleXmlResourceString);
+            this.FileSystem.WriteToFile(this.Context.XmlFileName, SampleData.SampleXmlResourceString);
         }
 
         [When(@"I load the XML file")]
@@ -81,7 +68,7 @@ namespace TW.Core.Requirements
         [Given(@"a list of resources")]
         public void GivenAListOfResources()
         {
-            this.Context.ResourceList = XmlResourceParser.ParseAsResourceList(SampleXmlResourceString);
+            this.Context.ResourceList = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlResourceString);
         }
 
         [When(@"I match one of the resources with a replacement resource")]
@@ -141,11 +128,12 @@ namespace TW.Core.Requirements
         private static void GenerateSampleSourceFiles(string folderPath)
         {
             var folderPathA = Directory.CreateDirectory(Path.Combine(folderPath, "Dir01")).FullName;
-            var file01Content = SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile01");
+            string sampleXmlResourceString = SampleData.SampleXmlResourceString;
+            var file01Content = sampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile01");
             File.WriteAllText(Path.Combine(folderPathA, "file01.resx"), file01Content);
 
             var folderPathB = Directory.CreateDirectory(Path.Combine(folderPathA, "Dir02")).FullName;
-            var file02Content = SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile02");
+            var file02Content = sampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile02");
             File.WriteAllText(Path.Combine(folderPathB, "file02.resx"), file02Content);
         }
     }

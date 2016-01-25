@@ -8,7 +8,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace TW.Resfit.FileUtils.FileHierarchyBuilder
+namespace TW.Resfit.FileUtils.HierarchyBuilder
 {
     public class FileHierarchyFileNode : IFileHierarchyBuilder
     {

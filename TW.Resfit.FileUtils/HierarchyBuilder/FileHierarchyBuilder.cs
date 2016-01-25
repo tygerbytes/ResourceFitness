@@ -8,9 +8,9 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace TW.Resfit.FileUtils.FileHierarchyBuilder
+namespace TW.Resfit.FileUtils.HierarchyBuilder
 {
-    public class FileHierarchyBuilder : FileHierarchyFolderNode
+    public class FileHierarchyBuilder : FileHierarchyDirectoryNode
     {
         public FileHierarchyBuilder(string fullFolderPath)
             : base(fullFolderPath)

@@ -15,27 +15,15 @@ namespace Core.Tests
     using NUnit.Framework;
     using Shouldly;
     using TW.Resfit.Core;
+    using TW.Resfit.FileUtils.HierarchyBuilder;
 
     [TestFixture]
     public class XmlResourceParserTests
     {
-        private const string XmlSample = @"<?xml version=""1.0"" encoding=""utf-8""?>
-<root>
-	<data name=""Resfit_Tests_LoadFromFile_Resource_One"" xml:space=""preserve"">
-    <value>This is the first resource in the file.</value>
-  </data>
-  <data name=""Resfit_Tests_LoadFromFile_Resource_Two"" xml:space=""preserve"">
-    <value>This is the second resource in the file</value>
-  </data>
-  <data name=""Resfit_Tests_LoadFromFile_Resource_Three"" xml:space=""preserve"">
-    <value>This is the third resource in the file</value>
-  </data>
-</root>";
-
         [Test]
         public void ShouldParseXmlAsAResourceList()
         {
-            var xmlDoc = XElement.Parse(XmlSample);
+            var xmlDoc = XElement.Parse(SampleData.SampleXmlResourceString);
 
             var resourceList = XmlResourceParser.ParseAsResourceList(xmlDoc);
 

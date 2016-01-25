@@ -25,8 +25,13 @@ namespace TW.Resfit.Framework.Testing
 
         protected IFileSystem FileSystem { get; set; }
 
-        protected string GenerateRandomTempPath(string baseName)
+        protected string GenerateRandomTempPath(string baseName = null)
         {
+            if (baseName == null)
+            {
+                baseName = string.Empty;
+            }
+
             return Path.Combine(Path.GetTempPath(), "TW.Resfit", baseName, DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
         }
     }

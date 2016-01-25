@@ -11,7 +11,6 @@
 namespace TW.Resfit.FileUtils.Tests
 {
     using System;
-    using System.IO;
     using NUnit.Framework;
     using Shouldly;
     using TW.Resfit.Framework.Testing;
@@ -22,8 +21,7 @@ namespace TW.Resfit.FileUtils.Tests
         [Test]
         public void ShouldSaveAndLoadFile()
         {
-            var randomFileName = string.Format("TW.Resfit.TestSave_{0}.txt", Guid.NewGuid().ToString().Substring(0, 10));
-            var path = Path.Combine(Path.GetTempPath(), randomFileName);
+            var path = this.GenerateRandomTempPath();
 
             const string Content = "Line1\r\nLine2\r\nLine3";
 

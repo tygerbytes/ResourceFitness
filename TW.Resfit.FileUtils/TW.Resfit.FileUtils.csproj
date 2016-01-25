@@ -39,10 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileHierarchyBuilder\FileHierarchyBuilder.cs" />
-    <Compile Include="FileHierarchyBuilder\FileHierarchyFileNode.cs" />
-    <Compile Include="FileHierarchyBuilder\FileHierarchyFolderNode.cs" />
-    <Compile Include="FileHierarchyBuilder\FileNode.cs" />
+    <Compile Include="HierarchyBuilder\FileHierarchyBuilder.cs" />
+    <Compile Include="HierarchyBuilder\FileHierarchyFileNode.cs" />
+    <Compile Include="HierarchyBuilder\FileHierarchyDirectoryNode.cs" />
+    <Compile Include="HierarchyBuilder\FileNode.cs" />
+    <Compile Include="HierarchyBuilder\SampleData.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="IFileHierarchyBuilder.cs" />
     <Compile Include="IFileSystem.cs" />

@@ -77,6 +77,10 @@
       <Project>{37c9cf69-dd28-4bf4-a4e3-507765e256fd}</Project>
       <Name>TW.Resfit.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TW.Resfit.FileUtils\TW.Resfit.FileUtils.csproj">
+      <Project>{AF895EED-D97D-4644-BE07-991071898EE0}</Project>
+      <Name>TW.Resfit.FileUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
