@@ -13,6 +13,7 @@ namespace TW.Resfit.FileUtils
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Text.RegularExpressions;
     using System.Xml.Linq;
 
@@ -81,7 +82,11 @@ namespace TW.Resfit.FileUtils
             // Iterate through all files from provided path
             var root = new DirectoryInfo(rootPath);
 
-            var directories = root.GetDirectories("*.*", SearchOption.AllDirectories);
+            var subDirectories = root.GetDirectories("*.*", SearchOption.AllDirectories);
+
+            // Make sure we include the root when enumerating the files of each directory
+            var directories = new List<DirectoryInfo>(capacity: subDirectories.Count() + 1) { root };
+            directories.AddRange(subDirectories);
 
             // Walk all of the directories
             foreach (var dir in directories)

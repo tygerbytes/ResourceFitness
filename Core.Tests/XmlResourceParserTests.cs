@@ -28,7 +28,7 @@ namespace Core.Tests
             var resourceList = XmlResourceParser.ParseAsResourceList(xmlDoc);
 
             resourceList.Items.Count.ShouldBe(3);
-            resourceList.Items.Last().Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_Three");
+            resourceList.Items.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
             resourceList.Items.Last().Value.ShouldBe("This is the third resource in the file");
         }
     }
