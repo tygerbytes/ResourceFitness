@@ -10,6 +10,10 @@
 
 namespace TW.Resfit.FileUtils.HierarchyBuilder
 {
+    using System;
+    using System.Globalization;
+    using System.IO;
+
     public static class SampleData
     {
         public const string SampleXmlResourceString = @"<?xml version=""1.0"" encoding=""utf-8""?>
@@ -51,6 +55,16 @@ namespace TW.Resfit.FileUtils.HierarchyBuilder
                         });
 
             builder.Execute(fileSystem);
+        }
+
+        public static string GenerateRandomTempPath(string baseName = null)
+        {
+            if (baseName == null)
+            {
+                baseName = string.Empty;
+            }
+
+            return Path.Combine(Path.GetTempPath(), "TW.Resfit", baseName, DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
         }
     }
 }

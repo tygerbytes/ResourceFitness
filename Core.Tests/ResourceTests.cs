@@ -40,5 +40,15 @@ namespace Core.Tests
             var resource = new Resource("My_resource");
             resource.Transforms.ShouldNotBeNull();
         }
+
+        [Test]
+        public void CanInitializeNewResourceFromExistingResoure()
+        {
+            var resource = new Resource("My_resource");
+
+            var clonedResource = new Resource(resource);
+
+            resource.ShouldBe(clonedResource);
+        }
     }
 }

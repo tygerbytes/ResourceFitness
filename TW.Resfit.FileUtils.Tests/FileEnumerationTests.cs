@@ -26,7 +26,7 @@ namespace TW.Resfit.FileUtils.Tests
         [TestFixtureSetUp]
         public void SetupFixture()
         {
-            this.TestDirectoryPath = this.GenerateRandomTempPath("FileEnumerationTests");
+            this.TestDirectoryPath = SampleData.GenerateRandomTempPath("FileEnumerationTests");
             SampleData.CreateSampleFileHierarchy(this.FileSystem, this.TestDirectoryPath);
         }
 

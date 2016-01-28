@@ -11,9 +11,7 @@
 namespace Core.Tests
 {
     using NUnit.Framework;
-
     using Shouldly;
-
     using TW.Resfit.Core;
 
     [TestFixture]

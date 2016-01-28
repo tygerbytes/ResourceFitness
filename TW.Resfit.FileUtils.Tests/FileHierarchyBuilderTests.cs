@@ -22,7 +22,7 @@ namespace TW.Resfit.FileUtils.Tests
         [Test]
         public void ShouldCreateFolderAtRootNode()
         {
-            var rootPath = this.GenerateRandomTempPath("FileHierarchyBuilderTests");
+            var rootPath = SampleData.GenerateRandomTempPath("FileHierarchyBuilderTests");
 
             new FileHierarchyBuilder(rootPath).Execute(this.FileSystem);
 
@@ -32,7 +32,7 @@ namespace TW.Resfit.FileUtils.Tests
         [Test]
         public void ShouldCreateSubFolder()
         {
-            var rootPath = this.GenerateRandomTempPath("FileHierarchyBuilderTests");
+            var rootPath = SampleData.GenerateRandomTempPath("FileHierarchyBuilderTests");
 
             new FileHierarchyBuilder(rootPath).AddDirectory("SubFolder").Execute(this.FileSystem);
 
@@ -43,7 +43,7 @@ namespace TW.Resfit.FileUtils.Tests
         [Test]
         public void ShouldCreateSubFiles()
         {
-            var rootPath = this.GenerateRandomTempPath("FileHierarchyBuilderTests");
+            var rootPath = SampleData.GenerateRandomTempPath("FileHierarchyBuilderTests");
 
             var builder = new FileHierarchyBuilder(rootPath);
             builder.AddFiles(new[] { new FileNode("RootFile01.txt", "Contents of root file 01") })

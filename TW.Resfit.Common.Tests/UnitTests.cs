@@ -10,29 +10,18 @@
 
 namespace TW.Resfit.Framework.Testing
 {
-    using System;
-    using System.Globalization;
-    using System.IO;
-
     using TW.Resfit.FileUtils;
 
     public abstract class UnitTests
     {
-        protected UnitTests()
-        {
-            this.FileSystem = new FileSystem();
-        }
+        private IFileSystem fileSystem;
 
-        protected IFileSystem FileSystem { get; set; }
-
-        protected string GenerateRandomTempPath(string baseName = null)
+        protected IFileSystem FileSystem
         {
-            if (baseName == null)
+            get
             {
-                baseName = string.Empty;
+                return this.fileSystem ?? (this.fileSystem = new FileSystem());
             }
-
-            return Path.Combine(Path.GetTempPath(), "TW.Resfit", baseName, DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
         }
     }
 }

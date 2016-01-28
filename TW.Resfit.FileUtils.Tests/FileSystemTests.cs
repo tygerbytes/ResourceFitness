@@ -13,6 +13,8 @@ namespace TW.Resfit.FileUtils.Tests
     using System;
     using NUnit.Framework;
     using Shouldly;
+
+    using TW.Resfit.FileUtils.HierarchyBuilder;
     using TW.Resfit.Framework.Testing;
 
     [TestFixture]
@@ -21,7 +23,7 @@ namespace TW.Resfit.FileUtils.Tests
         [Test]
         public void ShouldSaveAndLoadFile()
         {
-            var path = this.GenerateRandomTempPath();
+            var path = SampleData.GenerateRandomTempPath(null);
 
             const string Content = "Line1\r\nLine2\r\nLine3";
 

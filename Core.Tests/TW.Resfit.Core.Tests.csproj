@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ResourceFormatTests.cs" />
+    <Compile Include="ResourceListTests.cs" />
     <Compile Include="ResourceReplacementTransformTests.cs" />
     <Compile Include="ResourceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +77,10 @@
     <ProjectReference Include="..\ResourceCore\TW.Resfit.Core.csproj">
       <Project>{37c9cf69-dd28-4bf4-a4e3-507765e256fd}</Project>
       <Name>TW.Resfit.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TW.Resfit.Common.Tests\TW.Resfit.Framework.Testing.csproj">
+      <Project>{4A6A041C-BF0A-47C8-BC8A-3A6B4CBE8820}</Project>
+      <Name>TW.Resfit.Framework.Testing</Name>
     </ProjectReference>
     <ProjectReference Include="..\TW.Resfit.FileUtils\TW.Resfit.FileUtils.csproj">
       <Project>{AF895EED-D97D-4644-BE07-991071898EE0}</Project>

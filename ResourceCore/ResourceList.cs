@@ -36,7 +36,22 @@ namespace TW.Resfit.Core
 
         public void Merge(ResourceList resourceListToAbsorb)
         {
-            throw new System.NotImplementedException();
+            foreach (var resource in resourceListToAbsorb.Items)
+            {
+                this.Items.Add(new Resource(resource));
+            }
+        }
+
+        public ResourceList Clone()
+        {
+            var clonedList = new ResourceList();
+
+            foreach (var resource in this.Items)
+            {
+                clonedList.Items.Add(new Resource(resource));
+            }
+
+            return clonedList;
         }
     }
 }

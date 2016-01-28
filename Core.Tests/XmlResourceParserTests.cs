@@ -31,5 +31,12 @@ namespace Core.Tests
             resourceList.Items.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
             resourceList.Items.Last().Value.ShouldBe("This is the third resource in the file");
         }
+
+        [Test]
+        public void ParsesAllResourcesInPath()
+        {
+            // TODO: Consider moving this functionality to FileUtils
+
+        }
     }
 }

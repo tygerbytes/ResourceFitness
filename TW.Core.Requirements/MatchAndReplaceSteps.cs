@@ -59,9 +59,9 @@ namespace TW.Core.Requirements
             this.Context.ResourceList = XmlResourceParser.ParseAsResourceList(this.Context.Xml);
 
             this.Context.ResourceList.Items.Count.ShouldBe(3);
-            this.Context.ResourceList.Items.First().Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_One");
+            this.Context.ResourceList.Items.First().Key.ShouldBe("Resfit_Tests_Banana_Resource_One");
             this.Context.ResourceList.Items.First().Value.ShouldBe("This is the first resource in the file");
-            this.Context.ResourceList.Items.Last().Key.ShouldBe("Resfit_Tests_LoadFromFile_Resource_Three");
+            this.Context.ResourceList.Items.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
             this.Context.ResourceList.Items.Last().Value.ShouldBe("This is the third resource in the file");
         }
 
@@ -95,10 +95,10 @@ namespace TW.Core.Requirements
         [Given(@"a list of resources with matches")]
         public void GivenAListOfResourcesWithMatches()
         {
-            this.Context.FolderPath = Path.Combine(Path.GetTempPath(), "TW.Resfit.SampleSourceFiles", DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
+            this.Context.FolderPath = SampleData.GenerateRandomTempPath("MatchAndReplaceTests");
             GenerateSampleSourceFiles(this.Context.FolderPath);
 
-            XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.FolderPath);
+            this.Context.ResourceList = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.FolderPath);
 
             this.Context.ResourceList.Items.First().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_LoadFromFile_Resource_OneReplacement", "One replaced")));
             this.Context.ResourceList.Items.Last().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_LoadFromFile_Resource_ThreeReplacement", "Three replaced")));
@@ -128,12 +128,11 @@ namespace TW.Core.Requirements
         private static void GenerateSampleSourceFiles(string folderPath)
         {
             var folderPathA = Directory.CreateDirectory(Path.Combine(folderPath, "Dir01")).FullName;
-            string sampleXmlResourceString = SampleData.SampleXmlResourceString;
-            var file01Content = sampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile01");
+            var file01Content = SampleData.SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile01");
             File.WriteAllText(Path.Combine(folderPathA, "file01.resx"), file01Content);
 
             var folderPathB = Directory.CreateDirectory(Path.Combine(folderPathA, "Dir02")).FullName;
-            var file02Content = sampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile02");
+            var file02Content = SampleData.SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile02");
             File.WriteAllText(Path.Combine(folderPathB, "file02.resx"), file02Content);
         }
     }
