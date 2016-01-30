@@ -12,6 +12,7 @@ namespace TW.Resfit.Core
 {
     using System;
     using System.Collections.Generic;
+    using System.Xml.Linq;
 
     public class Resource : IEquatable<Resource>
     {
@@ -74,12 +75,14 @@ namespace TW.Resfit.Core
 
         public static bool operator ==(Resource left, Resource right)
         {
-            return Equals(left, right);
+            // ReSharper disable once RedundantNameQualifier
+            return object.Equals(left, right);
         }
 
         public static bool operator !=(Resource left, Resource right)
         {
-            return !Equals(left, right);
+            // ReSharper disable once RedundantNameQualifier
+            return !object.Equals(left, right);
         }
 
         public override bool Equals(object obj)
@@ -88,14 +91,17 @@ namespace TW.Resfit.Core
             {
                 return false;
             }
+
             if (ReferenceEquals(this, obj))
             {
                 return true;
             }
+
             if (obj.GetType() != this.GetType())
             {
                 return false;
             }
+
             return this.Equals((Resource)obj);
         }
 
@@ -125,6 +131,24 @@ namespace TW.Resfit.Core
                 hashCode = (hashCode * 397) ^ this.ResourceFormat.GetHashCode();
                 return hashCode;
             }
+        }
+
+        public XElement ToXml()
+        {
+            var preserveSpace = new XAttribute(XNamespace.Xml + "space", "preserve");
+
+            var element = new XElement(
+                "data",
+                new XAttribute("name", this.key),
+                preserveSpace,
+                new XElement("value", this.value));
+
+            return element;
+        }
+
+        public override string ToString()
+        {
+            return this.key;
         }
     }
 }

@@ -10,6 +10,7 @@
 
 namespace Core.Tests
 {
+    using System;
     using System.IO;
     using NUnit.Framework;
     using Shouldly;
@@ -49,6 +50,28 @@ namespace Core.Tests
             var clonedResource = new Resource(resource);
 
             resource.ShouldBe(clonedResource);
+        }
+
+        [Test]
+        public void ShouldConvertToXml()
+        {
+            var resource = new Resource("My_resource", "Banana's are quite good");
+
+            var xmlString = resource.ToXml().ToString();
+
+            const string ExpectedXml = 
+@"<data name=""My_resource"" xml:space=""preserve"">
+  <value>Banana's are quite good</value>
+</data>";
+            xmlString.ShouldBe(ExpectedXml);
+        }
+
+        [Test]
+        public void ToStringShouldReturnResourceKey()
+        {
+            var resource = new Resource("My_resource", "Banana's are good");
+
+            resource.ToString().ShouldBe("My_resource");
         }
     }
 }

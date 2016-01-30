@@ -10,6 +10,7 @@
 
 namespace TW.Resfit.Core
 {
+    using System;
     using System.Collections.Generic;
 
     public class ResourceList
@@ -26,12 +27,31 @@ namespace TW.Resfit.Core
 
         public void TransformFolder(string folderPath)
         {
-            throw new System.NotImplementedException();
+            // TODO: Break this behavior out into a separate helper class
+
+            throw new NotImplementedException();
         }
 
         public ResourceList TransformSelfIntoNewList()
         {
-            throw new System.NotImplementedException();
+            var newList = new ResourceList();
+
+            foreach (var resource in this.Items)
+            {
+                var newResource = new Resource(resource);
+
+                foreach (var transform in resource.Transforms)
+                {
+                    newResource = transform.Transform(resource);
+                }
+
+                if (newResource != null)
+                {
+                    newList.Items.Add(newResource);
+                }
+            }
+
+            return newList;
         }
 
         public void Merge(ResourceList resourceListToAbsorb)

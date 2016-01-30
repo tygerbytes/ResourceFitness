@@ -10,8 +10,14 @@
 
 namespace TW.Resfit.Core
 {
+    using System.Xml.Linq;
+
     public interface ITransform
     {
-        void Transform(Resource originalResource);
+        void Transform(ref string sourceFile, Resource originalResource);
+
+        void Transform(ref XElement resourcesXml, Resource originalResource);
+
+        Resource Transform(Resource originalResource);
     }
 }

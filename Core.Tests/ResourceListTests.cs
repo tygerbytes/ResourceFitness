@@ -10,6 +10,8 @@
 
 namespace Core.Tests
 {
+    using System.Linq;
+
     using NUnit.Framework;
     using Shouldly;
     using TW.Resfit.Core;
@@ -40,6 +42,23 @@ namespace Core.Tests
             var clone = apples.Clone();
 
             apples.Items.ShouldBe(clone.Items);
+        }
+
+        [Test]
+        public void PerformsAutoTransform()
+        {
+            var apples = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("apples"));
+            var oranges = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("oranges")).Items.ToArray();
+
+            var orangeIndex = 0;
+            foreach (var appleResource in apples.Items)
+            {
+                appleResource.Transforms.Add(new ResourceReplacementTransform(oranges[orangeIndex++]));
+            }
+
+            var applesTransformedToOranges = apples.TransformSelfIntoNewList();
+
+            applesTransformedToOranges.Items.ShouldBeSubsetOf(oranges);
         }
     }
 }
