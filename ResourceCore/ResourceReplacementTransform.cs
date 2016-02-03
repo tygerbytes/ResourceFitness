@@ -10,8 +10,7 @@
 
 namespace TW.Resfit.Core
 {
-    using System;
-    using System.Runtime.Remoting.Messaging;
+    using System.Linq;
     using System.Text.RegularExpressions;
     using System.Xml.Linq;
 
@@ -40,13 +39,27 @@ namespace TW.Resfit.Core
 
         public void Transform(ref XElement resourcesXml, Resource originalResource)
         {
-            resourcesXml.Elements(originalResource.Key).Remove();
+            var matchingElements =
+                resourcesXml.Elements("data")
+                    .Where(element => (string)element.Attribute("name") == originalResource.Key)
+                    .ToArray();
+
+            if (matchingElements.Any())
+            {
+                matchingElements.Remove();
+            }
+
             resourcesXml.Add(this.replacementResource.ToXml());
         }
 
         public Resource Transform(Resource originalResource)
         {
             return this.replacementResource;
+        }
+
+        public bool DryRun(ref string fileText, Resource originalResource)
+        {
+            return fileText.Contains(originalResource.Key);
         }
     }
 }

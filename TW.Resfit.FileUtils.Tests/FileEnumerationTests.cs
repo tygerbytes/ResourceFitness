@@ -33,7 +33,7 @@ namespace TW.Resfit.FileUtils.Tests
         [Test]
         public void ShouldEnumerateAllFiles()
         {
-            this.FileSystem.AllFiles(this.TestDirectoryPath).Count().ShouldBe(5, "There were not exactly 5 files enumerated");
+            this.FileSystem.AllFiles(this.TestDirectoryPath).Count().ShouldBe(7, "There were not exactly 5 files enumerated");
         }
 
         [Test]

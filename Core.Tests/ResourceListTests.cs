@@ -10,9 +10,12 @@
 
 namespace Core.Tests
 {
+    using System.IO;
     using System.Linq;
 
     using NUnit.Framework;
+    using NUnit.Framework.Constraints;
+
     using Shouldly;
     using TW.Resfit.Core;
     using TW.Resfit.FileUtils.HierarchyBuilder;
@@ -45,7 +48,7 @@ namespace Core.Tests
         }
 
         [Test]
-        public void PerformsAutoTransform()
+        public void ShouldPerformAutoTransformIntoNewResourceList()
         {
             var apples = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("apples"));
             var oranges = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("oranges")).Items.ToArray();
@@ -59,6 +62,39 @@ namespace Core.Tests
             var applesTransformedToOranges = apples.TransformSelfIntoNewList();
 
             applesTransformedToOranges.Items.ShouldBeSubsetOf(oranges);
+        }
+
+        [Test]
+        public void ShouldTransformFiles()
+        {
+            var path = SampleData.GenerateRandomTempPath("TransformFilesTest");
+            SampleData.CreateSampleFileHierarchy(this.FileSystem, path);
+
+            var apples = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("Apple"));
+
+            var appleResourceOne = apples.Items.First(x => x.Key == "Resfit_Tests_Apple_Resource_One");
+            var replacementOrangeOne = new Resource(
+                "Resfit_Tests_Orange_Resource_One",
+                "My orange is taking over the world");
+
+            appleResourceOne.Transforms.Add(new ResourceReplacementTransform(replacementOrangeOne));
+
+            apples.TransformFolder(path);
+
+            // -- Verify the files were changed as expected
+            var changedAppleSourceFile = this.FileSystem.LoadFile(Path.Combine(path, "Apples.cs"));
+            changedAppleSourceFile.ShouldNotContain("Resfit_Tests_Apple_Resource_One");
+            changedAppleSourceFile.ShouldContain("Resfit_Tests_Orange_Resource_One");
+
+            // -- Verify the resources where changd as expected
+            var changedAppleResourcesFile = this.FileSystem.LoadFile(Path.Combine(path, "Apples.resx"));
+            var changedAppleResources = XmlResourceParser.ParseAsResourceList(changedAppleResourcesFile);
+            changedAppleResources.Items.ShouldNotContain(x => x.Key == "Resfit_Tests_Apple_Resource_One");
+            var oranges = changedAppleResources.Items.Where(x => x.Key == "Resfit_Tests_Orange_Resource_One").ToArray();
+            oranges.Count().ShouldBe(1);
+            var orange = oranges.First();
+            orange.Key.ShouldBe("Resfit_Tests_Orange_Resource_One");
+            orange.Value.ShouldBe("My orange is taking over the world");
         }
     }
 }

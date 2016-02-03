@@ -10,8 +10,12 @@
 
 namespace TW.Resfit.Core
 {
-    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using System.Xml.Linq;
+
+    using TW.Resfit.FileUtils;
 
     public class ResourceList
     {
@@ -27,9 +31,51 @@ namespace TW.Resfit.Core
 
         public void TransformFolder(string folderPath)
         {
-            // TODO: Break this behavior out into a separate helper class
+            //// TODO: Break this behavior out into a separate "helper" class
+            var fileSystem = FileSystem.Instance;
 
-            throw new NotImplementedException();
+            var whiteList = new Regex(@"\.(?:resx|cs)$");
+            foreach (var fileInfo in FileSystem.Instance.AllFiles(folderPath, null, whiteList))
+            {
+                var fileText = fileSystem.LoadFile(fileInfo.FullName);
+                
+                // Does this file require changes?
+                var makeChanges =
+                    this.resources.Where(x => x.Transforms.Any())
+                        .Any(
+                            resource =>
+                            resource.Transforms.Any(transform => transform.DryRun(ref fileText, resource)));
+
+                if (!makeChanges)
+                {
+                    continue;
+                }
+
+                XElement xml = null;
+                if (fileInfo.Extension == ".resx")
+                {
+                    xml = fileSystem.LoadXmlFile(fileInfo.FullName);
+                }
+
+                foreach (var resource in this.resources.Where(x => x.Transforms.Any()))
+                {
+                    if (fileInfo.Extension == ".resx")
+                    {
+                        resource.Transforms.ForEach(x => x.Transform(ref xml, resource));
+                    }
+                    else
+                    {
+                        resource.Transforms.ForEach(x => x.Transform(ref fileText, resource));
+                    }
+                }
+
+                if (xml != null)
+                {
+                    fileText = xml.ToString();
+                }
+
+                fileSystem.WriteToFile(fileInfo.FullName, fileText);
+            }
         }
 
         public ResourceList TransformSelfIntoNewList()

@@ -70,8 +70,20 @@ My_Old_Resource snuck in at the beginning of Line3;";
 
             oldResource.Transforms.First().Transform(ref xml, oldResource);
 
-            // TODO: Finish test
-            throw new NotImplementedException();
+            // -- Verify transformation
+            var matchingAppleElements =
+                xml.Elements("data")
+                    .Where(element => (string)element.Attribute("name") == "Resfit_Tests_Banana_Resource_Two");
+
+            matchingAppleElements.Count().ShouldBe(0, "The XML should no longer contain the key, but still does.");
+
+            var matchingOrangeElements =
+                xml.Elements("data")
+                    .Where(element => (string)element.Attribute("name") == "Resfit_Tests_Orange_Resource_Two")
+                    .ToArray(/* StyleCop */);
+
+            matchingOrangeElements.Count().ShouldBe(1, "There should only be one matching key after the transformation");
+            matchingOrangeElements.First().Value.ShouldBe("This is still the second resource in the file");
         }
 
         [Test]
@@ -87,6 +99,18 @@ My_Old_Resource snuck in at the beginning of Line3;";
             var replacedResource = oldResource.Transforms.First().Transform(oldResource);
 
             replacedResource.ShouldBe(newResource);
+        }
+
+        [Test]
+        public void ShouldCheckThatTransformWillChangeAGivenFile()
+        {
+            var resourceFileText = SampleData.SampleFruitySourceFile("Peach");
+
+            var oldResource = new Resource("Resfit_Tests_Peach_Resource_Two");
+            var newResource = new Resource("Resfit_Tests_Pineapple_Resource_Two");
+            oldResource.Transforms.Add(new ResourceReplacementTransform(newResource));
+
+            oldResource.Transforms.First().WillAffect(ref resourceFileText, oldResource).ShouldBeTrue();
         }
     }
 }

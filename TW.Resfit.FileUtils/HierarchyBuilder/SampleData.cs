@@ -30,6 +30,23 @@ namespace TW.Resfit.FileUtils.HierarchyBuilder
 </root>
 ";
 
+        public const string SampleSourceFile = @"// A sample source file
+// Here I am referencing ""Resfit_Tests_Banana_Resource_Three""
+public static void DoStuff()
+{
+    // Does some stuff
+    var msg1 = Localization.Resfit_Tests_Banana_Resource_One;
+    var msg2 = Localization.Resfit_Tests_Banana_Resource_Two;
+
+    WriteStuff(msg1)
+    WriteMoreStuff(msg2)
+}";
+
+        public static string SampleFruitySourceFile(string fruitName)
+        {
+            return SampleSourceFile.Replace("Banana", fruitName);
+        }
+
         public static string SampleXmlFruitResourceString(string fruitName)
         {
             return SampleXmlResourceString.Replace("Banana", fruitName);
@@ -44,14 +61,16 @@ namespace TW.Resfit.FileUtils.HierarchyBuilder
                     {
                         new FileNode("ATextFile.txt", "Some contents"),
                         new FileNode("AnotherTextFile.txt", "Some more contents"),
-                        new FileNode("Resources.resx", SampleXmlFruitResourceString("Apple"))
+                        new FileNode("Apples.resx", SampleXmlFruitResourceString("Apple")),
+                        new FileNode("Apples.cs", SampleFruitySourceFile("Apple"))
                     })
                 .AddDirectory("Folder1")
                 .AddFiles(
                     new[]
                         {
                             new FileNode("ASourceFile.cs", @"//Some source code"),
-                            new FileNode("AResourceFile.resx", SampleXmlFruitResourceString("Orange"))
+                            new FileNode("Oranges.resx", SampleXmlFruitResourceString("Orange")),
+                            new FileNode("Oranges.cs", SampleFruitySourceFile("Orange"))
                         });
 
             builder.Execute(fileSystem);

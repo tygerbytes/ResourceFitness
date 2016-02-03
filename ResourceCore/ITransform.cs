@@ -19,5 +19,7 @@ namespace TW.Resfit.Core
         void Transform(ref XElement resourcesXml, Resource originalResource);
 
         Resource Transform(Resource originalResource);
+
+        bool WillAffect(ref string fileText, Resource originalResource);
     }
 }
