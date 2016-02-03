@@ -12,10 +12,7 @@ namespace Core.Tests
 {
     using System.IO;
     using System.Linq;
-
     using NUnit.Framework;
-    using NUnit.Framework.Constraints;
-
     using Shouldly;
     using TW.Resfit.Core;
     using TW.Resfit.FileUtils.HierarchyBuilder;
@@ -36,6 +33,22 @@ namespace Core.Tests
 
             apples.Items.ShouldBeSubsetOf(applesAndOranges.Items);
             oranges.Items.ShouldBeSubsetOf(applesAndOranges.Items, "The Oranges resource list was not merged in.");
+        }
+
+        [Test]
+        public void MergeShouldNotAddDuplicates()
+        {
+            var resource = new Resource("My_Apple", "The apple is good");
+
+            var list1 = new ResourceList();
+            list1.Items.Add(resource);
+
+            var list2 = new ResourceList();
+            list2.Items.Add(resource);
+
+            list1.Merge(list2);
+
+            list1.Items.Count.ShouldBe(1);
         }
 
         [Test]

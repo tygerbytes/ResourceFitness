@@ -44,7 +44,7 @@ namespace TW.Resfit.Core
                     this.resources.Where(x => x.Transforms.Any())
                         .Any(
                             resource =>
-                            resource.Transforms.Any(transform => transform.DryRun(ref fileText, resource)));
+                            resource.Transforms.Any(transform => transform.WillAffect(ref fileText, resource)));
 
                 if (!makeChanges)
                 {
@@ -104,7 +104,10 @@ namespace TW.Resfit.Core
         {
             foreach (var resource in resourceListToAbsorb.Items)
             {
-                this.Items.Add(new Resource(resource));
+                if (this.Items.All(x => x.Key != resource.Key))
+                {
+                    this.Items.Add(new Resource(resource));
+                }
             }
         }
 

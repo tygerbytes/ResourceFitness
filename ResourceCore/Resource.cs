@@ -14,7 +14,7 @@ namespace TW.Resfit.Core
     using System.Collections.Generic;
     using System.Xml.Linq;
 
-    public class Resource : IEquatable<Resource>
+    public class Resource : IComparable, IEquatable<Resource>
     {
         private readonly string key;
 
@@ -75,14 +75,12 @@ namespace TW.Resfit.Core
 
         public static bool operator ==(Resource left, Resource right)
         {
-            // ReSharper disable once RedundantNameQualifier
-            return object.Equals(left, right);
+            return ReferenceEquals(null, left) || left.Equals(right);
         }
 
         public static bool operator !=(Resource left, Resource right)
         {
-            // ReSharper disable once RedundantNameQualifier
-            return !object.Equals(left, right);
+            return !(left == right);
         }
 
         public override bool Equals(object obj)
@@ -131,6 +129,23 @@ namespace TW.Resfit.Core
                 hashCode = (hashCode * 397) ^ this.ResourceFormat.GetHashCode();
                 return hashCode;
             }
+        }
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null)
+            {
+                return 1;
+            }
+
+            var otherResource = obj as Resource;
+
+            if (otherResource == null)
+            {
+                throw new ArgumentException("Object is not a Resource");
+            }
+
+            return string.Compare(this.Key, otherResource.key, StringComparison.Ordinal);
         }
 
         public XElement ToXml()

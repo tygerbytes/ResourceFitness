@@ -12,6 +12,9 @@ namespace TW.Core.Requirements
     using System.IO;
     using System.Linq;
     using System.Xml.Linq;
+
+    using NUnit.Framework;
+
     using Shouldly;
     using StronglyTypedContext;
     using TechTalk.SpecFlow;
@@ -100,8 +103,8 @@ namespace TW.Core.Requirements
 
             this.Context.ResourceList = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.FolderPath);
 
-            this.Context.ResourceList.Items.First().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_LoadFromFile_Resource_OneReplacement", "One replaced")));
-            this.Context.ResourceList.Items.Last().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_LoadFromFile_Resource_ThreeReplacement", "Three replaced")));
+            this.Context.ResourceList.Items.First().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_Banana_Resource_OneReplacement", "One replaced")));
+            this.Context.ResourceList.Items.Last().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_Banana_Resource_ThreeReplacement", "Three replaced")));
         }
 
         [When(@"I supply a directory of files to search and replace")]
@@ -122,7 +125,8 @@ namespace TW.Core.Requirements
 
             var expectedResources = this.Context.ResourceList.TransformSelfIntoNewList();
 
-            expectedResources.Items.ShouldBe(modifiedResources.Items, ignoreOrder: true);
+            modifiedResources.Items.Count.ShouldBe(expectedResources.Items.Count);
+            modifiedResources.Items.ShouldBeSubsetOf(expectedResources.Items);
         }
 
         private static void GenerateSampleSourceFiles(string folderPath)

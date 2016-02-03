@@ -3,9 +3,6 @@
 //   Copyright © 2016 Tyrone Walls.
 //   All rights reserved.
 // </copyright>
-// <summary>
-//   Defines the ResourceFormat type.
-// </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace TW.Resfit.Core
@@ -15,6 +12,11 @@ namespace TW.Resfit.Core
 
     public class ResourceFormat
     {
+        static ResourceFormat()
+        {
+            Default = new ResourceFormat();
+        }
+
         public ResourceFormat(char separator)
         {
             this.Separator = separator;
@@ -25,13 +27,7 @@ namespace TW.Resfit.Core
         {
         }
 
-        public static ResourceFormat Default
-        {
-            get
-            {
-                return new ResourceFormat();
-            }
-        }
+        public static ResourceFormat Default { get; set; }
 
         public char Separator { get; private set; }
 

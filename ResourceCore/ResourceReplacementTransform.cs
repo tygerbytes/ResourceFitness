@@ -57,7 +57,7 @@ namespace TW.Resfit.Core
             return this.replacementResource;
         }
 
-        public bool DryRun(ref string fileText, Resource originalResource)
+        public bool WillAffect(ref string fileText, Resource originalResource)
         {
             return fileText.Contains(originalResource.Key);
         }

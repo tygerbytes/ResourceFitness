@@ -73,5 +73,16 @@ namespace Core.Tests
 
             resource.ToString().ShouldBe("My_resource");
         }
+
+        [Test]
+        public void ShouldCompareTwoResourcesByKey()
+        {
+            var resource1 = new Resource("Apple");
+            var resource2 = new Resource("Orange");
+
+            resource1.CompareTo(resource2).ShouldBeLessThan(0);
+            resource2.CompareTo(resource1).ShouldBeGreaterThan(0);
+            resource1.CompareTo(resource1).ShouldBe(0);
+        }
     }
 }
