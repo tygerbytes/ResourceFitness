@@ -5,7 +5,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace TW.Core.Requirements
+namespace TW.Resfit.Core.Requirements
 {
     using System;
     using System.Globalization;

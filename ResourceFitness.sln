@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Core", "ResourceC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Requirements", "_Requirements", "{BAD6E16C-C332-4EB9-A919-D5DF4B857DF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Core.Requirements", "TW.Core.Requirements\TW.Resfit.Core.Requirements.csproj", "{B858B084-4AF3-4A1D-92CC-7989628CDB06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Core.Requirements", "TW.Resfit.Core.Requirements\TW.Resfit.Core.Requirements.csproj", "{B858B084-4AF3-4A1D-92CC-7989628CDB06}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.FileUtils", "TW.Resfit.FileUtils\TW.Resfit.FileUtils.csproj", "{AF895EED-D97D-4644-BE07-991071898EE0}"
 EndProject

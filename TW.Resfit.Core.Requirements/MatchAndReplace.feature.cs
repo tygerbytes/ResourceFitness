@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace TW.Core.Requirements
+namespace TW.Resfit.Core.Requirements
 {
     using TechTalk.SpecFlow;
     

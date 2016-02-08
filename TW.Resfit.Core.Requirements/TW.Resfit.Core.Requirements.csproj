@@ -7,8 +7,8 @@
     <ProjectGuid>{B858B084-4AF3-4A1D-92CC-7989628CDB06}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TW.Core.Requirements</RootNamespace>
-    <AssemblyName>TW.Core.Requirements</AssemblyName>
+    <RootNamespace>TW.Resfit.Core.Requirements</RootNamespace>
+    <AssemblyName>TW.Resfit.Core.Requirements</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
