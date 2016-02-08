@@ -17,11 +17,11 @@ Then the replacement resource is stored alongside the original resource
  And the original resource is tagged for eventual replacement 
 
 @AutomaticallyMatchOneResourceListToAnother
-Scenario: Auto match one list of resources to another
-Given a list of resources
-When I attempt to match the list of resources to another list of resources 
- And a valid matching criteria is supplied 
-Then successful matches are stored alongside their matches in the original resource list
+#Scenario: Auto match one list of resources to another
+#Given a list of resources
+#When I attempt to match the list of resources to another list of resources 
+# And a valid matching criteria is supplied 
+#Then successful matches are stored alongside their matches in the original resource list
 
 @BatchReplaceResourcesInFiles
 Scenario: Replace resources in files

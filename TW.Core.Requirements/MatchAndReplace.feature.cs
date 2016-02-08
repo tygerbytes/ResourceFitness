@@ -107,33 +107,13 @@ testRunner.Then("the replacement resource is stored alongside the original resou
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Auto match one list of resources to another")]
-        [NUnit.Framework.CategoryAttribute("AutomaticallyMatchOneResourceListToAnother")]
-        public virtual void AutoMatchOneListOfResourcesToAnother()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Auto match one list of resources to another", new string[] {
-                        "AutomaticallyMatchOneResourceListToAnother"});
-#line 20
-this.ScenarioSetup(scenarioInfo);
-#line 21
-testRunner.Given("a list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 22
-testRunner.When("I attempt to match the list of resources to another list of resources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 23
- testRunner.And("a valid matching criteria is supplied", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 24
-testRunner.Then("successful matches are stored alongside their matches in the original resource li" +
-                    "st", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Replace resources in files")]
+        [NUnit.Framework.CategoryAttribute("AutomaticallyMatchOneResourceListToAnother")]
         [NUnit.Framework.CategoryAttribute("BatchReplaceResourcesInFiles")]
         public virtual void ReplaceResourcesInFiles()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Replace resources in files", new string[] {
+                        "AutomaticallyMatchOneResourceListToAnother",
                         "BatchReplaceResourcesInFiles"});
 #line 27
 this.ScenarioSetup(scenarioInfo);
