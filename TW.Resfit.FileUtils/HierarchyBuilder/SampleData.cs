@@ -83,7 +83,7 @@ public static void DoStuff()
                 baseName = string.Empty;
             }
 
-            return Path.Combine(Path.GetTempPath(), "TW.Resfit", baseName, DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
+            return Path.Combine(Path.GetTempPath(), "TW.Resfit.Tests", baseName, DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
         }
     }
 }

@@ -80,7 +80,7 @@ namespace Core.Tests
         [Test]
         public void ShouldTransformFiles()
         {
-            var path = SampleData.GenerateRandomTempPath("TransformFilesTest");
+            var path = SampleData.GenerateRandomTempPath("TransformFilesTests");
             SampleData.CreateSampleFileHierarchy(this.FileSystem, path);
 
             var apples = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("Apple"));

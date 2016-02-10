@@ -7,14 +7,9 @@
 
 namespace TW.Resfit.Core.Requirements
 {
-    using System;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Xml.Linq;
-
-    using NUnit.Framework;
-
     using Shouldly;
     using StronglyTypedContext;
     using TechTalk.SpecFlow;
@@ -45,7 +40,7 @@ namespace TW.Resfit.Core.Requirements
         [Given(@"a file containing a list of resource keys")]
         public void GivenAFileContainingAListOfResourceKeys()
         {
-            this.Context.XmlFileName = Path.Combine(Path.GetTempPath(), "XmlFile.resx");
+            this.Context.XmlFileName = Path.Combine(SampleData.GenerateRandomTempPath("MatchAndReplaceTests"), "XmlFile.resx");
 
             this.FileSystem.WriteToFile(this.Context.XmlFileName, SampleData.SampleXmlResourceString);
         }
