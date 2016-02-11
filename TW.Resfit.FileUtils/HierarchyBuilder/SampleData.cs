@@ -76,14 +76,24 @@ public static void DoStuff()
             builder.Execute(fileSystem);
         }
 
-        public static string GenerateRandomTempPath(string baseName = null)
+        public static string GenerateRandomTempPath(string baseName = null, string fileName = null)
         {
             if (baseName == null)
             {
                 baseName = string.Empty;
             }
 
-            return Path.Combine(Path.GetTempPath(), "TW.Resfit.Tests", baseName, DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture));
+            if (fileName == null)
+            {
+                fileName = string.Empty;
+            }
+
+            return Path.Combine(TestingPath(), baseName, DateTime.Now.Ticks.ToString(CultureInfo.InvariantCulture), fileName);
+        }
+
+        public static string TestingPath()
+        {
+            return Path.Combine(Path.GetTempPath(), "TW.Resfit.Tests");
         }
     }
 }

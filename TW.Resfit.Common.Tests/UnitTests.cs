@@ -10,17 +10,28 @@
 
 namespace TW.Resfit.Framework.Testing
 {
+    using NUnit.Framework;
     using TW.Resfit.FileUtils;
+    using TW.Resfit.FileUtils.HierarchyBuilder;
 
     public abstract class UnitTests
     {
-        private IFileSystem fileSystem;
+        private SelfPurgingFileSystem fileSystem;
 
         protected IFileSystem FileSystem
         {
             get
             {
-                return this.fileSystem ?? (this.fileSystem = new FileSystem());
+                return this.fileSystem ?? (this.fileSystem = new SelfPurgingFileSystem(SampleData.TestingPath()));
+            }
+        }
+
+        [TestFixtureTearDown]
+        protected void TearDownFixture()
+        {
+            if (this.fileSystem != null)
+            {
+                this.fileSystem.Purge();
             }
         }
     }

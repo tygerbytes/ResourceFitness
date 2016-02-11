@@ -15,15 +15,16 @@ namespace TW.Resfit.Framework.Requirements
     using TechTalk.SpecFlow;
 
     using TW.Resfit.FileUtils;
+    using TW.Resfit.FileUtils.HierarchyBuilder;
 
     public abstract class ResfitSteps : BaseBinding
     {
         protected ResfitSteps()
         {
-            this.FileSystem = new FileSystem();
+            this.FileSystem = new SelfPurgingFileSystem(SampleData.TestingPath());
         }
 
-        protected IFileSystem FileSystem { get; set; }
+        protected SelfPurgingFileSystem FileSystem { get; set; }
 
         [BeforeScenario]
         protected void ScenarioSetup()
@@ -33,6 +34,7 @@ namespace TW.Resfit.Framework.Requirements
         [AfterScenario]
         protected void ScenarioTeardown()
         {
+            this.FileSystem.Purge();
         }
 
         [AfterStep]

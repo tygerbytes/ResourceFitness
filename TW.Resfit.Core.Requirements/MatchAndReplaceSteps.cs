@@ -124,15 +124,17 @@ namespace TW.Resfit.Core.Requirements
             modifiedResources.Items.ShouldBeSubsetOf(expectedResources.Items);
         }
 
-        private static void GenerateSampleSourceFiles(string folderPath)
+        private void GenerateSampleSourceFiles(string folderPath)
         {
-            var folderPathA = Directory.CreateDirectory(Path.Combine(folderPath, "Dir01")).FullName;
+            var folderPathA = Path.Combine(folderPath, "Dir01");
+            this.FileSystem.CreateDirectory(folderPathA);
             var file01Content = SampleData.SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile01");
-            File.WriteAllText(Path.Combine(folderPathA, "file01.resx"), file01Content);
+            this.FileSystem.WriteToFile(Path.Combine(folderPathA, "file01.resx"), file01Content);
 
-            var folderPathB = Directory.CreateDirectory(Path.Combine(folderPathA, "Dir02")).FullName;
+            var folderPathB = Path.Combine(folderPath, "Dir02");
+            this.FileSystem.CreateDirectory(folderPathB);
             var file02Content = SampleData.SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile02");
-            File.WriteAllText(Path.Combine(folderPathB, "file02.resx"), file02Content);
+            this.FileSystem.WriteToFile(Path.Combine(folderPathB, "file02.resx"), file02Content);
         }
     }
 }

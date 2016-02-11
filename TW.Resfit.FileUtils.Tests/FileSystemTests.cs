@@ -43,5 +43,16 @@ namespace TW.Resfit.FileUtils.Tests
         {
             Should.Throw<ArgumentNullException>(() => this.FileSystem.LoadFile(string.Empty));
         }
+
+        [Test]
+        public void WriteToFileShouldCreateDirectoryIfItDoesntExist()
+        {
+            var path = SampleData.GenerateRandomTempPath("FileSystemTests", "Testing123.txt");
+
+            FileSystem.WriteToFile(path, "Some content");
+
+            var content = FileSystem.LoadFile(path);
+            content.ShouldBe("Some content");
+        }
     }
 }

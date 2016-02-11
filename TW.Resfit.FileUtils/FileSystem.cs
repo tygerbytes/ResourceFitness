@@ -29,12 +29,16 @@ namespace TW.Resfit.FileUtils
             }
         }
 
-        public void WriteToFile(string fileName, string content)
+        public virtual void WriteToFile(string fileName, string content)
         {
             if (string.IsNullOrEmpty(fileName))
             {
                 throw new ArgumentNullException(fileName, "A filename must be provided.");
             }
+
+            var directoryName = Path.GetDirectoryName(fileName);
+
+            this.CreateDirectory(directoryName);
 
             File.WriteAllText(fileName, content);
         }
@@ -110,9 +114,17 @@ namespace TW.Resfit.FileUtils
             }
         }
 
-        public void CreateDirectory(string path)
+        public virtual void CreateDirectory(string path)
         {
-            Directory.CreateDirectory(path);
+            if (string.IsNullOrEmpty(path))
+            {
+                throw new ArgumentNullException(path, "The directory name must not be null or empty");
+            }
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
         }
     }
 }
