@@ -14,8 +14,7 @@ Invoke-psake `
 		"buildConfiguration" = "Release"
 		"buildPlatform" = "Any CPU"} `
 	-parameters @{ 
-		"solutionFile" = "..\ResourceFitness.sln"}
+		"solutionFile" = "..\ResourceFitnesss.sln"}
 
-Write-Output "Build exit code:" $LASTEXITCODE
-
+Write-Output ("`r`nBuild finished with code: {0}" -f $LASTEXITCODE)
 exit $LASTEXITCODE
