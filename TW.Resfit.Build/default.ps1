@@ -16,6 +16,8 @@ properties {
 	$nunit = Join-Path $(Find-PackagePath $packagesDirectory "Nunit.Console") "Tools\nunit3-console.exe"
 }
 
+Framework "4.5.2"
+
 FormatTaskName ">>>-- Executing {0} Task -->"
 
 Task Default -depends BakeAndShake -description "Default task"
@@ -63,19 +65,29 @@ Task UnitTests `
 {
 	$assemblies = Get-ChildItem -Path $outputDirectory *.Tests.dll | ForEach-Object { $_.FullName }
 	
-	$framework = $PSake.Context.Peek().Config.Framework
-
 	$testResultsXml = ("$testResultsDirectory\{0}Results.xml" -f $Task.Name)
 	$testOutput = $testResultsXml -replace 'xml','txt'
 
 	Exec {
-		& $nunit $assemblies /result:$testResultsXml /out=$testOutput /noheader #/framework=$framework
+		& $nunit $assemblies /result:$testResultsXml /out=$testOutput /noheader
 	}
 }
 
 Task AcceptanceTests `
 	-description "Run all acceptance tests" `
 	-depends Build `
+	-precondition { $(Get-ChildItem -Path $outputDirectory *.Requirements.dll).Count -gt 1 } `
 {
+	# Get the acceptance testing assemblies,
+	#  except for the framework one, which doesn't currently have any tests in it.
+	$assemblies = Get-ChildItem -Path $outputDirectory *.Requirements.dll `
+		| Where-Object { $_.Name -NotMatch "Framework" } `
+		| ForEach-Object { $_.FullName }
+	
+	$testResultsXml = ("$testResultsDirectory\{0}Results.xml" -f $Task.Name)
+	$testOutput = $testResultsXml -replace 'xml','txt'
 
+	Exec {
+		& $nunit $assemblies /result:$testResultsXml /out=$testOutput /noheader
+	}
 }
