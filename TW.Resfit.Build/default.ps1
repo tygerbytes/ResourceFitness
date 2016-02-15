@@ -59,8 +59,18 @@ Task Build `
 Task UnitTests `
 	-description "Run all unit tests" `
 	-depends Build `
+	-precondition { $(Get-ChildItem -Path $outputDirectory *.Tests.dll).Count -gt 0 } `
 {
+	$assemblies = Get-ChildItem -Path $outputDirectory *.Tests.dll | ForEach-Object { $_.FullName }
 	
+	$framework = $PSake.Context.Peek().Config.Framework
+
+	$testResultsXml = ("$testResultsDirectory\{0}Results.xml" -f $Task.Name)
+	$testOutput = $testResultsXml -replace 'xml','txt'
+
+	Exec {
+		& $nunit $assemblies /result:$testResultsXml /out=$testOutput /noheader #/framework=$framework
+	}
 }
 
 Task AcceptanceTests `
