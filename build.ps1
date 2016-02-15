@@ -1,4 +1,6 @@
 ﻿
+param([Parameter(Position=0, Mandatory=$false)] [string[]]$taskList=@())
+
 Remove-Module [p]sake
 
 # Find path to psake
@@ -8,7 +10,7 @@ Import-Module $psakeModule
 
 Invoke-psake `
 	-buildFile .\TW.Resfit.Build\default.ps1 `
-	-taskList BakeAndShake `
+	-taskList $taskList `
 	-framework 4.5.2 `
 	-properties @{
 		"buildConfiguration" = "Release"
