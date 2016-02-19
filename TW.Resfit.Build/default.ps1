@@ -20,9 +20,11 @@ properties {
 	$openCover = Join-Path $(Find-PackagePath $packageDirectory "OpenCover") "tools\OpenCover.Console.exe"
 	$testCoverageDirectory = Join-Path $outputDirectory "TestCoverage"
 	$testCoverageReportPath = Join-Path $testCoverageDirectory "OpenCoverReport.xml"
-	$testCoverageFilter = "+[*]* -[*.Tests]*"
+	$testCoverageFilter = "+[*]* -[*.Tests]* -[*.Requirements]*"
 	$testCoverageExclusionAttribute = "System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"
 	$testCoverageExcludeFiles = "*\*Designer.cs;*\*.g.cs;*.g.i.cs"
+
+	$reportGenerator = Join-Path $(Find-PackagePath $packageDirectory "ReportGenerator") "tools\ReportGenerator.exe"
 }
 
 Framework "4.5.2"
@@ -33,7 +35,7 @@ Task Default -depends BakeAndShake -description "Default task"
 
 Task BakeAndShake `
 	-description "Build solution and run all tests" `
-	-depends Build, UnitTests, AcceptanceTests
+	-depends Build, Tests
 
 Task Check-Environment `
 	-description "Verify parameters and build tools" `
@@ -47,6 +49,8 @@ Task Check-Environment `
 		"NUnit console test runner could not be found"
 	Assert (Test-Path $openCover) `
 		"OpenCover console could not be found"
+	Assert (Test-Path $reportGenerator) `
+		"ReportGenerator console could not be found"
 }
 
 Task Clean `
@@ -71,6 +75,22 @@ Task Build `
 		msbuild $solutionFile /verbosity:quiet /maxcpucount "/property:Configuration=$buildConfiguration;Platform=$buildPlatform;OutDir=$outputDirectory"
 	}
 }
+
+Task Tests `
+	-description "Run all tests and generate code coverage report" `
+	-depends UnitTests, AcceptanceTests `
+{
+	Write-Output "Generating test coverage report"
+
+	if (Test-Path $testCoverageReportPath) {
+		Exec { & $reportGenerator $testCoverageReportPath $testCoverageDirectory }
+	}
+	else {
+		Write-Output "OpenCover results not found at ($testCoverageReportPath)"
+	}
+
+}
+
 
 Task UnitTests `
 	-description "Run all unit tests" `
