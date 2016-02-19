@@ -6,14 +6,23 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 properties {
 	$solutionDirectory = Split-Path -Parent $here
 	$solutionFile = $(Get-ChildItem -Path $solutionDirectory -Filter *.sln | Select -First 1).FullName
+	
 	$outputDirectory = Join-Path $solutionDirectory ".build"
+	
 	$buildConfiguration = "Release"
 	$buildPlatform = "Any CPU"
 
-	$packagesDirectory = Join-Path $solutionDirectory "packages"
+	$packageDirectory = Join-Path $solutionDirectory "packages"
 
 	$testResultsDirectory = Join-Path $outputDirectory "TestResults"
-	$nunit = Join-Path $(Find-PackagePath $packagesDirectory "Nunit.Console") "Tools\nunit3-console.exe"
+	$nunit = Join-Path $(Find-PackagePath $packageDirectory "Nunit.Console") "Tools\nunit3-console.exe"
+
+	$openCover = Join-Path $(Find-PackagePath $packageDirectory "OpenCover") "tools\OpenCover.Console.exe"
+	$testCoverageDirectory = Join-Path $outputDirectory "TestCoverage"
+	$testCoverageReportPath = Join-Path $testCoverageDirectory "OpenCoverReport.xml"
+	$testCoverageFilter = "+[*]* -[*.Tests]*"
+	$testCoverageExclusionAttribute = "System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"
+	$testCoverageExcludeFiles = "*\*Designer.cs;*\*.g.cs;*.g.i.cs"
 }
 
 Framework "4.5.2"
@@ -28,7 +37,7 @@ Task BakeAndShake `
 
 Task Check-Environment `
 	-description "Verify parameters and build tools" `
-	-requiredVariables $outputDirectory, $testResultsDirectory, $solutionFile `
+	-requiredVariables $outputDirectory, $testResultsDirectory, $solutionFile, $testCoverageDirectory `
 {
 	Assert ("Debug", "Release" -contains $buildConfiguration) `
 		"Invalid build configuration '$buildConfiguration'. Valid values are 'Debug' or 'Release'"
@@ -36,6 +45,8 @@ Task Check-Environment `
 		"Invalid build platform '$buildPlatform'. Valid values are 'x86', 'x64', or 'Any CPU'"
 	Assert (Test-Path $nunit) `
 		"NUnit console test runner could not be found"
+	Assert (Test-Path $openCover) `
+		"OpenCover console could not be found"
 }
 
 Task Clean `
@@ -47,6 +58,9 @@ Task Clean `
 
 	Remove-Directory -Path $testResultsDirectory
 	New-Directory $testResultsDirectory
+
+	Remove-Directory -Path $testCoverageDirectory
+	New-Directory $testCoverageDirectory	
 }
 
 Task Build `
@@ -63,14 +77,21 @@ Task UnitTests `
 	-depends Build `
 	-precondition { $(Get-ChildItem -Path $outputDirectory *.Tests.dll).Count -gt 0 } `
 {
-	$assemblies = Get-ChildItem -Path $outputDirectory *.Tests.dll | ForEach-Object { $_.FullName }
+	$assemblies = Get-ChildItem -Path $outputDirectory *.Tests.dll `
+		| ForEach-Object { Quote-String($PSItem.FullName) }
 	
-	$testResultsXml = ("$testResultsDirectory\{0}Results.xml" -f $Task.Name)
+	$testResultsXml = Quote-String("$testResultsDirectory\{0}Results.xml" -f $Task.Name)
 	$testOutput = $testResultsXml -replace 'xml','txt'
 
-	Exec {
-		& $nunit $assemblies /result:$testResultsXml /out=$testOutput /noheader
-	}
+	$nunitArgs = "$assemblies /result:$testResultsXml /out=$testOutput /noheader"
+
+	Run-Tests -openCoverExe $openCover `
+			  -testRunner $nunit `
+			  -testRunnerArgs $nunitArgs `
+			  -coverageReportPath $testCoverageReportPath `
+			  -filter $testCoverageFilter `
+			  -excludeByAttribute $testCoverageExclusionAttribute `
+			  -excludeByFile $testCoverageExcludeFiles
 }
 
 Task AcceptanceTests `
@@ -81,13 +102,19 @@ Task AcceptanceTests `
 	# Get the acceptance testing assemblies,
 	#  except for the framework one, which doesn't currently have any tests in it.
 	$assemblies = Get-ChildItem -Path $outputDirectory *.Requirements.dll `
-		| Where-Object { $_.Name -NotMatch "Framework" } `
-		| ForEach-Object { $_.FullName }
+		| Where-Object { $PSItem.Name -NotMatch "Framework" } `
+		| ForEach-Object { Quote-String($PSItem.FullName) }
 	
-	$testResultsXml = ("$testResultsDirectory\{0}Results.xml" -f $Task.Name)
+	$testResultsXml = Quote-String("$testResultsDirectory\{0}Results.xml" -f $Task.Name)
 	$testOutput = $testResultsXml -replace 'xml','txt'
 
-	Exec {
-		& $nunit $assemblies /result:$testResultsXml /out=$testOutput /noheader
-	}
+	$nunitArgs = "$assemblies /result:$testResultsXml /out=$testOutput /noheader"
+
+	Run-Tests -openCoverExe $openCover `
+			  -testRunner $nunit `
+			  -testRunnerArgs $nunitArgs `
+			  -coverageReportPath $testCoverageReportPath `
+			  -filter $testCoverageFilter `
+			  -excludeByAttribute $testCoverageExclusionAttribute `
+			  -excludeByFile $testCoverageExcludeFiles
 }

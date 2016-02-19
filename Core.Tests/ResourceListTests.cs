@@ -8,7 +8,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Core.Tests
+namespace TW.Resfit.Core.Tests
 {
     using System.IO;
     using System.Linq;

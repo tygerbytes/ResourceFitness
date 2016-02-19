@@ -4,7 +4,7 @@ param([Parameter(Position=0, Mandatory=$false)] [string[]]$taskList=@())
 Remove-Module [p]sake
 
 # Find path to psake
-$psakeModule = (Get-ChildItem (".\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $_ | Select-Object -Last 1
+$psakeModule = (Get-ChildItem (".\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $PSItem | Select-Object -Last 1
 
 Import-Module $psakeModule
 
