@@ -58,9 +58,9 @@ namespace TW.Resfit.Core.Requirements
 
             this.Context.ResourceList.Items.Count.ShouldBe(3);
             this.Context.ResourceList.Items.First().Key.ShouldBe("Resfit_Tests_Banana_Resource_One");
-            this.Context.ResourceList.Items.First().Value.ShouldBe("This is the first resource in the file");
+            this.Context.ResourceList.Items.First().Value.ShouldBe("This is the first Banana resource in the file");
             this.Context.ResourceList.Items.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
-            this.Context.ResourceList.Items.Last().Value.ShouldBe("This is the third resource in the file");
+            this.Context.ResourceList.Items.Last().Value.ShouldBe("This is the third Banana resource in the file");
         }
 
         [Given(@"a list of resources")]

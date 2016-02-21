@@ -19,13 +19,13 @@ namespace TW.Resfit.FileUtils.HierarchyBuilder
         public const string SampleXmlResourceString = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <root>
 	<data name=""Resfit_Tests_Banana_Resource_One"" xml:space=""preserve"">
-    <value>This is the first resource in the file</value>
+    <value>This is the first Banana resource in the file</value>
   </data>
   <data name=""Resfit_Tests_Banana_Resource_Two"" xml:space=""preserve"">
-    <value>This is the second resource in the file</value>
+    <value>This is the second Banana resource in the file</value>
   </data>
   <data name=""Resfit_Tests_Banana_Resource_Three"" xml:space=""preserve"">
-    <value>This is the third resource in the file</value>
+    <value>This is the third Banana resource in the file</value>
   </data>
 </root>
 ";

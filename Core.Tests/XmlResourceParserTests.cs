@@ -10,16 +10,16 @@
 
 namespace TW.Resfit.Core.Tests
 {
-    using System;
     using System.Linq;
     using System.Xml.Linq;
     using NUnit.Framework;
     using Shouldly;
     using TW.Resfit.Core;
     using TW.Resfit.FileUtils.HierarchyBuilder;
+    using TW.Resfit.Framework.Testing;
 
     [TestFixture]
-    public class XmlResourceParserTests
+    public class XmlResourceParserTests : UnitTests
     {
         [Test]
         public void ShouldParseXmlAsAResourceList()
@@ -30,14 +30,20 @@ namespace TW.Resfit.Core.Tests
 
             resourceList.Items.Count.ShouldBe(3);
             resourceList.Items.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
-            resourceList.Items.Last().Value.ShouldBe("This is the third resource in the file");
+            resourceList.Items.Last().Value.ShouldBe("This is the third Banana resource in the file");
         }
 
         [Test]
         public void ParsesAllResourcesInPath()
         {
-            // TODO: Consider moving this functionality to FileUtils
-            throw new NotImplementedException();
+            var path = SampleData.GenerateRandomTempPath("TransformFilesTests");
+            SampleData.CreateSampleFileHierarchy(this.FileSystem, path);
+
+            var resources = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, path);
+
+            resources.Items.Count.ShouldBe(6);
+            var appleTwoResource = resources.Items.First(x => x.Key == "Resfit_Tests_Apple_Resource_Two");
+            appleTwoResource.Value.ShouldBe("This is the second Apple resource in the file");
         }
     }
 }
