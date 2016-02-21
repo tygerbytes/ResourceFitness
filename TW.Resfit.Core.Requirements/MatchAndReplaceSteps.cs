@@ -94,7 +94,7 @@ namespace TW.Resfit.Core.Requirements
         public void GivenAListOfResourcesWithMatches()
         {
             this.Context.FolderPath = SampleData.GenerateRandomTempPath("MatchAndReplaceTests");
-            GenerateSampleSourceFiles(this.Context.FolderPath);
+            this.GenerateSampleSourceFiles(this.Context.FolderPath);
 
             this.Context.ResourceList = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.FolderPath);
 

@@ -10,6 +10,7 @@
 
 namespace TW.Resfit.Core.Tests
 {
+    using System;
     using System.Linq;
     using System.Xml.Linq;
     using NUnit.Framework;
@@ -36,7 +37,7 @@ namespace TW.Resfit.Core.Tests
         public void ParsesAllResourcesInPath()
         {
             // TODO: Consider moving this functionality to FileUtils
-
+            throw new NotImplementedException();
         }
     }
 }

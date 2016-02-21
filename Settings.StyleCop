@@ -20,6 +20,7 @@
           <Value>\.generated\.cs$</Value>
           <Value>\.g\.i\.cs$</Value>
           <Value>\.xaml\.cs$</Value>
+          <Value>AssemblyInfo.cs$</Value>
         </CollectionProperty>
       </ParserSettings>
     </Parser>
