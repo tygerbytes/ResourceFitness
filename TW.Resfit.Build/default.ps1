@@ -25,6 +25,8 @@ properties {
 	$testCoverageExcludeFiles = "*\*Designer.cs;*\*.g.cs;*.g.i.cs"
 
 	$reportGenerator = Join-Path $(Find-PackagePath $packageDirectory "ReportGenerator") "tools\ReportGenerator.exe"
+
+	$7zip = Join-Path $(Find-PackagePath $packageDirectory "7-Zip.CommandLine") "tools\7za.exe"
 }
 
 Framework "4.5.2"
@@ -51,6 +53,8 @@ Task Check-Environment `
 		"OpenCover console could not be found"
 	Assert (Test-Path $reportGenerator) `
 		"ReportGenerator console could not be found"
+	Assert (Test-Path $7zip) `
+		"7-Zip console could not be found"
 }
 
 Task Clean `
