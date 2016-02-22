@@ -27,13 +27,14 @@ properties {
 	$reportGenerator = Join-Path $(Find-PackagePath $packageDirectory "ReportGenerator") "tools\ReportGenerator.exe"
 
 	$7zip = Join-Path $(Find-PackagePath $packageDirectory "7-Zip.CommandLine") "tools\7za.exe"
+	$releaseDirectory = Join-Path $outputDirectory "Release"
 }
 
 Framework "4.5.2"
 
 FormatTaskName ">>>-- Executing {0} Task -->"
 
-Task Default -depends BakeAndShake -description "Default task"
+Task Default -depends Package -description "Default task"
 
 Task BakeAndShake `
 	-description "Build solution and run all tests" `
@@ -68,7 +69,10 @@ Task Clean `
 	New-Directory $testResultsDirectory
 
 	Remove-Directory -Path $testCoverageDirectory
-	New-Directory $testCoverageDirectory	
+	New-Directory $testCoverageDirectory
+
+	Remove-Directory $releaseDirectory
+	New-Directory $releaseDirectory
 }
 
 Task Build `
@@ -140,4 +144,25 @@ Task AcceptanceTests `
 			  -filter $testCoverageFilter `
 			  -excludeByAttribute $testCoverageExclusionAttribute `
 			  -excludeByFile $testCoverageExcludeFiles
+}
+
+Task Package `
+	-description "Package the application as a zip file" `
+	-depends BakeAndShake `
+{
+	$assemblies = @(
+		"TW.Resfit.Core.dll",
+		"TW.Resfit.FileUtils.dll"
+		# ...
+	)
+
+	$filesToPackage = Get-ChildItem -Path $outputDirectory -Recurse -Include $assemblies
+
+	ForEach($file in $filesToPackage) {
+		Copy-Item $file $releaseDirectory
+	}
+
+	$archivePath = Join-Path $outputDirectory "TW.Resfit.7z"
+
+	Exec { & $7zip a -r -mx3 $archivePath $releaseDirectory	}
 }
