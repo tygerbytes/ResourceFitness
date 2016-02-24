@@ -48,6 +48,7 @@
     </None>
     <None Include="default.ps1" />
     <None Include="psake_helpers.ps1" />
+    <None Include="TW.Resfit.Core.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
