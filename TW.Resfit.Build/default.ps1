@@ -30,6 +30,9 @@ properties {
 	$releaseDirectory = Join-Path $outputDirectory "Release"
 
 	$nuget = Join-Path $(Find-PackagePath $packageDirectory "NuGet.CommandLine") "tools\NuGet.exe"
+	$coreNuspec = Join-Path $solutionDirectory "TW.Resfit.Build\TW.Resfit.Core.nuspec"
+
+	$version = $null
 }
 
 Framework "4.5.2"
@@ -40,11 +43,11 @@ Task Default -depends Package -description "Default task"
 
 Task BakeAndShake `
 	-description "Build solution and run all tests" `
-	-depends Build #, Tests
+	-depends Build, Tests
 
 Task Check-Environment `
 	-description "Verify parameters and build tools" `
-	-requiredVariables $outputDirectory, $testResultsDirectory, $solutionFile, $testCoverageDirectory `
+	-requiredVariables $outputDirectory, $testResultsDirectory, $solutionFile, $testCoverageDirectory, $coreNuspec `
 {
 	Assert ("Debug", "Release" -contains $buildConfiguration) `
 		"Invalid build configuration '$buildConfiguration'. Valid values are 'Debug' or 'Release'"
@@ -81,7 +84,7 @@ Task Clean `
 
 Task Build `
 	-description "Build them... Build them all." `
-	-depends Clean `
+	-depends Clean, Version `
 {
 	Exec {
 		msbuild $solutionFile /verbosity:quiet /maxcpucount "/property:Configuration=$buildConfiguration;Platform=$buildPlatform;OutDir=$outputDirectory"
@@ -179,5 +182,26 @@ Task PackageNuget `
 	-description "Package the application as a nuget package" `
 	-depends BakeAndShake `
 {
-	# Coming soon...
+	Assert ($script:version -ne $null) "The version string has not been built"
+
+    Exec { 
+		& $nuget pack $coreNuspec `
+			-version $script:version `
+			-outputdirectory "$releaseDirectory" `
+			-basepath "$releaseDirectory" 
+	}	
+}
+
+Task Version `
+	-description "Create the product version string" `
+{
+	$today = $(Get-Date)
+
+	$year = $today.Year
+	$day = $today.DayOfYear
+	$min = [int]$today.TimeOfDay.TotalMinutes
+
+	[string]$version = "0.$year.$day.$min"
+	
+	$script:version = $version
 }

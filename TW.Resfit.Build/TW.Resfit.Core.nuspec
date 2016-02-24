@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>TW.Resfit.Core</id>
+    <version>0.0.0.0</version>
+    <title>Resfit</title>
+    <authors>Tyrone Walls</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Resfit is a multipurpose tool for working with and mangling your resources (*.resx) in .NET.</description>    
+  </metadata>
+  <files>
+   <file src="TW.Resfit.Core.dll" target="." />
+   <file src="TW.Resfit.FileUtils.dll" target="." />
+  </files>
+</package>

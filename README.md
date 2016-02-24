@@ -9,7 +9,6 @@ In large projects, even renaming resource keys can be a time-consuming chore. At
 Resfit is still a wobbling toddler and is only a code library. As always, use it at your own risk. (Remember, "toddler".) To build it, just clone the repo and run `.\build` from PowerShell. (You will need nuget and msbuild in your path.) Everything will be built in the `.build` folder. From there you can grab the `*.dll`s you need and drop them into your project.
 
 ### Coming soon
- - The build process will generate a NuGet package to make integration with other projects easier.
  - A PowerShell driver
  - A basic GUI (?)
  - More Core functionality
