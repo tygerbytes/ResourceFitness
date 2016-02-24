@@ -28,6 +28,8 @@ properties {
 
 	$7zip = Join-Path $(Find-PackagePath $packageDirectory "7-Zip.CommandLine") "tools\7za.exe"
 	$releaseDirectory = Join-Path $outputDirectory "Release"
+
+	$nuget = Join-Path $(Find-PackagePath $packageDirectory "NuGet.CommandLine") "tools\NuGet.exe"
 }
 
 Framework "4.5.2"
@@ -38,7 +40,7 @@ Task Default -depends Package -description "Default task"
 
 Task BakeAndShake `
 	-description "Build solution and run all tests" `
-	-depends Build, Tests
+	-depends Build #, Tests
 
 Task Check-Environment `
 	-description "Verify parameters and build tools" `
@@ -56,6 +58,8 @@ Task Check-Environment `
 		"ReportGenerator console could not be found"
 	Assert (Test-Path $7zip) `
 		"7-Zip console could not be found"
+	Assert (Test-Path $nuget) `
+		"NuGet CommandLine could not be found"
 }
 
 Task Clean `
@@ -147,6 +151,10 @@ Task AcceptanceTests `
 }
 
 Task Package `
+	-description "Create all packages" `
+	-depends PackageZip, PackageNuget
+
+Task PackageZip `
 	-description "Package the application as a zip file" `
 	-depends BakeAndShake `
 {
@@ -162,7 +170,14 @@ Task Package `
 		Copy-Item $file $releaseDirectory
 	}
 
-	$archivePath = Join-Path $outputDirectory "TW.Resfit.7z"
+	$archivePath = Join-Path $releaseDirectory "TW.Resfit.7z"
 
-	Exec { & $7zip a -r -mx3 $archivePath $releaseDirectory	}
+	Exec { & $7zip a -r -mx3 $archivePath "$releaseDirectory\*"	}
+}
+
+Task PackageNuget `
+	-description "Package the application as a nuget package" `
+	-depends BakeAndShake `
+{
+	# Coming soon...
 }
