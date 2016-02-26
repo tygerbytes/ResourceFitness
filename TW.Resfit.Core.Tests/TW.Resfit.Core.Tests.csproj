@@ -75,7 +75,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ResourceCore\TW.Resfit.Core.csproj">
+    <ProjectReference Include="..\TW.Resfit.Core\TW.Resfit.Core.csproj">
       <Project>{37c9cf69-dd28-4bf4-a4e3-507765e256fd}</Project>
       <Name>TW.Resfit.Core</Name>
     </ProjectReference>

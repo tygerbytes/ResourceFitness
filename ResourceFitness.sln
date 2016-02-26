@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.ConsoleDriver", "ResourceFitness\TW.Resfit.ConsoleDriver.csproj", "{6C337525-29E4-443E-B643-1D1A939142F4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_UnitTests", "_UnitTests", "{78AEE656-0FDD-431E-8E8E-5763B13C8954}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Core.Tests", "Core.Tests\TW.Resfit.Core.Tests.csproj", "{E2964E82-D0E0-40BF-9A24-50C8CCEA8AA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Core.Tests", "TW.Resfit.Core.Tests\TW.Resfit.Core.Tests.csproj", "{E2964E82-D0E0-40BF-9A24-50C8CCEA8AA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Core", "ResourceCore\TW.Resfit.Core.csproj", "{37C9CF69-DD28-4BF4-A4E3-507765E256FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Core", "TW.Resfit.Core\TW.Resfit.Core.csproj", "{37C9CF69-DD28-4BF4-A4E3-507765E256FD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Requirements", "_Requirements", "{BAD6E16C-C332-4EB9-A919-D5DF4B857DF8}"
 EndProject
@@ -30,16 +28,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{245D0C
 		.nuget\packages.config = .nuget\packages.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Console", "TW.Resfit.Console\TW.Resfit.Console.csproj", "{4E443BF6-FFA9-4F50-929F-1579BA46D3ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6C337525-29E4-443E-B643-1D1A939142F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C337525-29E4-443E-B643-1D1A939142F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C337525-29E4-443E-B643-1D1A939142F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C337525-29E4-443E-B643-1D1A939142F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E2964E82-D0E0-40BF-9A24-50C8CCEA8AA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E2964E82-D0E0-40BF-9A24-50C8CCEA8AA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2964E82-D0E0-40BF-9A24-50C8CCEA8AA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -72,6 +68,10 @@ Global
 		{724C9A0B-6DDC-4C39-9652-B956BCFD6BF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{724C9A0B-6DDC-4C39-9652-B956BCFD6BF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{724C9A0B-6DDC-4C39-9652-B956BCFD6BF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E443BF6-FFA9-4F50-929F-1579BA46D3ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E443BF6-FFA9-4F50-929F-1579BA46D3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E443BF6-FFA9-4F50-929F-1579BA46D3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E443BF6-FFA9-4F50-929F-1579BA46D3ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

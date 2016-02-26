@@ -80,7 +80,7 @@
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ResourceCore\TW.Resfit.Core.csproj">
+    <ProjectReference Include="..\TW.Resfit.Core\TW.Resfit.Core.csproj">
       <Project>{37C9CF69-DD28-4BF4-A4E3-507765E256FD}</Project>
       <Name>TW.Resfit.Core</Name>
     </ProjectReference>
