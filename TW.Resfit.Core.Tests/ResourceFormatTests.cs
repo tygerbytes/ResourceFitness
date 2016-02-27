@@ -24,5 +24,20 @@ namespace TW.Resfit.Core.Tests
 
             ResourceFormat.Default.IsValidKey(Key).ShouldBeTrue();
         }
+
+        [Test]
+        public void ShouldCatchIncorrectlyFormattedKey()
+        {
+            const string BadKey = "My%bad%key";
+
+            ResourceFormat.Default.IsValidKey(BadKey).ShouldBeFalse();
+        }
+
+        [Test]
+        public void CanOverrideFormatName()
+        {
+            new ResourceFormat('_').Name.ShouldBe("ResourceFormat");
+            new ResourceFormat('_', "Custom Name").Name.ShouldBe("Custom Name");
+        }
     }
 }
