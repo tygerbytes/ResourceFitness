@@ -14,12 +14,12 @@ namespace TW.Resfit.Console
     [Cmdlet(VerbsCommon.New, "Transform")]
     public class NewTransform : PSCmdlet
     {
-        [Parameter(ParameterSetName = "ResourceReplacement")]
+        [Parameter(ParameterSetName = ParameterSet.ResourceReplacement)]
         [Alias("Replace")]
         public SwitchParameter ResourceReplacement { get; set; }
 
         [Parameter(
-            ParameterSetName = "ResourceReplacement",
+            ParameterSetName = ParameterSet.ResourceReplacement,
             Position = 1,
             Mandatory = true,
             ValueFromPipeline = true)]
@@ -30,12 +30,12 @@ namespace TW.Resfit.Console
         {
             switch (this.ParameterSetName)
             {
-                case "ResourceReplacement":
+                case ParameterSet.ResourceReplacement:
                     this.WriteNewResourceReplacementTransform();
                     break;
 
                 default:
-                    throw new ArgumentException("Bad ParameterSet Name");
+                    throw new ArgumentException(string.Format("Bad ParameterSet Name \"{0}\"", this.ParameterSetName));
             }
         }
 
@@ -46,6 +46,11 @@ namespace TW.Resfit.Console
             this.WriteVerbose(string.Format("Created new resource replacement transform. Replacement key is \"{0}\"", transform.Replacement));
 
             this.WriteObject(transform);
+        }
+
+        private static class ParameterSet
+        {
+            public const string ResourceReplacement = "ResourceReplacement";
         }
     }
 }

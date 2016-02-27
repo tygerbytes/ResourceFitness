@@ -23,10 +23,15 @@ namespace TW.Resfit.Core
 
             foreach (var resourceElement in xmlDocument.Elements())
             {
+                if (resourceElement.Name.LocalName != "data")
+                {
+                    continue;
+                }
+
                 var key = resourceElement.Attribute("name").Value;
                 var valueElement = resourceElement.Element("value");
 
-                string value = string.Empty;
+                var value = string.Empty;
 
                 if (valueElement != null)
                 {

@@ -53,8 +53,6 @@ namespace TW.Resfit.Core
             }
         }
 
-        public ResourceFormat ResourceFormat { get; private set; }
-
         public string Key
         {
             get
@@ -70,6 +68,8 @@ namespace TW.Resfit.Core
                 return this.value;
             }
         }
+
+        public ResourceFormat ResourceFormat { get; private set; }
 
         public List<ITransform> Transforms { get; private set; }
 

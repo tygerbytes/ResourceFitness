@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewResourceList.cs" />
     <Compile Include="NewTransform.cs" />
     <Compile Include="NewResource.cs" />
     <Compile Include="GetResource.cs" />
@@ -56,6 +57,10 @@
     <ProjectReference Include="..\TW.Resfit.Core\TW.Resfit.Core.csproj">
       <Project>{37c9cf69-dd28-4bf4-a4e3-507765e256fd}</Project>
       <Name>TW.Resfit.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TW.Resfit.FileUtils\TW.Resfit.FileUtils.csproj">
+      <Project>{af895eed-d97d-4644-be07-991071898ee0}</Project>
+      <Name>TW.Resfit.FileUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
