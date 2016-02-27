@@ -36,7 +36,7 @@ namespace TW.Resfit.Core
 
         public bool IsValidKey(string key)
         {
-            var pattern = string.Format("^[A-Za-z0-9{0}]+$", this.Separator);
+            var pattern = string.Format("^[A-Za-z0-9{0},/\\-()}}{{]+$", this.Separator);
 
             return Regex.IsMatch(key, pattern);
         }
