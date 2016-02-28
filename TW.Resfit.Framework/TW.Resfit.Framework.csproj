@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4E443BF6-FFA9-4F50-929F-1579BA46D3ED}</ProjectGuid>
+    <ProjectGuid>{74506590-9B3D-48D1-8E1E-56270B06F9CF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TW.Resfit.Console</RootNamespace>
-    <AssemblyName>TW.Resfit.Console</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>TW.Resfit.Framework</RootNamespace>
+    <AssemblyName>TW.Resfit.Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,10 +32,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Management.Automation.6.1.7601.17515\lib\net45\System.Management.Automation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,28 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewResourceList.cs" />
-    <Compile Include="NewTransform.cs" />
-    <Compile Include="NewResource.cs" />
-    <Compile Include="GetResource.cs" />
+    <Compile Include="ListDecorator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\TW.Resfit.Core\TW.Resfit.Core.csproj">
-      <Project>{37c9cf69-dd28-4bf4-a4e3-507765e256fd}</Project>
-      <Name>TW.Resfit.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TW.Resfit.FileUtils\TW.Resfit.FileUtils.csproj">
-      <Project>{af895eed-d97d-4644-be07-991071898ee0}</Project>
-      <Name>TW.Resfit.FileUtils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TW.Resfit.Framework\TW.Resfit.Framework.csproj">
-      <Project>{74506590-9B3D-48D1-8E1E-56270B06F9CF}</Project>
-      <Name>TW.Resfit.Framework</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

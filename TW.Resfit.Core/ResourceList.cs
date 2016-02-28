@@ -10,7 +10,6 @@
 
 namespace TW.Resfit.Core
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -18,46 +17,19 @@ namespace TW.Resfit.Core
 
     using TW.Resfit.FileUtils;
 
-    public class ResourceList : IList<Resource>
+    public class ResourceList : ListDecorator<Resource>
     {
-        private readonly List<Resource> resources = new List<Resource>();
-
-        public int Count
+        /// <summary>
+        /// Gets the underlying Items collection.
+        /// It is just a proxy for the protected Items property.
+        /// Its only purpose is to make the code read easier.
+        /// </summary>
+        private IEnumerable<Resource> Resources
         {
             get
             {
-                return this.resources.Count;
+                return this.Items;
             }
-        }
-
-        public bool IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-        public Resource this[int index]
-        {
-            get
-            {
-                return this.resources[index];
-            }
-            set
-            {
-                this.resources[index] = value;
-            }
-        }
-
-        public void Add(Resource item)
-        {
-            this.resources.Add(item);
-        }
-
-        public void Clear()
-        {
-            this.resources.Clear();
         }
 
         public ResourceList Clone()
@@ -72,36 +44,6 @@ namespace TW.Resfit.Core
             return clonedList;
         }
 
-        public bool Contains(Resource item)
-        {
-            return this.resources.Contains(item);
-        }
-
-        public void CopyTo(Resource[] array, int arrayIndex)
-        {
-            this.resources.CopyTo(array, arrayIndex);
-        }
-
-        public IEnumerator<Resource> GetEnumerator()
-        {
-            return this.resources.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.resources.GetEnumerator();
-        }
-
-        public int IndexOf(Resource item)
-        {
-            return this.resources.IndexOf(item);
-        }
-
-        public void Insert(int index, Resource item)
-        {
-            this.resources.Insert(index, item);
-        }
-
         public void Merge(ResourceList resourceListToAbsorb)
         {
             foreach (var resource in resourceListToAbsorb)
@@ -111,16 +53,6 @@ namespace TW.Resfit.Core
                     this.Add(new Resource(resource));
                 }
             }
-        }
-
-        public bool Remove(Resource item)
-        {
-            return this.resources.Remove(item);
-        }
-
-        public void RemoveAt(int index)
-        {
-            this.resources.RemoveAt(index);
         }
 
         public void TransformFolder(string folderPath)
@@ -135,7 +67,7 @@ namespace TW.Resfit.Core
                 
                 // Does this file require changes?
                 var makeChanges =
-                    this.resources.Where(x => x.Transforms.Any())
+                    this.Resources.Where(x => x.Transforms.Any())
                         .Any(
                             resource =>
                             resource.Transforms.Any(transform => transform.WillAffect(ref fileText, resource)));
@@ -151,7 +83,7 @@ namespace TW.Resfit.Core
                     xml = fileSystem.LoadXmlFile(fileInfo.FullName);
                 }
 
-                foreach (var resource in this.resources.Where(x => x.Transforms.Any()))
+                foreach (var resource in this.Resources.Where(x => x.Transforms.Any()))
                 {
                     if (fileInfo.Extension == ".resx")
                     {

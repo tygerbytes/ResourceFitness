@@ -92,6 +92,10 @@
       <Project>{63A7DBDC-85A8-4840-B3B7-ECB61DA93DA5}</Project>
       <Name>TW.Resfit.Framework.Requirements</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TW.Resfit.Framework\TW.Resfit.Framework.csproj">
+      <Project>{74506590-9B3D-48D1-8E1E-56270B06F9CF}</Project>
+      <Name>TW.Resfit.Framework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
