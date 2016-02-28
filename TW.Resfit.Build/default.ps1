@@ -162,8 +162,10 @@ Task PackageZip `
 	-depends BakeAndShake `
 {
 	$assemblies = @(
+		"TW.Resfit.Console.dll",
 		"TW.Resfit.Core.dll",
-		"TW.Resfit.FileUtils.dll"
+		"TW.Resfit.FileUtils.dll",
+		"TW.Resfit.Framework.dll"		
 		# ...
 	)
 

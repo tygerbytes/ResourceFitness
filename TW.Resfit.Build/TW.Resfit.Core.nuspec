@@ -9,7 +9,9 @@
     <description>Resfit is a multipurpose tool for working with and mangling your resources (*.resx) in .NET.</description>    
   </metadata>
   <files>
-   <file src="TW.Resfit.Core.dll" target="." />
-   <file src="TW.Resfit.FileUtils.dll" target="." />
+   <file src="TW.Resfit.Core.dll" target="lib\net452" />
+   <file src="TW.Resfit.FileUtils.dll" target="lib\net452" />
+   <file src="TW.Resfit.Console.dll" target="lib\net452" />
+   <file src="TW.Resfit.Framework.dll" target="lib\net452" />
   </files>
 </package>
