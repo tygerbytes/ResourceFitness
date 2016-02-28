@@ -56,11 +56,11 @@ namespace TW.Resfit.Core.Requirements
         {
             this.Context.ResourceList = XmlResourceParser.ParseAsResourceList(this.Context.Xml);
 
-            this.Context.ResourceList.Items.Count.ShouldBe(3);
-            this.Context.ResourceList.Items.First().Key.ShouldBe("Resfit_Tests_Banana_Resource_One");
-            this.Context.ResourceList.Items.First().Value.ShouldBe("This is the first Banana resource in the file");
-            this.Context.ResourceList.Items.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
-            this.Context.ResourceList.Items.Last().Value.ShouldBe("This is the third Banana resource in the file");
+            this.Context.ResourceList.Count.ShouldBe(3);
+            this.Context.ResourceList.First().Key.ShouldBe("Resfit_Tests_Banana_Resource_One");
+            this.Context.ResourceList.First().Value.ShouldBe("This is the first Banana resource in the file");
+            this.Context.ResourceList.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
+            this.Context.ResourceList.Last().Value.ShouldBe("This is the third Banana resource in the file");
         }
 
         [Given(@"a list of resources")]
@@ -80,7 +80,7 @@ namespace TW.Resfit.Core.Requirements
         {
             var resourceReplacementTransform = new ResourceReplacementTransform(this.Context.ReplacementResource);
 
-            this.Context.ResourceList.Items.First()
+            this.Context.ResourceList.First()
                 .Transforms.Add(resourceReplacementTransform);
         }
 
@@ -98,8 +98,8 @@ namespace TW.Resfit.Core.Requirements
 
             this.Context.ResourceList = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.FolderPath);
 
-            this.Context.ResourceList.Items.First().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_Banana_Resource_OneReplacement", "One replaced")));
-            this.Context.ResourceList.Items.Last().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_Banana_Resource_ThreeReplacement", "Three replaced")));
+            this.Context.ResourceList.First().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_Banana_Resource_OneReplacement", "One replaced")));
+            this.Context.ResourceList.Last().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_Banana_Resource_ThreeReplacement", "Three replaced")));
         }
 
         [When(@"I supply a directory of files to search and replace")]
@@ -120,8 +120,8 @@ namespace TW.Resfit.Core.Requirements
 
             var expectedResources = this.Context.ResourceList.TransformSelfIntoNewList();
 
-            modifiedResources.Items.Count.ShouldBe(expectedResources.Items.Count);
-            modifiedResources.Items.ShouldBeSubsetOf(expectedResources.Items);
+            modifiedResources.Count.ShouldBe(expectedResources.Count);
+            modifiedResources.ShouldBeSubsetOf(expectedResources);
         }
 
         private void GenerateSampleSourceFiles(string folderPath)

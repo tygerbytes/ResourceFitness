@@ -7,7 +7,6 @@
 
 namespace TW.Resfit.Console
 {
-    using System.Collections.Generic;
     using System.Management.Automation;
     using System.Text;
 
@@ -26,11 +25,13 @@ namespace TW.Resfit.Console
         public ResourceFormat Format { get; set; }
 
         [Parameter(Position = 4)]
-        public List<ITransform> Transforms { get; set; }
+        public ITransform[] Transforms { get; set; }
 
         protected override void ProcessRecord()
         {
             var r = new Resource(this.Key, this.Value ?? string.Empty, this.Format ?? ResourceFormat.Default);
+
+            r.Transforms.AddRange(this.Transforms);
 
             this.WriteVerbose(string.Format(
                 "Created new resource:\n\tKey: {0}\n\tValue: {1}\n\tFormat: {2}\n\tTransforms: {3}",

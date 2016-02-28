@@ -28,9 +28,9 @@ namespace TW.Resfit.Core.Tests
 
             var resourceList = XmlResourceParser.ParseAsResourceList(xmlDoc);
 
-            resourceList.Items.Count.ShouldBe(3);
-            resourceList.Items.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
-            resourceList.Items.Last().Value.ShouldBe("This is the third Banana resource in the file");
+            resourceList.Count.ShouldBe(3);
+            resourceList.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
+            resourceList.Last().Value.ShouldBe("This is the third Banana resource in the file");
         }
 
         [Test]
@@ -41,8 +41,8 @@ namespace TW.Resfit.Core.Tests
 
             var resources = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, path);
 
-            resources.Items.Count.ShouldBe(6);
-            var appleTwoResource = resources.Items.First(x => x.Key == "Resfit_Tests_Apple_Resource_Two");
+            resources.Count.ShouldBe(6);
+            var appleTwoResource = resources.First(x => x.Key == "Resfit_Tests_Apple_Resource_Two");
             appleTwoResource.Value.ShouldBe("This is the second Apple resource in the file");
         }
     }

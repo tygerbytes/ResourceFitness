@@ -31,8 +31,8 @@ namespace TW.Resfit.Core.Tests
 
             applesAndOranges.Merge(oranges);
 
-            apples.Items.ShouldBeSubsetOf(applesAndOranges.Items);
-            oranges.Items.ShouldBeSubsetOf(applesAndOranges.Items, "The Oranges resource list was not merged in.");
+            apples.ShouldBeSubsetOf(applesAndOranges);
+            oranges.ShouldBeSubsetOf(applesAndOranges, "The Oranges resource list was not merged in.");
         }
 
         [Test]
@@ -40,15 +40,12 @@ namespace TW.Resfit.Core.Tests
         {
             var resource = new Resource("My_Apple", "The apple is good");
 
-            var list1 = new ResourceList();
-            list1.Items.Add(resource);
-
-            var list2 = new ResourceList();
-            list2.Items.Add(resource);
+            var list1 = new ResourceList { resource };
+            var list2 = new ResourceList { resource };
 
             list1.Merge(list2);
 
-            list1.Items.Count.ShouldBe(1);
+            list1.Count.ShouldBe(1);
         }
 
         [Test]
@@ -57,24 +54,24 @@ namespace TW.Resfit.Core.Tests
             var apples = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlResourceString);
             var clone = apples.Clone();
 
-            apples.Items.ShouldBe(clone.Items);
+            apples.ShouldBe(clone);
         }
 
         [Test]
         public void ShouldPerformAutoTransformIntoNewResourceList()
         {
             var apples = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("apples"));
-            var oranges = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("oranges")).Items.ToArray();
+            var oranges = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("oranges")).ToArray();
 
             var orangeIndex = 0;
-            foreach (var appleResource in apples.Items)
+            foreach (var appleResource in apples)
             {
                 appleResource.Transforms.Add(new ResourceReplacementTransform(oranges[orangeIndex++]));
             }
 
             var applesTransformedToOranges = apples.TransformSelfIntoNewList();
 
-            applesTransformedToOranges.Items.ShouldBeSubsetOf(oranges);
+            applesTransformedToOranges.ShouldBeSubsetOf(oranges);
         }
 
         [Test]
@@ -85,7 +82,7 @@ namespace TW.Resfit.Core.Tests
 
             var apples = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlFruitResourceString("Apple"));
 
-            var appleResourceOne = apples.Items.First(x => x.Key == "Resfit_Tests_Apple_Resource_One");
+            var appleResourceOne = apples.First(x => x.Key == "Resfit_Tests_Apple_Resource_One");
             var replacementOrangeOne = new Resource(
                 "Resfit_Tests_Orange_Resource_One",
                 "My orange is taking over the world");
@@ -102,8 +99,8 @@ namespace TW.Resfit.Core.Tests
             // -- Verify the resources where changd as expected
             var changedAppleResourcesFile = this.FileSystem.LoadFile(Path.Combine(path, "Apples.resx"));
             var changedAppleResources = XmlResourceParser.ParseAsResourceList(changedAppleResourcesFile);
-            changedAppleResources.Items.ShouldNotContain(x => x.Key == "Resfit_Tests_Apple_Resource_One");
-            var oranges = changedAppleResources.Items.Where(x => x.Key == "Resfit_Tests_Orange_Resource_One").ToArray();
+            changedAppleResources.ShouldNotContain(x => x.Key == "Resfit_Tests_Apple_Resource_One");
+            var oranges = changedAppleResources.Where(x => x.Key == "Resfit_Tests_Orange_Resource_One").ToArray();
             oranges.Count().ShouldBe(1);
             var orange = oranges.First();
             orange.Key.ShouldBe("Resfit_Tests_Orange_Resource_One");

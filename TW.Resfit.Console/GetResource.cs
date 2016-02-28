@@ -86,7 +86,7 @@ namespace TW.Resfit.Console
 
         private void WriteResourceListItems()
         {
-            foreach (var resource in this.ResourceList.Items)
+            foreach (var resource in this.ResourceList)
             {
                 this.WriteObject(resource);
             }

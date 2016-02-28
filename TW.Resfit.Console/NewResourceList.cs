@@ -28,7 +28,7 @@ namespace TW.Resfit.Console
 
             foreach (var resource in this.Resources)
             {
-                resourceList.Items.Add(resource);
+                resourceList.Add(resource);
                 this.WriteVerbose(string.Format("Added {0} to resource list", resource));
             }
 

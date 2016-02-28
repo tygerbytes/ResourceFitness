@@ -10,6 +10,7 @@
 
 namespace TW.Resfit.Core
 {
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -17,16 +18,109 @@ namespace TW.Resfit.Core
 
     using TW.Resfit.FileUtils;
 
-    public class ResourceList
+    public class ResourceList : IList<Resource>
     {
         private readonly List<Resource> resources = new List<Resource>();
 
-        public ICollection<Resource> Items
+        public int Count
         {
             get
             {
-                return this.resources;
+                return this.resources.Count;
             }
+        }
+
+        public bool IsReadOnly
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        public Resource this[int index]
+        {
+            get
+            {
+                return this.resources[index];
+            }
+            set
+            {
+                this.resources[index] = value;
+            }
+        }
+
+        public void Add(Resource item)
+        {
+            this.resources.Add(item);
+        }
+
+        public void Clear()
+        {
+            this.resources.Clear();
+        }
+
+        public ResourceList Clone()
+        {
+            var clonedList = new ResourceList();
+
+            foreach (var resource in this)
+            {
+                clonedList.Add(new Resource(resource));
+            }
+
+            return clonedList;
+        }
+
+        public bool Contains(Resource item)
+        {
+            return this.resources.Contains(item);
+        }
+
+        public void CopyTo(Resource[] array, int arrayIndex)
+        {
+            this.resources.CopyTo(array, arrayIndex);
+        }
+
+        public IEnumerator<Resource> GetEnumerator()
+        {
+            return this.resources.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.resources.GetEnumerator();
+        }
+
+        public int IndexOf(Resource item)
+        {
+            return this.resources.IndexOf(item);
+        }
+
+        public void Insert(int index, Resource item)
+        {
+            this.resources.Insert(index, item);
+        }
+
+        public void Merge(ResourceList resourceListToAbsorb)
+        {
+            foreach (var resource in resourceListToAbsorb)
+            {
+                if (this.All(x => x.Key != resource.Key))
+                {
+                    this.Add(new Resource(resource));
+                }
+            }
+        }
+
+        public bool Remove(Resource item)
+        {
+            return this.resources.Remove(item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            this.resources.RemoveAt(index);
         }
 
         public void TransformFolder(string folderPath)
@@ -82,7 +176,7 @@ namespace TW.Resfit.Core
         {
             var newList = new ResourceList();
 
-            foreach (var resource in this.Items)
+            foreach (var resource in this)
             {
                 var newResource = new Resource(resource);
 
@@ -93,34 +187,11 @@ namespace TW.Resfit.Core
 
                 if (newResource != null)
                 {
-                    newList.Items.Add(newResource);
+                    newList.Add(newResource);
                 }
             }
 
             return newList;
-        }
-
-        public void Merge(ResourceList resourceListToAbsorb)
-        {
-            foreach (var resource in resourceListToAbsorb.Items)
-            {
-                if (this.Items.All(x => x.Key != resource.Key))
-                {
-                    this.Items.Add(new Resource(resource));
-                }
-            }
-        }
-
-        public ResourceList Clone()
-        {
-            var clonedList = new ResourceList();
-
-            foreach (var resource in this.Items)
-            {
-                clonedList.Items.Add(new Resource(resource));
-            }
-
-            return clonedList;
         }
     }
 }
