@@ -16,8 +16,9 @@ namespace TW.Resfit.Core
     using System.Xml.Linq;
 
     using TW.Resfit.FileUtils;
+    using TW.Resfit.Framework;
 
-    public class ResourceList : ListDecorator<Resource>
+    public class ResourceList : ListDecoratorBase<Resource>
     {
         /// <summary>
         /// Gets the underlying Items collection.

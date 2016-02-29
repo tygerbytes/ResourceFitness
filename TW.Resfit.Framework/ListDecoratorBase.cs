@@ -1,19 +1,19 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="ListDecorator.cs" company="Tygertec">
+// <copyright file="ListDecoratorBase.cs" company="Tygertec">
 //   Copyright © 2016 Tyrone Walls.
 //   All rights reserved.
 // </copyright>
 // <summary>
-//   Defines the ListDecorator type, which keeps all of the noise of the delegation to IList out of the ResourceList class.
+//   Defines the ListDecoratorBase type, which keeps all of the noise of the delegation to IList out of the ResourceList class.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace TW.Resfit.Core
+namespace TW.Resfit.Framework
 {
     using System.Collections;
     using System.Collections.Generic;
 
-    public class ListDecorator<T> : IList<T>
+    public abstract class ListDecoratorBase<T> : IList<T>
     {
         protected readonly List<T> Items = new List<T>();
 
