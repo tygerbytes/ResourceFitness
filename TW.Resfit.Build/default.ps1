@@ -26,6 +26,8 @@ properties {
 
 	$reportGenerator = Join-Path $(Find-PackagePath $packageDirectory "ReportGenerator") "tools\ReportGenerator.exe"
 
+	$pester = Join-Path $(Find-PackagePath $packageDirectory "Pester") "tools\bin\pester.bat"
+
 	$7zip = Join-Path $(Find-PackagePath $packageDirectory "7-Zip.CommandLine") "tools\7za.exe"
 	$releaseDirectory = Join-Path $outputDirectory "Release"
 
@@ -63,6 +65,8 @@ Task Check-Environment `
 		"7-Zip console could not be found"
 	Assert (Test-Path $nuget) `
 		"NuGet CommandLine could not be found"
+	Assert (Test-Path $pester) `
+		"Pester.bat could not be found"
 }
 
 Task Clean `
@@ -151,6 +155,16 @@ Task AcceptanceTests `
 			  -filter $testCoverageFilter `
 			  -excludeByAttribute $testCoverageExclusionAttribute `
 			  -excludeByFile $testCoverageExcludeFiles
+}
+
+Task PesterTests `
+	-description "Run all PowerShell Pester tests" `
+{
+	$pesterTestsDirectory = Join-Path $solutionDirectory "TW.Resfit.Build"
+
+	Exec {
+		& $pester $pesterTestsDirectory
+	}
 }
 
 Task Package `
