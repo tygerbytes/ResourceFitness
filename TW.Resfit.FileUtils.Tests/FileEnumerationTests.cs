@@ -23,7 +23,7 @@ namespace TW.Resfit.FileUtils.Tests
     {
         private string TestDirectoryPath { get; set; } 
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void SetupFixture()
         {
             this.TestDirectoryPath = SampleData.GenerateRandomTempPath("FileEnumerationTests");

@@ -26,7 +26,7 @@ namespace TW.Resfit.Framework.Testing
             }
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         protected void TearDownFixture()
         {
             if (this.fileSystem != null)
