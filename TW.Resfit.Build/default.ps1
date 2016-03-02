@@ -41,6 +41,8 @@ Framework "4.5.2"
 
 FormatTaskName ">>>-- Executing {0} Task -->"
 
+Task ? -description "List tasks" { WriteDocumentation }
+
 Task Default -depends Package -description "Default task"
 
 Task BakeAndShake `
