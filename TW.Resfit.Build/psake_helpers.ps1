@@ -47,12 +47,14 @@ Function Remove-Contents {
 }
 
 Function Remove-Directory {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess=$true)]
 	Param([string]$path)
 
-	Write-Debug "Removing directory $path"
+	Write-Verbose "Removing directory $path"
 
-	Remove-Item -Path $path -Force -Recurse -ErrorAction SilentlyContinue | Out-Null
+	if ($PSCmdlet.ShouldProcess($path)) {
+		Remove-Item -Path $path -Force -Recurse -ErrorAction SilentlyContinue | Out-Null
+	}
 }
 
 Function Run-Tests {

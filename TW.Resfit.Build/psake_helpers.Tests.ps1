@@ -51,3 +51,14 @@ Describe "Remove-Contents" {
 		(-join $fileCount) | Should Be 0
 	}
 }
+
+Describe "Remove-Directory" {
+	$dir = Join-Path $TestDrive "Dir"
+	New-Item -ItemType Directory $dir
+
+	Remove-Directory $dir
+
+	It "deletes a directory" {
+		Test-Path $dir | Should Be $false
+	}
+}
