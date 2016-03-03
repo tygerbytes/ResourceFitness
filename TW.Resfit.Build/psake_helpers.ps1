@@ -14,7 +14,7 @@ Function Find-PackagePath {
 		[Parameter(Position=0,Mandatory=1)]$packagesPath,
 		[Parameter(Position=1,Mandatory=1)]$packageName)
 
-	Write-Debug "Looking for $packageName at $packagesPath"
+	Write-Verbose "Looking for $packageName at $packagesPath"
 
 	$pathWithWildcard = Join-Path $packagesPath $($packageName + "*")
 
@@ -22,19 +22,28 @@ Function Find-PackagePath {
 }
 
 Function New-Directory {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess=$true)]
 	Param([string]$path)
-	Write-Debug "Creating directory $path"
+
+	Write-Verbose "Creating directory $path"
 	
-	New-Item -ItemType Directory $path -ErrorAction SilentlyContinue | Out-Null
+	if ($PSCmdlet.ShouldProcess($path)) {
+		New-Item -ItemType Directory $path -ErrorAction SilentlyContinue | Out-Null
+	}	
 }
 
 Function Remove-Contents {
-	[CmdletBinding()]
+	[CmdletBinding(SupportsShouldProcess=$true)]
 	Param([string]$path)
-	Write-Debug "Removing contents of $path"
 
-	Get-ChildItem -Recurse -Path $path | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue | Out-Null
+	Write-Verbose "Removing contents of $path"
+
+	Get-ChildItem -Recurse -Path $path `
+		| %{ 
+				if ($PSCmdlet.ShouldProcess($path)) {
+					Remove-Item $PSItem.FullName -Force -Recurse -ErrorAction SilentlyContinue | Out-Null 
+				} 
+			} 
 }
 
 Function Remove-Directory {
