@@ -1,4 +1,13 @@
-﻿
+﻿# --------------------------------------------------------------------------------------------------------------------
+# <copyright file="build.ps1" company="Tygertec">
+#   Copyright © 2016 Tyrone Walls.
+#   All rights reserved.
+# </copyright>
+# <summary>
+#   Script for kicking off the command line build.
+# </summary>
+# --------------------------------------------------------------------------------------------------------------------
+
 param([Parameter(Position=0, Mandatory=$false)] [string[]]$taskList=@())
 
 Remove-Module [p]sake

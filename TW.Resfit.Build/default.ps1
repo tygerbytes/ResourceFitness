@@ -1,4 +1,13 @@
-﻿
+﻿# --------------------------------------------------------------------------------------------------------------------
+# <copyright file="default.ps1" company="Tygertec">
+#   Copyright © 2016 Tyrone Walls.
+#   All rights reserved.
+# </copyright>
+# <summary>
+#   Psake build script.
+# </summary>
+# --------------------------------------------------------------------------------------------------------------------
+
 Include ".\psake_helpers.ps1"
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path

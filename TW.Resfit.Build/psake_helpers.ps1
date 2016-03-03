@@ -1,4 +1,13 @@
-﻿
+﻿# --------------------------------------------------------------------------------------------------------------------
+# <copyright file="psake_helpers.ps1" company="Tygertec">
+#   Copyright © 2016 Tyrone Walls.
+#   All rights reserved.
+# </copyright>
+# <summary>
+#   A set of functions to simplify things in the Psake build script.
+# </summary>
+# --------------------------------------------------------------------------------------------------------------------
+
 Function Quote-String {
 	[CmdletBinding()]
 	param([string]$str)

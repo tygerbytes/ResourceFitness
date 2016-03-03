@@ -1,5 +1,13 @@
-﻿
-# Where am I? :)
+﻿# --------------------------------------------------------------------------------------------------------------------
+# <copyright file="psake_helpers.Tests.ps1" company="Tygertec">
+#   Copyright © 2016 Tyrone Walls.
+#   All rights reserved.
+# </copyright>
+# <summary>
+#   Defines Pester tests for the Psake helpers.
+# </summary>
+# --------------------------------------------------------------------------------------------------------------------
+
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $sut = (Split-Path -Leaf $MyInvocation.MyCommand.Path) -replace '\.Tests\.', '.'
 . "$here\$sut"
