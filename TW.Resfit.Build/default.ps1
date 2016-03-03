@@ -108,7 +108,7 @@ Task Build `
 
 Task Tests `
 	-description "Run all tests and generate code coverage report" `
-	-depends UnitTests, AcceptanceTests `
+	-depends UnitTests, AcceptanceTests, PesterTests `
 {
 	Write-Output "Generating test coverage report"
 
