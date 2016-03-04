@@ -38,7 +38,7 @@ Function New-Directory {
 	
 	if ($PSCmdlet.ShouldProcess($path)) {
 		New-Item -ItemType Directory $path -ErrorAction SilentlyContinue | Out-Null
-	}	
+	}
 }
 
 Function Remove-Contents {
