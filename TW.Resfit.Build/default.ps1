@@ -172,9 +172,10 @@ Task PesterTests `
 	-description "Run all PowerShell Pester tests" `
 {
 	$pesterTestsDirectory = Join-Path $solutionDirectory "TW.Resfit.Build"
+	$pesterResultsFile = Join-Path $testResultsDirectory PesterTests.xml
 
 	Exec {
-		& $pester $pesterTestsDirectory
+		& $pester $pesterTestsDirectory -OutputFile $pesterResultsFile -OutputFormat NUnitXml
 	}
 }
 
