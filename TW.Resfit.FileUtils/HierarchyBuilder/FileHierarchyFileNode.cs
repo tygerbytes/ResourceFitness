@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="FileHierarchyFileNode.cs" company="Tygertec">
-//   Copyright © 2016 Tyrone Walls.
+//   Copyright © 2016 Ty Walls.
 //   All rights reserved.
 // </copyright>
 // <summary>

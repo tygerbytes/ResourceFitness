@@ -76,7 +76,7 @@
       </Rules>
       <AnalyzerSettings>
         <StringProperty Name="CompanyName">Tygertec</StringProperty>
-        <StringProperty Name="Copyright">Copyright © 2016 Tyrone Walls.
+        <StringProperty Name="Copyright">Copyright © 2016 Ty Walls.
 All rights reserved.</StringProperty>
         <BooleanProperty Name="IgnorePrivates">True</BooleanProperty>
         <BooleanProperty Name="IgnoreInternals">True</BooleanProperty>

@@ -4,7 +4,7 @@
     <id>TW.Resfit.Core</id>
     <version>0.0.0.0</version>
     <title>Resfit</title>
-    <authors>Tyrone Walls</authors>
+    <authors>Ty Walls</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Resfit is a multipurpose tool for working with and mangling your resources (*.resx) in .NET.</description>    
   </metadata>
