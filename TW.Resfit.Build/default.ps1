@@ -17,6 +17,7 @@ properties {
 	$solutionFile = $(Get-ChildItem -Path $solutionDirectory -Filter *.sln | Select -First 1).FullName
 	
 	$outputDirectory = Join-Path $solutionDirectory ".build"
+	$buildProjectDirectory = Join-Path $SolutionDirectory "TW.Resfit.Build"
 	
 	$buildConfiguration = "Release"
 	$buildPlatform = "Any CPU"
@@ -39,13 +40,13 @@ properties {
 
 	$7zip = Join-Path $(Find-PackagePath $packageDirectory "7-Zip.CommandLine") "tools\7za.exe"
 	$releaseDirectory = Join-Path $outputDirectory "Release"
-
-	$buildProjectDirectory = Join-Path $SolutionDirectory "TW.Resfit.Build"
-
+	
 	$nuget = Join-Path $(Find-PackagePath $packageDirectory "NuGet.CommandLine") "tools\NuGet.exe"
 	$coreNuspec = Join-Path $buildProjectDirectory "TW.Resfit.Core.nuspec"
 
 	$version = $null
+
+	$git = Get-Command git -ErrorAction SilentlyContinue | Select-Object -First 1
 }
 
 Framework "4.5.2"
@@ -80,6 +81,8 @@ Task Check-Environment `
 		"NuGet CommandLine could not be found"
 	Assert (Test-Path $pester) `
 		"Pester.bat could not be found"
+	Assert ($git -ne $null) `
+		"Git is not in your command path. Install Git."
 }
 
 Task Clean `
@@ -235,5 +238,5 @@ Task Version `
 	
 	$script:version = $version
 
-	Write-CommonAssemblyInfo $buildProjectDirectory $version
+	Write-CommonAssemblyInfo $buildProjectDirectory $version $(Get-CommitHash)
 }

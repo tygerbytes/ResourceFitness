@@ -87,6 +87,16 @@ Describe "Write-CommonAssemblyInfo" {
 			Write-CommonAssemblyInfo $TestDrive "1.2.3.4"
 			"$TestDrive\CommonAssemblyInfo.cs" | Should Contain "1.2.3.4"
 		}
+	}
 
+	Context "When a commit hash is provided" {
+		Set-Content `
+			-Path "$TestDrive\CommonAssemblyInfo.template" `
+			-Value "Hello #__HASH__#!`r`n"
+
+		It "sets the commit hash" {
+			Write-CommonAssemblyInfo $TestDrive "1.2.3.4" "0123456789"
+			"$TestDrive\CommonAssemblyInfo.cs" | Should Contain "0123456789"
+		}
 	}
 }

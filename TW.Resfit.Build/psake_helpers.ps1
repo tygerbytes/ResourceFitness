@@ -30,6 +30,13 @@ Function Find-PackagePath {
 	return (Get-ChildItem -Path $pathWithWildcard).FullName | Sort-Object $PSItem | Select-Object -Last 1
 }
 
+Function Get-CommitHash {
+	[CmdletBinding()]
+
+	$hash = $(& $git rev-parse HEAD)
+	return $hash
+}
+
 Function New-Directory {
 	[CmdletBinding(SupportsShouldProcess=$true)]
 	Param([string]$path)
@@ -102,7 +109,8 @@ Function Write-CommonAssemblyInfo {
 	[CmdletBinding()]
 	Param(
 		[Parameter(Position=0,Mandatory=1)]$assemblyInfoDirectory,
-		[Parameter(Position=1,Mandatory=1)]$version
+		[Parameter(Position=1,Mandatory=1)]$version,
+		[Parameter(Position=2,Mandatory=0)]$commitHash
 	)
 
 	$templateFilePath = Join-Path $assemblyInfoDirectory "CommonAssemblyInfo.template"
@@ -119,6 +127,7 @@ Function Write-CommonAssemblyInfo {
 
 	$commonAssemblyInfo = $templateContents -replace "#__YEAR__#","$((Get-Date).Year)"
 	$commonAssemblyInfo = $commonAssemblyInfo -replace "#__VERSION__#","$version"
+	$commonAssemblyInfo = $commonAssemblyInfo -replace "#__HASH__#",$commitHash
 
 	Set-Content -Path $commonAssemblyInfoPath -Value $commonAssemblyInfo
 }

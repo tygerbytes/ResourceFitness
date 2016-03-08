@@ -35,3 +35,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("#__VERSION__#")]
 [assembly: AssemblyFileVersion("#__VERSION__#")]
+[assembly: AssemblyMetadata("commithash", "#__HASH__#")]
