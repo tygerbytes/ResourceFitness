@@ -47,6 +47,7 @@
     <None Include="..\build.ps1">
       <Link>build.ps1</Link>
     </None>
+    <None Include="CommonAssemblyInfo.template" />
     <None Include="default.ps1" />
     <None Include="psake_helpers.ps1" />
     <None Include="psake_helpers.Tests.ps1" />
