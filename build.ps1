@@ -10,10 +10,14 @@
 
 param([Parameter(Position=0, Mandatory=$false)] [string[]]$taskList=@())
 
+# Restore nuget packages required by the build script
+Write-Host "Restoring nuget packages required for the build"
+nuget restore -OutputDirectory .\packages -ConfigFile .\.nuget\packages.config -Verbosity quiet
+
 Remove-Module [p]sake
 
 # Find path to psake
-$psakeModule = (Get-ChildItem (".\Packages\psake*\tools\psake.psm1")).FullName | Sort-Object $PSItem | Select-Object -Last 1
+$psakeModule = (Get-ChildItem (".\packages\psake*\tools\psake.psm1")).FullName | Sort-Object $PSItem | Select-Object -Last 1
 
 Import-Module $psakeModule
 
