@@ -60,6 +60,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\TW.Resfit.Build\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="MatchAndReplace.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -64,6 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\TW.Resfit.Build\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="FileEnumerationTests.cs" />
     <Compile Include="FileHierarchyBuilderTests.cs" />
     <Compile Include="FileSystemTests.cs" />

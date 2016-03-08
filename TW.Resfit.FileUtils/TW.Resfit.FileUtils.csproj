@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\TW.Resfit.Build\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="HierarchyBuilder\FileHierarchyBuilder.cs" />
     <Compile Include="HierarchyBuilder\FileHierarchyFileNode.cs" />
     <Compile Include="HierarchyBuilder\FileHierarchyDirectoryNode.cs" />

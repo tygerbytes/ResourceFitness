@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\TW.Resfit.Build\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ITransform.cs" />
     <Compile Include="ResourceFormat.cs" />
     <Compile Include="Resource.cs" />

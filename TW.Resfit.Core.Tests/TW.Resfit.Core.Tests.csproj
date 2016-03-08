@@ -64,6 +64,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\TW.Resfit.Build\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ResourceFormatTests.cs" />
     <Compile Include="ResourceListTests.cs" />
     <Compile Include="ResourceReplacementTransformTests.cs" />
