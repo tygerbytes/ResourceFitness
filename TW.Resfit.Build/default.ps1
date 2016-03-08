@@ -40,8 +40,10 @@ properties {
 	$7zip = Join-Path $(Find-PackagePath $packageDirectory "7-Zip.CommandLine") "tools\7za.exe"
 	$releaseDirectory = Join-Path $outputDirectory "Release"
 
+	$buildProjectDirectory = Join-Path $SolutionDirectory "TW.Resfit.Build"
+
 	$nuget = Join-Path $(Find-PackagePath $packageDirectory "NuGet.CommandLine") "tools\NuGet.exe"
-	$coreNuspec = Join-Path $solutionDirectory "TW.Resfit.Build\TW.Resfit.Core.nuspec"
+	$coreNuspec = Join-Path $buildProjectDirectory "TW.Resfit.Core.nuspec"
 
 	$version = $null
 }
@@ -232,4 +234,6 @@ Task Version `
 	[string]$version = "0.$year.$day.$min"
 	
 	$script:version = $version
+
+	Write-CommonAssemblyInfo $buildProjectDirectory $version
 }

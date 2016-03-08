@@ -97,3 +97,28 @@ Function Run-Tests {
 						-returntargetcode 
 	}
 }
+
+Function Write-CommonAssemblyInfo {
+	[CmdletBinding()]
+	Param(
+		[Parameter(Position=0,Mandatory=1)]$assemblyInfoDirectory,
+		[Parameter(Position=1,Mandatory=1)]$version
+	)
+
+	$templateFilePath = Join-Path $assemblyInfoDirectory "CommonAssemblyInfo.template"
+	$commonAssemblyInfoPath = Join-Path $assemblyInfoDirectory "CommonAssemblyInfo.cs"
+
+	Write-Verbose "CommonAssemblyInfo.template: $templateFilePath"
+	Write-Verbose "CommonAssemblyInfo.cs: $commonAssemblyInfoPath"
+
+	if (!(Test-Path $templateFilePath)) {
+		throw "CommonAssemblyInfo.template not found at `"$templateFilePath`""
+	}
+
+	$templateContents = Get-Content $templateFilePath
+
+	$commonAssemblyInfo = $templateContents -replace "#__YEAR__#","$((Get-Date).Year)"
+	$commonAssemblyInfo = $commonAssemblyInfo -replace "#__VERSION__#","$version"
+
+	Set-Content -Path $commonAssemblyInfoPath -Value $commonAssemblyInfo
+}

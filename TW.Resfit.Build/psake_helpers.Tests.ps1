@@ -66,3 +66,27 @@ Describe "Remove-Directory" {
 		$dir | Should Not Exist
 	}
 }
+
+Describe "Write-CommonAssemblyInfo" {
+	It "requires an existing template file" {
+		{ Write-CommonAssemblyInfo "InvalidDir" "1.2.3.4" } | Should Throw "template not found"
+	}
+
+	Context "When there is an existing CommonAssemblyInfo.template" {
+		Set-Content `
+			-Path "$TestDrive\CommonAssemblyInfo.template" `
+			-Value "Line1`r`nLine2 Copyright #__YEAR__# Ty`r`nLine3 Vesion #__VERSION__#`r`nLine4 What what!"
+		
+		It "sets the current year" {
+			Mock Get-Date { return [datetime]"12/31/1999" }
+			Write-CommonAssemblyInfo $TestDrive "1.2.3.4"
+			"$TestDrive\CommonAssemblyInfo.cs" | Should Contain "1999"
+		}
+
+		It "sets the version number" {
+			Write-CommonAssemblyInfo $TestDrive "1.2.3.4"
+			"$TestDrive\CommonAssemblyInfo.cs" | Should Contain "1.2.3.4"
+		}
+
+	}
+}
