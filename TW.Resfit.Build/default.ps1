@@ -53,11 +53,12 @@ Framework "4.5.2"
 
 FormatTaskName ">>>-- Executing {0} Task -->"
 
-Task ? -description "List tasks" { WriteDocumentation }
+Task ? -description "List tasks" -alias "Help" { WriteDocumentation }
 
 Task Default -depends Package -description "Default task"
 
-Task BakeAndShake `
+Task BuildAndRunAllTests `
+	-alias "BakeAndShake" `
 	-description "Build solution and run all tests" `
 	-depends Build, Tests
 
