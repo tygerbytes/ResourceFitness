@@ -191,7 +191,7 @@ Task Package `
 
 Task PackageZip `
 	-description "Package the application as a zip file" `
-	-depends BakeAndShake `
+	-depends BuildAndRunAllTests `
 {
 	$assemblies = @(
 		"TW.Resfit.Console.dll",
@@ -214,7 +214,7 @@ Task PackageZip `
 
 Task PackageNuget `
 	-description "Package the application as a nuget package" `
-	-depends BakeAndShake `
+	-depends BuildAndRunAllTests `
 {
 	Assert ($script:version -ne $null) "The version string has not been built"
 
@@ -224,6 +224,21 @@ Task PackageNuget `
 			-outputdirectory "$releaseDirectory" `
 			-basepath "$releaseDirectory" 
 	}	
+}
+
+Task PublishNuget `
+	-description "Publish the nuget packages" `
+	-depends Package `
+{
+	Assert ($nugetApiKey -ne $null) "Set `$nugetApiKey in your PowerShell environment"
+
+	$nugetPackages = (Get-ChildItem -Path $releaseDirectory -Recurse *.nupkg).FullName
+
+	Exec {
+		ForEach($nupkg in $nugetPackages) {
+			& $nuget push -ApiKey $nugetApiKey $nupkg
+		}
+	}
 }
 
 Task Version `
