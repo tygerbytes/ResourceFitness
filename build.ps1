@@ -10,9 +10,15 @@
 
 param([Parameter(Position=0, Mandatory=$false)] [string[]]$taskList=@())
 
+# Make sure we have a version of the nuget executable
+$nuget = Get-Command NuGet -ErrorAction SilentlyContinue
+if ($nuget -eq $null) {
+	$nuget = ".\.nuget\NuGet.exe"
+}
+
 # Restore nuget packages required by the build script
-Write-Host "Restoring nuget packages required for the build"
-nuget restore -OutputDirectory .\packages -ConfigFile .\.nuget\packages.config -Verbosity quiet
+Write-Host "Restoring nuget packages required by the build"
+& $nuget restore -OutputDirectory .\packages -ConfigFile .\.nuget\packages.config -Verbosity quiet
 
 Remove-Module [p]sake
 
