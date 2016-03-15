@@ -187,7 +187,7 @@ Task PesterTests `
 
 Task Package `
 	-description "Create all packages" `
-	-depends PackageZip, PackageNuget
+	-depends PackageNuget
 
 Task PackageZip `
 	-description "Package the application as a zip file" `
@@ -214,7 +214,7 @@ Task PackageZip `
 
 Task PackageNuget `
 	-description "Package the application as a nuget package" `
-	-depends BuildAndRunAllTests `
+	-depends PackageZip `
 {
 	Assert ($script:version -ne $null) "The version string has not been built"
 
@@ -228,7 +228,7 @@ Task PackageNuget `
 
 Task PublishNuget `
 	-description "Publish the nuget packages" `
-	-depends Package `
+	-depends PackageNuget `
 {
 	Assert ($nugetApiKey -ne $null) "Set `$nugetApiKey in your PowerShell environment"
 
