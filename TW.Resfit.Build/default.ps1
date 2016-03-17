@@ -30,7 +30,7 @@ properties {
 	$openCover = Join-Path $(Find-PackagePath $packageDirectory "OpenCover") "tools\OpenCover.Console.exe"
 	$testCoverageDirectory = Join-Path $outputDirectory "TestCoverage"
 	$testCoverageReportPath = Join-Path $testCoverageDirectory "OpenCoverReport.xml"
-	$testCoverageFilter = "+[*]* -[*.Tests]* -[*.Requirements]*"
+	$testCoverageFilter = Quote-String("+[*]* -[*.Tests]* -[*.Requirements]*")
 	$testCoverageExclusionAttribute = "System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverageAttribute"
 	$testCoverageExcludeFiles = "*\*Designer.cs;*\*.g.cs;*.g.i.cs"
 
