@@ -14,6 +14,7 @@ namespace TW.Resfit.Core.Tests
     using NUnit.Framework;
     using Shouldly;
     using TW.Resfit.Core;
+    using TW.Resfit.Framework;
 
     [TestFixture]
     public class ResourceTests
@@ -58,11 +59,11 @@ namespace TW.Resfit.Core.Tests
 
             var xmlString = resource.ToXml().ToString();
 
-            const string ExpectedXml = 
+            const string ExpectedXml =
 @"<data name=""My_resource"" xml:space=""preserve"">
   <value>Banana's are quite good</value>
 </data>";
-            xmlString.ShouldBe(ExpectedXml);
+            xmlString.StripNewLines().ShouldBe(ExpectedXml.StripNewLines());
         }
 
         [Test]

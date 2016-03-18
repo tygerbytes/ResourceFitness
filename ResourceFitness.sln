@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Console", "TW.Res
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Framework", "TW.Resfit.Framework\TW.Resfit.Framework.csproj", "{74506590-9B3D-48D1-8E1E-56270B06F9CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TW.Resfit.Framework.Tests", "TW.Resfit.Framework.Tests\TW.Resfit.Framework.Tests.csproj", "{F77AADD3-6245-47CC-B3F3-93C96DDA0113}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -78,6 +80,10 @@ Global
 		{74506590-9B3D-48D1-8E1E-56270B06F9CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74506590-9B3D-48D1-8E1E-56270B06F9CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74506590-9B3D-48D1-8E1E-56270B06F9CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F77AADD3-6245-47CC-B3F3-93C96DDA0113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F77AADD3-6245-47CC-B3F3-93C96DDA0113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F77AADD3-6245-47CC-B3F3-93C96DDA0113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F77AADD3-6245-47CC-B3F3-93C96DDA0113}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,5 +94,6 @@ Global
 		{C08C82DE-CABC-466B-A39A-55A6C1E05F9E} = {78AEE656-0FDD-431E-8E8E-5763B13C8954}
 		{4A6A041C-BF0A-47C8-BC8A-3A6B4CBE8820} = {78AEE656-0FDD-431E-8E8E-5763B13C8954}
 		{63A7DBDC-85A8-4840-B3B7-ECB61DA93DA5} = {BAD6E16C-C332-4EB9-A919-D5DF4B857DF8}
+		{F77AADD3-6245-47CC-B3F3-93C96DDA0113} = {78AEE656-0FDD-431E-8E8E-5763B13C8954}
 	EndGlobalSection
 EndGlobal
