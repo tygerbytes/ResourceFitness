@@ -1,10 +1,10 @@
-# ResourceFitness (*Resfit*)
-
 Resfit is a multipurpose tool for working with and mangling your resources (*.resx) in .NET. 
 
 | | |
 | --- | --- |
 | **Build** | [![Build status](https://ci.appveyor.com/api/projects/status/pjxh5g91jpbh7t84?svg=true)](https://ci.appveyor.com/project/tygerbytes/resourcefitness) |
+
+[![Build history](https://buildstats.info/appveyor/chart/tygerbytes/resourcefitness)](https://ci.appveyor.com/project/tygerbytes/resourcefitness/history)
 
 ## For example,
 In large projects, even renaming resource keys can be a time-consuming chore. At its heart, *Resfit* allows you to load resources from your source files as `ResourceList` objects and then attach one or more "transforms" (`ITranform`) to any `Resource` within the `ResourceList` - For instance, a `ResourceReplacementTransform` will replace the resource it's attached to with a brand new resource (key and value) of your making. After attaching one or more of these "transforms" to your resources, simply execute `TransformFolder` on the ResourceList, and all of the resources within the supplied folder path will be transformed. Voila!
