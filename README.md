@@ -1,4 +1,4 @@
-Resfit is a multipurpose tool for working with and mangling your resources (*.resx) in .NET. 
+Resource Fitness (*Resfit*) is a multipurpose tool for working with and mangling your resources (*.resx) in .NET. 
 
 | | |
 | --- | --- |
