@@ -6,7 +6,8 @@
     <title>Resfit</title>
     <authors>Ty Walls</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Resfit is a multipurpose tool for working with and mangling your resources (*.resx) in .NET.</description>    
+    <description>Resfit is a multipurpose tool for working with and mangling your resources (*.resx) in .NET.</description>
+    <projectUrl>https://github.com/tygerbytes/ResourceFitness</projectUrl>
   </metadata>
   <files>
    <file src="TW.Resfit.Core.dll" target="lib\net452" />
