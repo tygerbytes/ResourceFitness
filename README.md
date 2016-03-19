@@ -1,16 +1,18 @@
-Resource Fitness (*Resfit*) is a multipurpose tool for working with and mangling your resources (*.resx) in .NET. 
+# Resource Fitness (*Resfit*)
+Resfit is a multipurpose tool for working with and mangling your resources (*.resx) in .NET. 
 
 | | |
 | --- | --- |
 | **Build** | [![Build status](https://ci.appveyor.com/api/projects/status/pjxh5g91jpbh7t84?svg=true)](https://ci.appveyor.com/project/tygerbytes/resourcefitness) |
+| **OpenCover** | [![Coveralls](https://coveralls.io/repos/github/tygerbytes/ResourceFitness/badge.svg?branch=master)](https://coveralls.io/github/tygerbytes/ResourceFitness?branch=master) |
 
 [![Build history](https://buildstats.info/appveyor/chart/tygerbytes/resourcefitness)](https://ci.appveyor.com/project/tygerbytes/resourcefitness/history)
 
-## For example,
+## Why Resfit?
 In large projects, even renaming resource keys can be a time-consuming chore. At its heart, *Resfit* allows you to load resources from your source files as `ResourceList` objects and then attach one or more "transforms" (`ITranform`) to any `Resource` within the `ResourceList` - For instance, a `ResourceReplacementTransform` will replace the resource it's attached to with a brand new resource (key and value) of your making. After attaching one or more of these "transforms" to your resources, simply execute `TransformFolder` on the ResourceList, and all of the resources within the supplied folder path will be transformed. Voila!
 
 ## Build it / Use it
-Resfit is still a wobbling toddler and is only a code library. As always, use it at your own risk. (Remember, "toddler".) To build it, just clone the repo and run `.\build` from PowerShell. (You will need nuget and msbuild in your path.) Everything will be built in the `.build` folder. From there you can grab the `*.dll`s you need and drop them into your project.
+Resfit is still a wobbling toddler and is only a code library. As always, use it at your own risk. (Remember, "toddler".) To build it, just clone the repo and run `.\build` from PowerShell. (You will need msbuild in your path.) Everything will be built in the `.build` folder. From there you can grab the `*.dll`s you need and drop them into your project.
 
 ### Coming soon
  - A PowerShell driver
