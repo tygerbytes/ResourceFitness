@@ -44,6 +44,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\appveyor.yml">
+      <Link>appveyor.yml</Link>
+    </None>
     <None Include="..\build.ps1">
       <Link>build.ps1</Link>
     </None>

@@ -44,6 +44,8 @@ properties {
 	$nuget = Join-Path $(Find-PackagePath $packageDirectory "NuGet.CommandLine") "tools\NuGet.exe"
 	$coreNuspec = Join-Path $buildProjectDirectory "TW.Resfit.Core.nuspec"
 
+	$coveralls = Join-Path $(Find-PackagePath $packageDirectory "coveralls.io") "tools\coveralls.net.exe"
+
 	$version = $null
 
 	$git = Get-Command git -ErrorAction SilentlyContinue | Select-Object -First 1
@@ -82,6 +84,8 @@ Task Check-Environment `
 		"NuGet CommandLine could not be found"
 	Assert (Test-Path $pester) `
 		"Pester.bat could not be found"
+	Assert ($coveralls -ne $null) `
+		"Coveralls could not be found"
 	Assert ($git -ne $null) `
 		"Git is not in your command path. Install Git."
 }
@@ -120,11 +124,15 @@ Task Tests `
 
 	if (Test-Path $testCoverageReportPath) {
 		Exec { & $reportGenerator $testCoverageReportPath $testCoverageDirectory }
+
+		if ($env:APPVEYOR) {
+			# Tell Coveralls about the report
+			& $coveralls --opencover $testCoverageReportPath
+		}
 	}
 	else {
 		Write-Output "OpenCover results not found at ($testCoverageReportPath)"
 	}
-
 }
 
 Task UnitTests `

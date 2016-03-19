@@ -8,3 +8,6 @@ init:
 build_script:
 - ps: .\build BuildAndRunAllTests
 test: off
+environment:
+	COVERALLS_REPO_TOKEN:
+		secure: BwQmNyV7DWMyQ19aCRlXJRgGEZ8c8lg9YBvW2bGwIzZIsXFBHUDgTJ+QNIzYBC51
