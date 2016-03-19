@@ -15,10 +15,10 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 properties {
 	$solutionDirectory = Split-Path -Parent $here
 	$solutionFile = $(Get-ChildItem -Path $solutionDirectory -Filter *.sln | Select -First 1).FullName
-	
+
 	$outputDirectory = Join-Path $solutionDirectory ".build"
 	$buildProjectDirectory = Join-Path $SolutionDirectory "TW.Resfit.Build"
-	
+
 	$buildConfiguration = "Release"
 	$buildPlatform = "Any CPU"
 
@@ -40,7 +40,7 @@ properties {
 
 	$7zip = Join-Path $(Find-PackagePath $packageDirectory "7-Zip.CommandLine") "tools\7za.exe"
 	$releaseDirectory = Join-Path $outputDirectory "Release"
-	
+
 	$nuget = Join-Path $(Find-PackagePath $packageDirectory "NuGet.CommandLine") "tools\NuGet.exe"
 	$coreNuspec = Join-Path $buildProjectDirectory "TW.Resfit.Core.nuspec"
 
@@ -89,7 +89,7 @@ Task Check-Environment `
 Task Clean `
 	-description "Clean up build cruft and initialize build folder structure" `
 	-depends Check-Environment `
-{	
+{
 	New-Directory $outputDirectory
 	Remove-Contents $outputDirectory
 
@@ -134,7 +134,7 @@ Task UnitTests `
 {
 	$assemblies = Get-ChildItem -Path $outputDirectory *.Tests.dll `
 		| ForEach-Object { Quote-String($PSItem.FullName) }
-	
+
 	$testResultsXml = Quote-String("$testResultsDirectory\{0}Results.xml" -f $Task.Name)
 	$testOutput = $testResultsXml -replace 'xml','txt'
 
@@ -159,7 +159,7 @@ Task AcceptanceTests `
 	$assemblies = Get-ChildItem -Path $outputDirectory *.Requirements.dll `
 		| Where-Object { $PSItem.Name -NotMatch "Framework" } `
 		| ForEach-Object { Quote-String($PSItem.FullName) }
-	
+
 	$testResultsXml = Quote-String("$testResultsDirectory\{0}Results.xml" -f $Task.Name)
 	$testOutput = $testResultsXml -replace 'xml','txt'
 
@@ -197,7 +197,7 @@ Task PackageZip `
 		"TW.Resfit.Console.dll",
 		"TW.Resfit.Core.dll",
 		"TW.Resfit.FileUtils.dll",
-		"TW.Resfit.Framework.dll"		
+		"TW.Resfit.Framework.dll"
 		# ...
 	)
 
@@ -218,12 +218,12 @@ Task PackageNuget `
 {
 	Assert ($script:version -ne $null) "The version string has not been built"
 
-    Exec { 
+    Exec {
 		& $nuget pack $coreNuspec `
 			-version $script:version `
 			-outputdirectory "$releaseDirectory" `
-			-basepath "$releaseDirectory" 
-	}	
+			-basepath "$releaseDirectory"
+	}
 }
 
 Task PublishNuget `
@@ -251,8 +251,12 @@ Task Version `
 	$min = [int]$today.TimeOfDay.TotalMinutes
 
 	[string]$version = "0.$year.$day.$min"
-	
+
 	$script:version = $version
+
+	if ($env:APPVEYOR) {
+		Update-AppveyorBuild -Version $version
+	}
 
 	Write-CommonAssemblyInfo $buildProjectDirectory $version $(Get-CommitHash)
 }
