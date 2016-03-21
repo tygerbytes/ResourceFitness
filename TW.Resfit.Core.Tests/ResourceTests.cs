@@ -11,6 +11,8 @@
 namespace TW.Resfit.Core.Tests
 {
     using System.IO;
+    using System.Linq;
+
     using NUnit.Framework;
     using Shouldly;
     using TW.Resfit.Core;
@@ -53,6 +55,20 @@ namespace TW.Resfit.Core.Tests
         }
 
         [Test]
+        public void CloningConstructorShouldDeepCopyEverything()
+        {
+            var resource = new Resource("My+Resource", "This is my resource", new ResourceFormat('+', "New_format"));
+            resource.Transforms.Add(new ResourceReplacementTransform(new Resource("New_Resource")));
+
+            var clone = new Resource(resource);
+
+            clone.Key.ShouldBe(resource.Key);
+            clone.Value.ShouldBe(resource.Value);
+            clone.Transforms.First().ShouldBe(resource.Transforms.First());
+            clone.ResourceFormat.ShouldBe(resource.ResourceFormat);
+        }
+
+        [Test]
         public void ShouldConvertToXml()
         {
             var resource = new Resource("My_resource", "Banana's are quite good");
@@ -83,6 +99,18 @@ namespace TW.Resfit.Core.Tests
             resource1.CompareTo(resource2).ShouldBeLessThan(0);
             resource2.CompareTo(resource1).ShouldBeGreaterThan(0);
             resource1.CompareTo(resource1).ShouldBe(0);
+        }
+
+        [Test]
+        public void CanCompareTwoResourcesForEqualityExcludingTransforms()
+        {
+            var resource1 = new Resource("My_Apple", "This is my apple", ResourceFormat.Default);
+            resource1.Transforms.Add(new ResourceReplacementTransform(new Resource("My_Orange")));
+
+            var resource2 = new Resource("My_Apple", "This is my apple", ResourceFormat.Default);
+            resource1.Transforms.Add(new ResourceReplacementTransform(new Resource("My_Peach")));
+
+            resource1.ShouldBe(resource2, "The two resources should be equal");
         }
     }
 }
