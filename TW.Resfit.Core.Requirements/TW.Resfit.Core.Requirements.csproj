@@ -63,6 +63,11 @@
     <Compile Include="..\TW.Resfit.Build\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="FilterResources.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FilterResources.feature</DependentUpon>
+    </Compile>
     <Compile Include="MatchAndReplace.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,6 +78,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="FilterResources.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FilterResources.feature.cs</LastGenOutput>
+    </None>
     <None Include="MatchAndReplace.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>MatchAndReplace.feature.cs</LastGenOutput>
