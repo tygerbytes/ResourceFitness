@@ -14,7 +14,7 @@ namespace TW.Resfit.Core
     {
         static ResourceFormat()
         {
-            Default = new ResourceFormat('_', "Default");
+            Default = new ResourceFormat('_', "NoFilter");
         }
 
         public ResourceFormat(char separator, string name = null)

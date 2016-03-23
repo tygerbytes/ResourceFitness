@@ -56,11 +56,11 @@ namespace TW.Resfit.Core.Requirements
         {
             this.Context.ResourceList = XmlResourceParser.ParseAsResourceList(this.Context.Xml);
 
-            this.Context.ResourceList.Count.ShouldBe(3);
+            this.Context.ResourceList.Count.ShouldBe(5);
             this.Context.ResourceList.First().Key.ShouldBe("Resfit_Tests_Banana_Resource_One");
             this.Context.ResourceList.First().Value.ShouldBe("This is the first Banana resource in the file");
-            this.Context.ResourceList.Last().Key.ShouldBe("Resfit_Tests_Banana_Resource_Three");
-            this.Context.ResourceList.Last().Value.ShouldBe("This is the third Banana resource in the file");
+            this.Context.ResourceList.Last().Key.ShouldBe("Resfit_Tests_Kiwi_Resource_Two");
+            this.Context.ResourceList.Last().Value.ShouldBe("This is the second Kiwi resource in the file");
         }
 
         [Given(@"a list of resources")]

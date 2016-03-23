@@ -1,4 +1,4 @@
-﻿Feature: FilterResources
+﻿Feature: Filter Resources
 	In order to load only pertinent resources
 	As a developer or documenter
 	I want to be able to filter resources based on a criteria I provide

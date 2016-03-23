@@ -73,6 +73,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MatchAndReplace.feature</DependentUpon>
     </Compile>
+    <Compile Include="FilterResourcesSteps.cs" />
     <Compile Include="MatchAndReplaceSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -17,8 +17,13 @@ namespace TW.Resfit.Core
 
     public class XmlResourceParser
     {
-        public static ResourceList ParseAsResourceList(XElement xmlDocument)
+        public static ResourceList ParseAsResourceList(XElement xmlDocument, ResourceFilter filter = null)
         {
+            if (filter == null)
+            {
+                filter = ResourceFilter.NoFilter;
+            }
+
             var resourceList = new ResourceList();
 
             foreach (var resourceElement in xmlDocument.Elements())
@@ -29,6 +34,12 @@ namespace TW.Resfit.Core
                 }
 
                 var key = resourceElement.Attribute("name").Value;
+
+                if (!filter.KeyIsMatch(key))
+                {
+                    continue;
+                }
+
                 var valueElement = resourceElement.Element("value");
 
                 var value = string.Empty;
@@ -38,20 +49,25 @@ namespace TW.Resfit.Core
                     value = valueElement.Value;
                 }
 
+                if (!filter.ValueIsMatch(value))
+                {
+                    continue;
+                }
+
                 resourceList.Add(new Resource(key, value));
             }
 
             return resourceList;
         }
 
-        public static ResourceList ParseAsResourceList(string xmlString)
+        public static ResourceList ParseAsResourceList(string xmlString, ResourceFilter filter = null)
         {
             var xmlDocument = XElement.Parse(xmlString);
 
-            return ParseAsResourceList(xmlDocument);
+            return ParseAsResourceList(xmlDocument, filter);
         }
 
-        public static ResourceList ParseAllResourceFiles(IFileSystem fileSystem, string folderPath)
+        public static ResourceList ParseAllResourceFiles(IFileSystem fileSystem, string folderPath, ResourceFilter filter = null)
         {
             var resourceList = new ResourceList();
 
@@ -60,7 +76,7 @@ namespace TW.Resfit.Core
             foreach (var file in fileSystem.AllFiles(folderPath, null, fileExtensionWhitelist))
             {
                 var xml = fileSystem.LoadXmlFile(file.FullName);
-                resourceList.Merge(ParseAsResourceList(xml));
+                resourceList.Merge(ParseAsResourceList(xml, filter));
             }
 
             return resourceList;

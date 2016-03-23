@@ -18,7 +18,7 @@ namespace TW.Resfit.Core.Requirements
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.0.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("FilterResources")]
+    [NUnit.Framework.DescriptionAttribute("Filter Resources")]
     public partial class FilterResourcesFeature
     {
         
@@ -31,7 +31,7 @@ namespace TW.Resfit.Core.Requirements
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "FilterResources", "\tIn order to load only pertinent resources\r\n\tAs a developer or documenter\r\n\tI wan" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Filter Resources", "\tIn order to load only pertinent resources\r\n\tAs a developer or documenter\r\n\tI wan" +
                     "t to be able to filter resources based on a criteria I provide", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }

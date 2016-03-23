@@ -85,6 +85,12 @@ namespace TW.Resfit.FileUtils.HierarchyBuilder
   <data name=""Resfit_Tests_Banana_Resource_Three"" xml:space=""preserve"">
     <value>This is the third Banana resource in the file</value>
   </data>
+  <data name=""Resfit_Tests_Kiwi_Resource_One"" xml:space=""preserve"">
+    <value>This is the first Kiwi resource in the file</value>
+  </data>
+  <data name=""Resfit_Tests_Kiwi_Resource_Two"" xml:space=""preserve"">
+    <value>This is the second Kiwi resource in the file</value>
+  </data>
 </root>
 ";
 
@@ -113,7 +119,7 @@ public static void DoStuff()
         public static void CreateSampleFileHierarchy(IFileSystem fileSystem, string rootPath)
         {
             var builder = new FileHierarchyBuilder(rootPath);
-            
+
             builder.AddFiles(
                 new[]
                     {

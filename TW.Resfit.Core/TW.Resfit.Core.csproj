@@ -44,6 +44,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ITransform.cs" />
+    <Compile Include="ResourceFilter.cs" />
     <Compile Include="ResourceFormat.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
