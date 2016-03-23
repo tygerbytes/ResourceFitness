@@ -12,6 +12,8 @@ namespace TW.Resfit.Core.Tests
 {
     using System.IO;
     using System.Linq;
+    using System.Text.RegularExpressions;
+
     using NUnit.Framework;
     using Shouldly;
     using TW.Resfit.Core;
@@ -105,6 +107,16 @@ namespace TW.Resfit.Core.Tests
             var orange = oranges.First();
             orange.Key.ShouldBe("Resfit_Tests_Orange_Resource_One");
             orange.Value.ShouldBe("My orange is taking over the world");
+        }
+
+        [Test]
+        public void CanFilterResourcesOnClone()
+        {
+            var list = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlResourceString);
+
+            var newList = list.Clone(new ResourceFilter { KeyRegex = new Regex(@"Kiwi") });
+
+            newList.ShouldAllBe(x => x.Key.Contains("Kiwi"));
         }
     }
 }

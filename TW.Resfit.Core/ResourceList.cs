@@ -33,11 +33,16 @@ namespace TW.Resfit.Core
             }
         }
 
-        public ResourceList Clone()
+        public ResourceList Clone(ResourceFilter filter = null)
         {
+            if (filter == null)
+            {
+                filter = ResourceFilter.NoFilter;
+            }
+
             var clonedList = new ResourceList();
 
-            foreach (var resource in this)
+            foreach (var resource in this.Where(resource => filter.IsMatch(resource)))
             {
                 clonedList.Add(new Resource(resource));
             }
@@ -65,7 +70,7 @@ namespace TW.Resfit.Core
             foreach (var fileInfo in FileSystem.Instance.AllFiles(folderPath, null, whiteList))
             {
                 var fileText = fileSystem.LoadFile(fileInfo.FullName);
-                
+
                 // Does this file require changes?
                 var makeChanges =
                     this.Resources.Where(x => x.Transforms.Any())
