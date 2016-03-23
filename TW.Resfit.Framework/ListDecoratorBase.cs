@@ -12,7 +12,9 @@ namespace TW.Resfit.Framework
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
 
+    [ExcludeFromCodeCoverage]
     public abstract class ListDecoratorBase<T> : IList<T>
     {
         protected readonly List<T> Items = new List<T>();
