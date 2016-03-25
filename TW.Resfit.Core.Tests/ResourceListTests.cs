@@ -17,6 +17,7 @@ namespace TW.Resfit.Core.Tests
     using NUnit.Framework;
     using Shouldly;
     using TW.Resfit.Core;
+    using TW.Resfit.Core.Transforms;
     using TW.Resfit.FileUtils.HierarchyBuilder;
     using TW.Resfit.Framework.Testing;
 

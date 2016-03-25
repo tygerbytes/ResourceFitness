@@ -1,6 +1,6 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="ResourceReplacementTransform.cs" company="Tygertec">
-//   Copyright © 2016 Ty Walls.
+//   Copyright � 2016 Ty Walls.
 //   All rights reserved.
 // </copyright>
 // <summary>
@@ -8,7 +8,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace TW.Resfit.Core
+namespace TW.Resfit.Core.Transforms
 {
     using System.Linq;
     using System.Text.RegularExpressions;
@@ -30,7 +30,7 @@ namespace TW.Resfit.Core
                 return this.replacementResource;
             }
         }
-        
+
         public void Transform(ref string sourceFile, Resource originalResource)
         {
             // Since it's a source file (*.cs), we only have to replace the key

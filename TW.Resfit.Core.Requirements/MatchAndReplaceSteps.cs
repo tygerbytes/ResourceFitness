@@ -14,6 +14,7 @@ namespace TW.Resfit.Core.Requirements
     using StronglyTypedContext;
     using TechTalk.SpecFlow;
     using TW.Resfit.Core;
+    using TW.Resfit.Core.Transforms;
     using TW.Resfit.FileUtils.HierarchyBuilder;
     using TW.Resfit.Framework.Requirements;
 

@@ -10,13 +10,13 @@
 
 namespace TW.Resfit.Core.Tests
 {
-    using System;
     using System.Linq;
     using System.Xml.Linq;
 
     using NUnit.Framework;
     using Shouldly;
     using TW.Resfit.Core;
+    using TW.Resfit.Core.Transforms;
     using TW.Resfit.FileUtils.HierarchyBuilder;
     using TW.Resfit.Framework.Testing;
 
@@ -38,7 +38,7 @@ namespace TW.Resfit.Core.Tests
         [Test]
         public void ShouldReplaceKeyInText()
         {
-            const string BeforeReplace = 
+            const string BeforeReplace =
 @"Line1: Some stuff with My_Old_Resource
 Line2: Some more stuff with My_Old_Resource in it
 My_Old_Resource snuck in at the beginning of Line3;";
@@ -47,7 +47,7 @@ My_Old_Resource snuck in at the beginning of Line3;";
             var newResource = new Resource(
                 "My_New_Resource",
                 "This is a new resource, he played knick knack on my shoe.");
-            
+
             oldResource.Transforms.Add(new ResourceReplacementTransform(newResource));
 
             var fileContent = BeforeReplace;

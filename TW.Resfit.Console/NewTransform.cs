@@ -10,6 +10,7 @@ namespace TW.Resfit.Console
     using System;
     using System.Management.Automation;
     using TW.Resfit.Core;
+    using TW.Resfit.Core.Transforms;
 
     [Cmdlet(VerbsCommon.New, "Transform")]
     public class NewTransform : PSCmdlet
