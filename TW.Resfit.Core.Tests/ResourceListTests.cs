@@ -92,7 +92,7 @@ namespace TW.Resfit.Core.Tests
 
             appleResourceOne.Transforms.Add(new ResourceReplacementTransform(replacementOrangeOne));
 
-            apples.TransformFolder(path);
+            apples.TransformDirectory(path);
 
             // -- Verify the files were changed as expected
             var changedAppleSourceFile = this.FileSystem.LoadFile(Path.Combine(path, "Apples.cs"));

@@ -91,7 +91,7 @@ Task Check-Environment `
 }
 
 Task Clean `
-	-description "Clean up build cruft and initialize build folder structure" `
+	-description "Clean up build cruft and initialize build directory structure" `
 	-depends Check-Environment `
 {
 	New-Directory $outputDirectory

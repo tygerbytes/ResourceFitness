@@ -61,13 +61,13 @@ namespace TW.Resfit.Core
             }
         }
 
-        public void TransformFolder(string folderPath)
+        public void TransformDirectory(string path)
         {
             //// TODO: Break this behavior out into a separate "helper" class
             var fileSystem = FileSystem.Instance;
 
             var whiteList = new Regex(@"\.(?:resx|cs)$");
-            foreach (var fileInfo in FileSystem.Instance.AllFiles(folderPath, null, whiteList))
+            foreach (var fileInfo in FileSystem.Instance.AllFiles(path, null, whiteList))
             {
                 var fileText = fileSystem.LoadFile(fileInfo.FullName);
 

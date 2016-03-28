@@ -20,24 +20,24 @@ namespace TW.Resfit.FileUtils.Tests
     public class FileHierarchyBuilderTests : UnitTests
     {
         [Test]
-        public void ShouldCreateFolderAtRootNode()
+        public void ShouldCreateDirecoryAtRootNode()
         {
             var rootPath = SampleData.GenerateRandomTempPath("FileHierarchyBuilderTests");
 
             new FileHierarchyBuilder(rootPath).Execute(this.FileSystem);
 
-            Directory.Exists(rootPath).ShouldBe(true, string.Format("AddDirectory does not exist: {0}", rootPath));
+            Directory.Exists(rootPath).ShouldBe(true, string.Format("Directory does not exist: {0}", rootPath));
         }
 
         [Test]
-        public void ShouldCreateSubFolder()
+        public void ShouldCreateSubDirectory()
         {
             var rootPath = SampleData.GenerateRandomTempPath("FileHierarchyBuilderTests");
 
-            new FileHierarchyBuilder(rootPath).AddDirectory("SubFolder").Execute(this.FileSystem);
+            new FileHierarchyBuilder(rootPath).AddDirectory("SubDirectory").Execute(this.FileSystem);
 
-            var pathToFolder = Path.Combine(rootPath, "SubFolder");
-            Directory.Exists(pathToFolder).ShouldBe(true, string.Format("AddDirectory does not exist: {0}", pathToFolder));
+            var pathToDirectory = Path.Combine(rootPath, "SubDirectory");
+            Directory.Exists(pathToDirectory).ShouldBe(true, string.Format("Directory does not exist: {0}", pathToDirectory));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace TW.Resfit.FileUtils.Tests
 
             var builder = new FileHierarchyBuilder(rootPath);
             builder.AddFiles(new[] { new FileNode("RootFile01.txt", "Contents of root file 01") })
-                .AddDirectory("SubFolder")
+                .AddDirectory("SubDirectory")
                 .AddFiles(
                     new[]
                         {
@@ -58,8 +58,8 @@ namespace TW.Resfit.FileUtils.Tests
             builder.Execute(this.FileSystem);
 
             var pathToRootFile1 = Path.Combine(rootPath, "RootFile01.txt");
-            var pathToFile1 = Path.Combine(rootPath, "SubFolder", "File01.txt");
-            var pathToFile2 = Path.Combine(rootPath, "SubFolder", "File02.txt");
+            var pathToFile1 = Path.Combine(rootPath, "SubDirectory", "File01.txt");
+            var pathToFile2 = Path.Combine(rootPath, "SubDirectory", "File02.txt");
 
             File.Exists(pathToRootFile1).ShouldBe(true, string.Format("File doesn't exist: {0}", pathToRootFile1));
             File.Exists(pathToFile1).ShouldBe(true, string.Format("File doesn't exist: {0}", pathToFile1));

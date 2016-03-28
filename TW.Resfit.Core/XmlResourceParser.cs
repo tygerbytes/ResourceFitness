@@ -67,13 +67,13 @@ namespace TW.Resfit.Core
             return ParseAsResourceList(xmlDocument, filter);
         }
 
-        public static ResourceList ParseAllResourceFiles(IFileSystem fileSystem, string folderPath, ResourceFilter filter = null)
+        public static ResourceList ParseAllResourceFiles(IFileSystem fileSystem, string path, ResourceFilter filter = null)
         {
             var resourceList = new ResourceList();
 
             var fileExtensionWhitelist = new Regex(@"\.resx$");
 
-            foreach (var file in fileSystem.AllFiles(folderPath, null, fileExtensionWhitelist))
+            foreach (var file in fileSystem.AllFiles(path, null, fileExtensionWhitelist))
             {
                 var xml = fileSystem.LoadXmlFile(file.FullName);
                 resourceList.Merge(ParseAsResourceList(xml, filter));

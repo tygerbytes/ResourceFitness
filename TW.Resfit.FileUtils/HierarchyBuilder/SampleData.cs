@@ -128,7 +128,7 @@ public static void DoStuff()
                         new FileNode("Apples.resx", SampleXmlFruitResourceString("Apple")),
                         new FileNode("Apples.cs", SampleFruitySourceFile("Apple"))
                     })
-                .AddDirectory("Folder1")
+                .AddDirectory("Directory1")
                 .AddFiles(
                     new[]
                         {

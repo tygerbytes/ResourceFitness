@@ -12,8 +12,8 @@ namespace TW.Resfit.FileUtils.HierarchyBuilder
 {
     public class FileHierarchyBuilder : FileHierarchyDirectoryNode
     {
-        public FileHierarchyBuilder(string fullFolderPath)
-            : base(fullFolderPath)
+        public FileHierarchyBuilder(string fullDirectoryPath)
+            : base(fullDirectoryPath)
         {
         }
     }

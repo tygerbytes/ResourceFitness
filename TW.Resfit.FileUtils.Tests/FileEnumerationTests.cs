@@ -21,7 +21,7 @@ namespace TW.Resfit.FileUtils.Tests
     [TestFixture]
     public class FileEnumerationTests : UnitTests
     {
-        private string TestDirectoryPath { get; set; } 
+        private string TestDirectoryPath { get; set; }
 
         [OneTimeSetUp]
         public void SetupFixture()
@@ -39,9 +39,9 @@ namespace TW.Resfit.FileUtils.Tests
         [Test]
         public void ShouldIgnoreBlacklistedDirectories()
         {
-            var folderBlacklist = new Regex(@"Folder1");
-            var files = this.FileSystem.AllFiles(this.TestDirectoryPath, folderBlacklist).Select(x => x.DirectoryName);
-            files.ShouldNotContain(x => x.Contains(@"\Folder1"));
+            var directoryBlackList = new Regex(@"Directory1");
+            var files = this.FileSystem.AllFiles(this.TestDirectoryPath, directoryBlackList).Select(x => x.DirectoryName);
+            files.ShouldNotContain(x => x.Contains(@"\Directory1"));
         }
 
         [Test]

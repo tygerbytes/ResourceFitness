@@ -15,19 +15,19 @@ namespace TW.Resfit.FileUtils.HierarchyBuilder
 
     public class FileHierarchyDirectoryNode : IFileHierarchyBuilder
     {
-        private readonly string fullFolderPath;
+        private readonly string fullDirectoryPath;
 
         private readonly List<IFileHierarchyBuilder> children;
 
-        public FileHierarchyDirectoryNode(string fullFolderPath)
+        public FileHierarchyDirectoryNode(string fullDirectoryPath)
         {
-            this.fullFolderPath = fullFolderPath;
+            this.fullDirectoryPath = fullDirectoryPath;
             this.children = new List<IFileHierarchyBuilder>();
         }
 
         public void Execute(IFileSystem fileSystem)
         {
-            fileSystem.CreateDirectory(this.fullFolderPath);
+            fileSystem.CreateDirectory(this.fullDirectoryPath);
 
             foreach (var fileHierarchyNode in this.children)
             {
@@ -35,10 +35,10 @@ namespace TW.Resfit.FileUtils.HierarchyBuilder
             }
         }
 
-        public FileHierarchyDirectoryNode AddDirectory(string subfolder)
+        public FileHierarchyDirectoryNode AddDirectory(string subdirectory)
         {
-            var pathToFolder = Path.Combine(this.fullFolderPath, subfolder);
-            var builderNode = new FileHierarchyDirectoryNode(pathToFolder);
+            var pathToDirectory = Path.Combine(this.fullDirectoryPath, subdirectory);
+            var builderNode = new FileHierarchyDirectoryNode(pathToDirectory);
             this.children.Add(builderNode);
             return builderNode;
         }
@@ -47,7 +47,7 @@ namespace TW.Resfit.FileUtils.HierarchyBuilder
         {
             foreach (var fileNode in files)
             {
-                var pathToFile = Path.Combine(this.fullFolderPath, fileNode.Name);
+                var pathToFile = Path.Combine(this.fullDirectoryPath, fileNode.Name);
                 this.children.Add(new FileHierarchyFileNode(pathToFile, fileNode.Contents));
             }
 

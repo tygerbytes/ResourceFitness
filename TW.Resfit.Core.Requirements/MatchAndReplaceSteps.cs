@@ -32,7 +32,7 @@ namespace TW.Resfit.Core.Requirements
 
             Resource ReplacementResource { get; set; }
 
-            string FolderPath { get; set; }
+            string DirectoryPath { get; set; }
         }
 
         [ScenarioContext]
@@ -94,10 +94,10 @@ namespace TW.Resfit.Core.Requirements
         [Given(@"a list of resources with matches")]
         public void GivenAListOfResourcesWithMatches()
         {
-            this.Context.FolderPath = SampleData.GenerateRandomTempPath("MatchAndReplaceTests");
-            this.GenerateSampleSourceFiles(this.Context.FolderPath);
+            this.Context.DirectoryPath = SampleData.GenerateRandomTempPath("MatchAndReplaceTests");
+            this.GenerateSampleSourceFiles(this.Context.DirectoryPath);
 
-            this.Context.ResourceList = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.FolderPath);
+            this.Context.ResourceList = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.DirectoryPath);
 
             this.Context.ResourceList.First().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_Banana_Resource_OneReplacement", "One replaced")));
             this.Context.ResourceList.Last().Transforms.Add(new ResourceReplacementTransform(new Resource("Resfit_Tests_Banana_Resource_ThreeReplacement", "Three replaced")));
@@ -111,13 +111,13 @@ namespace TW.Resfit.Core.Requirements
         [When(@"I initiate a batch resource replacement command")]
         public void WhenIInitiateABatchResourceReplacementCommand()
         {
-            this.Context.ResourceList.TransformFolder(this.Context.FolderPath);
+            this.Context.ResourceList.TransformDirectory(this.Context.DirectoryPath);
         }
 
         [Then(@"all of the existing resources from the resource list will be replaced with their matches")]
         public void ThenAllOfTheExistingResourcesFromTheResourceListWillBeReplacedWithTheirMatches()
         {
-            var modifiedResources = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.FolderPath);
+            var modifiedResources = XmlResourceParser.ParseAllResourceFiles(this.FileSystem, this.Context.DirectoryPath);
 
             var expectedResources = this.Context.ResourceList.TransformSelfIntoNewList();
 
@@ -125,17 +125,17 @@ namespace TW.Resfit.Core.Requirements
             modifiedResources.ShouldBeSubsetOf(expectedResources);
         }
 
-        private void GenerateSampleSourceFiles(string folderPath)
+        private void GenerateSampleSourceFiles(string directoryPath)
         {
-            var folderPathA = Path.Combine(folderPath, "Dir01");
-            this.FileSystem.CreateDirectory(folderPathA);
+            var directoryPathA = Path.Combine(directoryPath, "Dir01");
+            this.FileSystem.CreateDirectory(directoryPathA);
             var file01Content = SampleData.SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile01");
-            this.FileSystem.WriteToFile(Path.Combine(folderPathA, "file01.resx"), file01Content);
+            this.FileSystem.WriteToFile(Path.Combine(directoryPathA, "file01.resx"), file01Content);
 
-            var folderPathB = Path.Combine(folderPath, "Dir02");
-            this.FileSystem.CreateDirectory(folderPathB);
+            var directoryPathB = Path.Combine(directoryPath, "Dir02");
+            this.FileSystem.CreateDirectory(directoryPathB);
             var file02Content = SampleData.SampleXmlResourceString.Replace("LoadFromFile", "LoadFromFile02");
-            this.FileSystem.WriteToFile(Path.Combine(folderPathB, "file02.resx"), file02Content);
+            this.FileSystem.WriteToFile(Path.Combine(directoryPathB, "file02.resx"), file02Content);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace TW.Resfit.Console
             ParameterSetName = ParameterSet.Directory,
             Position = 0,
             Mandatory = true)]
-        [Alias("Folder")]
+        [Alias("Directory")]
         public string Directory { get; set; }
 
         [Parameter(
