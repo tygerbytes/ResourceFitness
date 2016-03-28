@@ -43,6 +43,7 @@
     <Compile Include="..\TW.Resfit.Build\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DirectoryTransformer.cs" />
     <Compile Include="ITransform.cs" />
     <Compile Include="ResourceFilter.cs" />
     <Compile Include="ResourceFormat.cs" />

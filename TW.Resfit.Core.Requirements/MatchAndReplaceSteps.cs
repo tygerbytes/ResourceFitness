@@ -111,7 +111,8 @@ namespace TW.Resfit.Core.Requirements
         [When(@"I initiate a batch resource replacement command")]
         public void WhenIInitiateABatchResourceReplacementCommand()
         {
-            this.Context.ResourceList.TransformDirectory(this.Context.DirectoryPath);
+            new DirectoryTransformer(this.FileSystem)
+                .TransformDirectory(this.Context.DirectoryPath, this.Context.ResourceList);
         }
 
         [Then(@"all of the existing resources from the resource list will be replaced with their matches")]

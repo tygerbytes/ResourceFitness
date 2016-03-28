@@ -25,7 +25,7 @@ namespace TW.Resfit.Core
         /// It is just a proxy for the protected Items property.
         /// Its only purpose is to make the code read easier.
         /// </summary>
-        private IEnumerable<Resource> Resources
+        public ICollection<Resource> Resources
         {
             get
             {
@@ -58,55 +58,6 @@ namespace TW.Resfit.Core
                 {
                     this.Add(new Resource(resource));
                 }
-            }
-        }
-
-        public void TransformDirectory(string path)
-        {
-            //// TODO: Break this behavior out into a separate "helper" class
-            var fileSystem = FileSystem.Instance;
-
-            var whiteList = new Regex(@"\.(?:resx|cs)$");
-            foreach (var fileInfo in FileSystem.Instance.AllFiles(path, null, whiteList))
-            {
-                var fileText = fileSystem.LoadFile(fileInfo.FullName);
-
-                // Does this file require changes?
-                var makeChanges =
-                    this.Resources.Where(x => x.Transforms.Any())
-                        .Any(
-                            resource =>
-                            resource.Transforms.Any(transform => transform.WillAffect(ref fileText, resource)));
-
-                if (!makeChanges)
-                {
-                    continue;
-                }
-
-                XElement xml = null;
-                if (fileInfo.Extension == ".resx")
-                {
-                    xml = fileSystem.LoadXmlFile(fileInfo.FullName);
-                }
-
-                foreach (var resource in this.Resources.Where(x => x.Transforms.Any()))
-                {
-                    if (fileInfo.Extension == ".resx")
-                    {
-                        resource.Transforms.ForEach(x => x.Transform(ref xml, resource));
-                    }
-                    else
-                    {
-                        resource.Transforms.ForEach(x => x.Transform(ref fileText, resource));
-                    }
-                }
-
-                if (xml != null)
-                {
-                    fileText = xml.ToString();
-                }
-
-                fileSystem.WriteToFile(fileInfo.FullName, fileText);
             }
         }
 
