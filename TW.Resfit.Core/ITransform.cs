@@ -20,6 +20,6 @@ namespace TW.Resfit.Core
 
         Resource Transform(Resource originalResource);
 
-        bool WillAffect(ref string fileText, Resource originalResource);
+        bool WillAffect(string fileText, Resource originalResource);
     }
 }

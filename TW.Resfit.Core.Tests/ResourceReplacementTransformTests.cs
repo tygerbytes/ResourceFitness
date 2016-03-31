@@ -110,7 +110,7 @@ My_Old_Resource snuck in at the beginning of Line3;";
             var newResource = new Resource("Resfit_Tests_Pineapple_Resource_Two");
             oldResource.Transforms.Add(new ResourceReplacementTransform(newResource));
 
-            oldResource.Transforms.First().WillAffect(ref resourceFileText, oldResource).ShouldBeTrue();
+            oldResource.Transforms.First().WillAffect(resourceFileText, oldResource).ShouldBeTrue();
         }
     }
 }

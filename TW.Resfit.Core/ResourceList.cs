@@ -12,14 +12,20 @@ namespace TW.Resfit.Core
 {
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text.RegularExpressions;
-    using System.Xml.Linq;
 
-    using TW.Resfit.FileUtils;
     using TW.Resfit.Framework;
 
     public class ResourceList : ListDecoratorBase<Resource>
     {
+        public ResourceList()
+        {
+        }
+
+        public ResourceList(IEnumerable<Resource> resources) : this()
+        {
+            this.Items.AddRange(resources);
+        }
+
         /// <summary>
         /// Gets the underlying Items collection.
         /// It is just a proxy for the protected Items property.

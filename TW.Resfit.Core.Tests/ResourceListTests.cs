@@ -77,13 +77,22 @@ namespace TW.Resfit.Core.Tests
         }
 
         [Test]
-        public void CanFilterResourcesOnClone()
+        public void ShouldAllowFilteringResourcesOnClone()
         {
             var list = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlResourceString);
 
             var newList = list.Clone(new ResourceFilter { KeyRegex = new Regex(@"Kiwi") });
 
             newList.ShouldAllBe(x => x.Key.Contains("Kiwi"));
+        }
+
+        [Test]
+        public void ShouldAllowInitializingFromCollectionOfResources()
+        {
+            var list = XmlResourceParser.ParseAsResourceList(SampleData.SampleXmlResourceString);
+            var newList = new ResourceList(list.Resources.Select(x => x));
+
+            newList.Count.ShouldBe(list.Count, "Unable to initialize new ResourceList from a collection of Resources");
         }
     }
 }

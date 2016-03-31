@@ -34,7 +34,7 @@ namespace TW.Resfit.Core.Tests
                 "My orange is taking over the world");
 
             appleResourceOne.Transforms.Add(new ResourceReplacementTransform(replacementOrangeOne));
-            new DirectoryTransformer(this.FileSystem).TransformDirectory(path, apples);
+            new DirectoryTransformer(this.FileSystem, apples).TransformDirectory(path);
 
             // -- Verify the files were changed as expected
             var changedAppleSourceFile = this.FileSystem.LoadFile(Path.Combine(path, "Apples.cs"));

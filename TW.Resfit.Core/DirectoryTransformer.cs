@@ -7,6 +7,7 @@
 
 namespace TW.Resfit.Core
 {
+    using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
     using System.Xml.Linq;
@@ -17,56 +18,72 @@ namespace TW.Resfit.Core
     {
         private readonly IFileSystem fileSystem;
 
-        public DirectoryTransformer(IFileSystem fileSystem)
+        private readonly ResourceList resourceList;
+
+        public DirectoryTransformer(IFileSystem fileSystem, ResourceList resourceList)
         {
             this.fileSystem = fileSystem;
+            this.resourceList = new ResourceList(resourceList.Resources.Where(x => x.Transforms.Any()));
         }
 
-        public void TransformDirectory(string path, ResourceList resourceList)
+        public void TransformDirectory(string path)
         {
             var whiteList = new Regex(@"\.(?:resx|cs)$");
             foreach (var fileInfo in FileSystem.Instance.AllFiles(path, null, whiteList))
             {
                 var fileText = this.fileSystem.LoadFile(fileInfo.FullName);
 
-                // Does this file require changes?
-                var makeChanges =
-                    resourceList.Resources.Where(x => x.Transforms.Any())
-                        .Any(
-                            resource =>
-                            resource.Transforms.Any(transform => transform.WillAffect(ref fileText, resource)));
-
-                if (!makeChanges)
+                if (!this.FileImpactedByTransforms(fileText))
                 {
                     continue;
                 }
 
-                XElement xml = null;
-                if (fileInfo.Extension == ".resx")
-                {
-                    xml = this.fileSystem.LoadXmlFile(fileInfo.FullName);
-                }
-
-                foreach (var resource in resourceList.Resources.Where(x => x.Transforms.Any()))
-                {
-                    if (fileInfo.Extension == ".resx")
-                    {
-                        resource.Transforms.ForEach(x => x.Transform(ref xml, resource));
-                    }
-                    else
-                    {
-                        resource.Transforms.ForEach(x => x.Transform(ref fileText, resource));
-                    }
-                }
-
-                if (xml != null)
-                {
-                    fileText = xml.ToString();
-                }
-
-                this.fileSystem.WriteToFile(fileInfo.FullName, fileText);
+                this.fileSystem.WriteToFile(fileInfo.FullName, this.TransformFileText(fileInfo, fileText));
             }
         }
 
+        private bool FileImpactedByTransforms(string fileText)
+        {
+            return
+                this.resourceList.Resources.Any(
+                    resource => resource.Transforms.Any(transform => transform.WillAffect(fileText, resource)));
+        }
+
+        private string TransformFileText(FileSystemInfo fileInfo, string fileText)
+        {
+            switch (fileInfo.Extension)
+            {
+                case ".resx":
+                    return this.TransformXml(fileText);
+
+                case ".cs":
+                    return this.TransformGenericSourceCode(fileText);
+
+                default:
+                    return fileText;
+            }
+        }
+
+        private string TransformGenericSourceCode(string fileText)
+        {
+            foreach (var resource in this.resourceList.Resources)
+            {
+                resource.Transforms.ForEach(x => x.Transform(ref fileText, resource));
+            }
+
+            return fileText;
+        }
+
+        private string TransformXml(string fileText)
+        {
+            var xml = XElement.Parse(fileText);
+
+            foreach (var resource in this.resourceList.Resources)
+            {
+                resource.Transforms.ForEach(x => x.Transform(ref xml, resource));
+            }
+
+            return xml.ToString();
+        }
     }
 }
