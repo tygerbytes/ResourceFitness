@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DirectoryTransformer.cs" company="Tygertec">
+// <copyright file="FileTransformer.cs" company="Tygertec">
 //   Copyright © 2016 Ty Walls.
 //   All rights reserved.
 // </copyright>
@@ -14,13 +14,13 @@ namespace TW.Resfit.Core
 
     using TW.Resfit.FileUtils;
 
-    public class DirectoryTransformer
+    public class FileTransformer
     {
         private readonly IFileSystem fileSystem;
 
         private readonly ResourceList resourceList;
 
-        public DirectoryTransformer(IFileSystem fileSystem, ResourceList resourceList)
+        public FileTransformer(IFileSystem fileSystem, ResourceList resourceList)
         {
             this.fileSystem = fileSystem;
             this.resourceList = new ResourceList(resourceList.Resources.Where(x => x.Transforms.Any()));
@@ -29,17 +29,27 @@ namespace TW.Resfit.Core
         public void TransformDirectory(string path)
         {
             var whiteList = new Regex(@"\.(?:resx|cs)$");
-            foreach (var fileInfo in FileSystem.Instance.AllFiles(path, null, whiteList))
+            foreach (var fileInfo in this.fileSystem.AllFiles(path, null, whiteList))
             {
-                var fileText = this.fileSystem.LoadFile(fileInfo.FullName);
-
-                if (!this.FileImpactedByTransforms(fileText))
-                {
-                    continue;
-                }
-
-                this.fileSystem.WriteToFile(fileInfo.FullName, this.TransformFileText(fileInfo, fileText));
+                this.TransformFile(fileInfo);
             }
+        }
+
+        public void TransformFile(string path)
+        {
+            this.TransformFile(new FileInfo(path));
+        }
+
+        private void TransformFile(FileSystemInfo fileInfo)
+        {
+            var fileText = this.fileSystem.LoadFile(fileInfo.FullName);
+
+            if (!this.FileImpactedByTransforms(fileText))
+            {
+                return;
+            }
+
+            this.fileSystem.WriteToFile(fileInfo.FullName, this.TransformFileText(fileInfo, fileText));
         }
 
         private bool FileImpactedByTransforms(string fileText)

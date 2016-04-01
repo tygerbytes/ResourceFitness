@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="DirectoryTransformerTests.cs" company="Tygertec">
+// <copyright file="FileTransformerTests.cs" company="Tygertec">
 //   Copyright © 2016 Ty Walls.
 //   All rights reserved.
 // </copyright>
@@ -18,7 +18,7 @@ namespace TW.Resfit.Core.Tests
     using TW.Resfit.Framework.Testing;
 
     [TestFixture]
-    public class DirectoryTransformerTests : UnitTests
+    public class FileTransformerTests : UnitTests
     {
         [Test]
         public void ShouldTransformFiles()
@@ -34,7 +34,7 @@ namespace TW.Resfit.Core.Tests
                 "My orange is taking over the world");
 
             appleResourceOne.Transforms.Add(new ResourceReplacementTransform(replacementOrangeOne));
-            new DirectoryTransformer(this.FileSystem, apples).TransformDirectory(path);
+            new FileTransformer(this.FileSystem, apples).TransformDirectory(path);
 
             // -- Verify the files were changed as expected
             var changedAppleSourceFile = this.FileSystem.LoadFile(Path.Combine(path, "Apples.cs"));

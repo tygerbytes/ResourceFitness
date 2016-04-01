@@ -67,7 +67,7 @@
     <Compile Include="..\TW.Resfit.Build\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DirectoryTransformerTests.cs" />
+    <Compile Include="FileTransformerTests.cs" />
     <Compile Include="ResourceFilterTests.cs" />
     <Compile Include="ResourceFormatTests.cs" />
     <Compile Include="ResourceListTests.cs" />

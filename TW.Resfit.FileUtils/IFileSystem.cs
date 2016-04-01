@@ -17,17 +17,17 @@ namespace TW.Resfit.FileUtils
 
     public interface IFileSystem
     {
-        void WriteToFile(string fileName, string content);
-
-        string LoadFile(string fileName);
-
-        XElement LoadXmlFile(string path);
-
         IEnumerable<FileInfo> AllFiles(
             string rootPath,
             Regex directoryBlackList = null,
             Regex fileExtensionWhitelist = null);
 
         void CreateDirectory(string path);
+
+        string LoadFile(string fileName);
+
+        XElement LoadXmlFile(string path);
+
+        void WriteToFile(string fileName, string content);
     }
 }
