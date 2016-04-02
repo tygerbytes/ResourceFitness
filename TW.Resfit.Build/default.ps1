@@ -238,13 +238,13 @@ Task PublishNuget `
 	-description "Publish the nuget packages" `
 	-depends PackageNuget `
 {
-	Assert ($nugetApiKey -ne $null) "Set `$nugetApiKey in your PowerShell environment"
+	Assert ($env:NUGET_API_KEY -ne $null) "Set `$env:NUGET_API_KEY in your PowerShell environment"
 
 	$nugetPackages = (Get-ChildItem -Path $releaseDirectory -Recurse *.nupkg).FullName
 
 	Exec {
 		ForEach($nupkg in $nugetPackages) {
-			& $nuget push -ApiKey $nugetApiKey $nupkg
+			& $nuget push -ApiKey $env:NUGET_API_KEY $nupkg
 		}
 	}
 }
