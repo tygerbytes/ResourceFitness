@@ -15,6 +15,7 @@ namespace TW.Resfit.Core.Requirements
     using TechTalk.SpecFlow;
     using TW.Resfit.Core;
     using TW.Resfit.Core.Transforms;
+    using TW.Resfit.FileUtils;
     using TW.Resfit.FileUtils.HierarchyBuilder;
     using TW.Resfit.Framework.Requirements;
 
@@ -112,7 +113,7 @@ namespace TW.Resfit.Core.Requirements
         public void WhenIInitiateABatchResourceReplacementCommand()
         {
             new FileTransformer(this.FileSystem, this.Context.ResourceList)
-                .TransformDirectory(this.Context.DirectoryPath);
+                .TransformDirectory(this.Context.DirectoryPath, FileFilter.Typical);
         }
 
         [Then(@"all of the existing resources from the resource list will be replaced with their matches")]

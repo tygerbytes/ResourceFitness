@@ -12,15 +12,13 @@ namespace TW.Resfit.FileUtils
 {
     using System.Collections.Generic;
     using System.IO;
-    using System.Text.RegularExpressions;
     using System.Xml.Linq;
 
     public interface IFileSystem
     {
         IEnumerable<FileInfo> AllFiles(
             string rootPath,
-            Regex directoryBlackList = null,
-            Regex fileExtensionWhitelist = null);
+            FileFilter filter);
 
         void CreateDirectory(string path);
 

@@ -14,7 +14,6 @@ namespace TW.Resfit.FileUtils
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text.RegularExpressions;
     using System.Xml.Linq;
 
     public class FileSystem : IFileSystem
@@ -65,22 +64,11 @@ namespace TW.Resfit.FileUtils
 
         public IEnumerable<FileInfo> AllFiles(
             string rootPath,
-            Regex directoryBlackList = null,
-            Regex fileExtensionWhitelist = null)
+            FileFilter filter)
         {
             if (string.IsNullOrEmpty(rootPath))
             {
                 throw new ArgumentNullException("rootPath", "Must provide a root path.");
-            }
-
-            if (directoryBlackList == null)
-            {
-                directoryBlackList = new Regex(@"DON'T BLACKLIST ANYTHING");
-            }
-
-            if (fileExtensionWhitelist == null)
-            {
-                fileExtensionWhitelist = new Regex(@".*");
             }
 
             // Iterate through all files from provided path
@@ -95,7 +83,7 @@ namespace TW.Resfit.FileUtils
             // Walk all of the directories
             foreach (var dir in directories)
             {
-                if (directoryBlackList.IsMatch(dir.FullName))
+                if (filter.DirectoryBlacklist.IsMatch(dir.FullName))
                 {
                     continue;
                 }
@@ -104,7 +92,7 @@ namespace TW.Resfit.FileUtils
 
                 foreach (var file in files)
                 {
-                    if (!fileExtensionWhitelist.IsMatch(file.Name))
+                    if (!filter.IsMatch(file.Name))
                     {
                         continue;
                     }

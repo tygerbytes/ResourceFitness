@@ -14,6 +14,7 @@ namespace TW.Resfit.Core.Tests
     using Shouldly;
     using TW.Resfit.Core;
     using TW.Resfit.Core.Transforms;
+    using TW.Resfit.FileUtils;
     using TW.Resfit.FileUtils.HierarchyBuilder;
     using TW.Resfit.Framework.Testing;
 
@@ -34,7 +35,7 @@ namespace TW.Resfit.Core.Tests
                 "My orange is taking over the world");
 
             appleResourceOne.Transforms.Add(new ResourceReplacementTransform(replacementOrangeOne));
-            new FileTransformer(this.FileSystem, apples).TransformDirectory(path);
+            new FileTransformer(this.FileSystem, apples).TransformDirectory(path, FileFilter.Typical);
 
             // -- Verify the files were changed as expected
             var changedAppleSourceFile = this.FileSystem.LoadFile(Path.Combine(path, "Apples.cs"));

@@ -9,7 +9,6 @@ namespace TW.Resfit.Core
 {
     using System.IO;
     using System.Linq;
-    using System.Text.RegularExpressions;
     using System.Xml.Linq;
 
     using TW.Resfit.FileUtils;
@@ -26,10 +25,9 @@ namespace TW.Resfit.Core
             this.resourceList = new ResourceList(resourceList.Resources.Where(x => x.Transforms.Any()));
         }
 
-        public void TransformDirectory(string path)
+        public void TransformDirectory(string path, FileFilter filter)
         {
-            var whiteList = new Regex(@"\.(?:resx|cs)$");
-            foreach (var fileInfo in this.fileSystem.AllFiles(path, null, whiteList))
+            foreach (var fileInfo in this.fileSystem.AllFiles(path, filter))
             {
                 this.TransformFile(fileInfo);
             }
