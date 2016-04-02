@@ -113,5 +113,17 @@ namespace TW.Resfit.Core.Tests
 
             resource1.ShouldBe(resource2, "The two resources should be equal");
         }
+
+        [Test]
+        public void ShouldCompareForEqualityAsObject()
+        {
+            var resource1 = new Resource("My_Resource", "This is my resource");
+            var resource2 = new Resource("My_Resource", "This is my resource");
+
+            resource1.Equals(null).ShouldBeFalse();
+            resource1.Equals((object)resource1).ShouldBeTrue();
+            resource1.Equals((object)new ResourceFormat()).ShouldBeFalse();
+            resource1.Equals((object)resource2).ShouldBeTrue();
+        }
     }
 }

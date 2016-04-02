@@ -39,5 +39,17 @@ namespace TW.Resfit.Core.Tests
             new ResourceFormat('_').Name.ShouldBe("ResourceFormat");
             new ResourceFormat('_', "Custom Name").Name.ShouldBe("Custom Name");
         }
+
+        [Test]
+        public void DefaultConstructorShouldCreateTypicalResourceFormat()
+        {
+            new ResourceFormat().Separator.ShouldBe('_');
+        }
+
+        [Test]
+        public void ToStringShouldReturnFormatName()
+        {
+            new ResourceFormat('_', "Amazing format").ToString().ShouldBe("Amazing format");
+        }
     }
 }

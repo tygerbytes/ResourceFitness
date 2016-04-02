@@ -87,6 +87,29 @@ My_Old_Resource snuck in at the beginning of Line3;";
         }
 
         [Test]
+        public void ShouldNotAddResourceToXmlIfOriginalResourceIsNotFound()
+        {
+            var xml = XElement.Parse(SampleData.SampleXmlResourceString);
+
+            var nonExistentResource = new Resource("Some_random_resource", "This is a resource that does not exist in the xml");
+            var newResource = new Resource(
+                "A_new_resource",
+                "This is a new resource that should not be here");
+
+            nonExistentResource.Transforms.Add(new ResourceReplacementTransform(newResource));
+
+            nonExistentResource.Transforms.First().Transform(ref xml, nonExistentResource);
+
+            // -- Verify that nothing was added
+            var matchingElements =
+                xml.Elements("data").Where(element => (string)element.Attribute("name") == "A_new_resource")
+                .ToArray();
+
+            matchingElements.Count().ShouldBe(0);
+            matchingElements.FirstOrDefault().ShouldBeNull();
+        }
+
+        [Test]
         public void ShouldReplaceOriginalResourceWithNew()
         {
             var oldResource = new Resource("Resfit_Tests_Banana_Resource_Two", "This is the second resource in the file");

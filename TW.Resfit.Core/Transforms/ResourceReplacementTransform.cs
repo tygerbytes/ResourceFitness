@@ -44,11 +44,12 @@ namespace TW.Resfit.Core.Transforms
                     .Where(element => (string)element.Attribute("name") == originalResource.Key)
                     .ToArray();
 
-            if (matchingElements.Any())
+            if (!matchingElements.Any())
             {
-                matchingElements.Remove();
+                return;
             }
 
+            matchingElements.Remove();
             resourcesXml.Add(this.replacementResource.ToXml());
         }
 
